@@ -1,2 +1,7 @@
-package org.itstep.safetywork.controller;public class HomeController {
+package org.itstep.safetywork.controller;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class HomeController {
 }

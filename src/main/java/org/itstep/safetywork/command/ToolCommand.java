@@ -1,2 +1,4 @@
-package org.itstep.safetywork.command;public record ToolCommand() {
+package org.itstep.safetywork.command;
+
+public record ToolCommand(String name, String serialNumber) {
 }
