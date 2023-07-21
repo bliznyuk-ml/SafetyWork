@@ -10,6 +10,7 @@ import org.itstep.safetywork.command.ToolCommand;
 @Entity
 @Table(name = "tools")
 @NoArgsConstructor
+
 public class Tool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -33,11 +33,11 @@
             </p>
             <p>
                 <label>Роль<br>
-                    <input type="radio" name="role" value="SAFETY"> Охорона праці<br>
-                    <input type="radio" name="role" value="TECHNICAL"> Технічний нагляд<br>
-                    <input type="radio" name="role" value="FOREMAN"> Виконавець робіт<br>
-                    <input type="radio" name="role" value="USER"> Користувач<br>
-                    <input type="radio" name="role" value="ADMIN"> Адміністратор<br>
+                    <input type="radio" name="role" value="SAFETY" required=""> Охорона праці<br>
+                    <input type="radio" name="role" value="TECHNICAL" required=""> Технічний нагляд<br>
+                    <input type="radio" name="role" value="FOREMAN" required=""> Виконавець робіт<br>
+                    <input type="radio" name="role" value="USER" required=""> Користувач<br>
+                    <input type="radio" name="role" value="ADMIN" required=""> Адміністратор<br>
                 </label>
             </p>
             <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">

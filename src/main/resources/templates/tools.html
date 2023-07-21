@@ -98,12 +98,18 @@
                     </div>
                 </div>
                 <div>
-                    <a th:href="@{/register}" target="_blank" type="button" class="btn btn-warning col-12">Реєстрація
+                    <a th:href="@{/register}" type="button" class="btn btn-warning col-12 mb-5">Реєстрація
                         користувачів</a>
                 </div>
                 <div>
-                    <p>Вітаю: <span th:text="${#authentication.name}"></span></p>
-                    <p>Вітаю: <span th:text="${role}"></span></p>
+                    <div class="mt-5">
+                        <p>Вітаю: <span th:text="${#authentication.name}"></span></p>
+                        <p>Роль: <span th:text="${role}"></span></p>
+                    </div>
+                    <form method="post" th:action="@{/logout}">
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-warning col-12 mb-3">Logout</button>
+                    </form>
                 </div>
             </menu>
         </div>

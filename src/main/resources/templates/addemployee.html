@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,7 +12,7 @@
 <body data-bs-theme="dark">
 <header>
     <div class="row">
-                <img th:src="@{/img/liderlogo.png}" alt="logo">
+        <img th:src="@{/img/liderlogo.png}" alt="logo">
     </div>
 </header>
 <main>
@@ -22,7 +22,7 @@
                 <div>
                     <a th:href="@{/}" type="button" class="btn btn-warning col-12">Головна</a>
                 </div>
-                <div class="accordion accordion-flush mb-3" id="accordionFlushExample">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
 
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -52,11 +52,11 @@
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"><a th:href="@{/technique}" type="button"
+                            <div class="accordion-body"><a th:href="@{/technique}"  type="button"
                                                            class="btn btn-warning col-12">Техніка</a></div>
-                            <div class="accordion-body"><a th:href="@{/equipment}" type="button"
+                            <div class="accordion-body"><a th:href="@{/equipment}"  type="button"
                                                            class="btn btn-warning col-12">Обладнання</a></div>
-                            <div class="accordion-body"><a th:href="@{/tools}" type="button"
+                            <div class="accordion-body"><a th:href="@{/tools}"  type="button"
                                                            class="btn btn-warning col-12">Інструмент</a></div>
                         </div>
                     </div>
@@ -97,14 +97,14 @@
                         </div>
                     </div>
                 </div>
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <div>
                     <a th:href="@{/register}" type="button" class="btn btn-warning col-12 mb-5">Реєстрація
                         користувачів</a>
                 </div>
                 <div>
                     <div class="mt-5">
                         <p>Вітаю: <span th:text="${#authentication.name}"></span></p>
-                        <p>Роль: </p>
+                        <p>Роль: <span th:text="${role}"></span></p>
                     </div>
                     <form method="post" th:action="@{/logout}">
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
@@ -115,43 +115,65 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
-                <div class="col-lg-5 col-sm-12 bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda dolorum ea esse eveniet, fugit
-                    illum laboriosam nemo, officiis quasi quia quibusdam quod quos, tempora tempore unde. Facere, non
-                    omnis? Aut consequatur ducimus fugit hic incidunt labore sunt voluptates! A aut, distinctio eius
-                    enim nam officia quod soluta totam. Aliquid amet animi at aut commodi consectetur cupiditate dolor
-                    dolorem est et illum incidunt ipsum libero maxime minus molestias numquam quam quas quidem sed
-                    suscipit, tempore temporibus tenetur veritatis voluptate voluptatem voluptates voluptatum. Amet aut
-                    dignissimos et iure officiis placeat quibusdam, quod saepe sit tenetur ut voluptatibus voluptatum?
-                    Aspernatur autem blanditiis, cumque dolores est facere minus nesciunt nobis quae reiciendis
-                    repudiandae ut vel. Alias animi atque blanditiis commodi dolor doloribus, eum excepturi
-                    exercitationem, expedita harum labore laborum magnam maiores, officiis omnis possimus quas sunt
-                    veniam. Alias aliquam assumenda atque blanditiis commodi consequatur cumque cupiditate delectus
-                    deserunt ducimus earum et ex excepturi expedita, id, iure magnam mollitia nesciunt praesentium
-                    quibusdam quis quod rem repellat similique sit suscipit vero? Ad aliquid debitis doloremque,
-                    eligendi eveniet ex exercitationem facilis labore, maiores mollitia natus nobis omnis, recusandae
-                    repellat repellendus rerum saepe soluta! Accusantium ad, adipisci aspernatur consequuntur doloremque
-                    exercitationem ipsum mollitia nam, nesciunt, quis sed ullam?
-                    Погода
-                </div>
-                <div class="col-lg-6 col-sm-12 mb-4 bg-info-subtle float-start p-4 rounded-3">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam deleniti laboriosam praesentium
-                    quisquam reiciendis tempora. Itaque nemo porro ut! Consequatur dolore dolorem eius eveniet facilis
-                    ipsa iste laudantium magnam maiores nam, nisi optio placeat quos rem repellendus temporibus totam
-                    voluptas voluptates. At blanditiis dolore fuga itaque laudantium nihil odit optio pariatur quas
-                    sint! Ab adipisci consectetur, consequatur consequuntur eveniet ex fuga fugiat nam nemo odit ratione
-                    repudiandae unde. Dolore, dolorum ex hic id iure minus qui repudiandae sapiente veritatis
-                    voluptatum? Accusamus aliquam consequatur deserunt dolorum eos esse facilis, fugit incidunt
-                    laboriosam libero nam odit placeat quibusdam quod soluta? Ea, voluptatum.
-                    Роботи
+                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
+                    <h1>Персонал</h1>
+                    <form method="post">
+                        <fieldset>
+                            <legend>Додати нового співробітника</legend>
+                            <label>
+                                Прізвище <input name="lastName" required>
+                            </label><br>
+                            <label>
+                                Ім'я <input name="firstName" required>
+                            </label><br>
+                            <label>
+                                По батькові <input name="surname" required>
+                            </label><br>
+                            <label>
+                                День народження <input type="date" name="birthdate" required>
+                            </label><div style="color: red" th:text="${wrongAge}"></div><br>
+                            <label>Професія
+                                <select name="professionId" required>
+                                    <option th:each="profession: ${professions}" th:label="${profession.name}"
+                                            th:value="${profession.id}"></option>
+                                </select>
+                            </label>
+                        </fieldset>
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <input type="submit">
+                    </form>
                 </div>
             </div>
             <div class="row m-4">
-                <div class="col-lg-5 col-sm-12 mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
-                    Зауважження
-                </div>
-                <div class="col-lg-6 col-sm-12 mb-4 bg-info-subtle float-start p-4 rounded-3">
-                    Охорона праці
+                <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Прізвище</th>
+                            <th>Ім'я</th>
+                            <th>По батькові</th>
+                            <th>День народження</th>
+                            <th>Вік</th>
+                            <th>Професія</th>
+                            <th>Ранг</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="employee: ${employeeList}">
+                            <td th:text="${employee.lastName}"></td>
+                            <td th:text="${employee.firstName}"></td>
+                            <td th:text="${employee.surname}"></td>
+                            <td th:text="${#temporals.format(employee.birthdate, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${employee.age}"></td>
+                            <td th:text="${employee.getProfession().name}"></td>
+                            <td th:text="${employee.getGrade().name}"></td>
+<!--                            <td><a th:href="@{'employee/delete/' + ${book.id}}"/>Delete</a></td>-->
+<!--                            <td><a th:href="@{'employee/showdetails/' + ${book.id}}"/>Show details</a></td>-->
+<!--                            <td><a th:href="@{'employee/edit/' + ${book.id}}"/>Edit</a></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -161,9 +183,7 @@
 <hr/>
 <footer class="row m-4">
     <div class="col-3">
-        <div class="col-12">
         <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
-        </div>
         <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
     </div>
     <div class="col-6 align-self-center fs-4 fw-semibold text-center">
