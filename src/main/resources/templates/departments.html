@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="shortcut icon" th:href="@{/img/icon.png}" type="image/x-icon">
     <title>Safety Work</title>
@@ -116,44 +117,13 @@
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <h1>Персонал</h1>
+                    <h1>Підрозділ</h1>
                     <form method="post">
                         <fieldset>
-                            <legend>Додати нового співробітника</legend>
+                            <legend>Додати новий підрозділ</legend>
                             <label>
-                                Прізвище <input name="lastName" required>
+                                Назва підрозділу <input name="name" required>
                             </label><br>
-                            <label>
-                                Ім'я <input name="firstName" th:value="${nameEmployee}" th:placeholder="${nameEmployee}" required>
-                            </label><br>
-                            <label>
-                                По батькові <input name="surname" required>
-                            </label><br>
-                            <label>
-                                Дата народження <input type="date" name="birthdate" required>
-                            </label><div style="color: red" th:text="${wrongAge}"></div><br>
-                            <label>Підрозділ
-                                <select name="departmentId" required>
-                                    <option th:each="department: ${departments}" th:label="${department.name}"
-                                            th:value="${department.id}"></option>
-                                </select>
-                            </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm" th:href="@{'/department'}">+</a></span><br>
-                            <label>Посада
-                                <select name="professionId" required>
-                                    <option th:each="profession: ${professions}" th:label="${profession.name}"
-                                            th:value="${profession.id}"></option>
-                                </select>
-                            </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm" th:href="@{'/profession'}">+</a></span><br>
-                            <div>Медичний огляд</div>
-                            <label>Дата проходження медогляду
-                                <input type="date" name="dateOfPassage" required>
-                            </label><div style="color: red" th:text="${wrongPeriodOfPassage}"></div><br>
-                            <label>Дата наступного медичного огляду
-                                <input type="date" name="nextPassDate" required>
-                            </label><div style="color: red" th:text="${wrongPeriodOfNextPass}"></div><br>
-                            <label>Протипоказання до роботи
-                            <input name="contraindications">
-                            </label>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
                         <input type="submit" class="btn btn-outline-warning btn-sm">
@@ -162,32 +132,21 @@
             </div>
             <div class="row m-4">
                 <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
-                    <table class="table table-sm table-dark table-striped">
+                    <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Прізвище</th>
-                            <th >Ім'я</th>
-                            <th>По батькові</th>
-                            <th>День народження</th>
-                            <th>Посада</th>
-                            <th>Ранг</th>
-                            <th>Підрозділ</th>
-                            <th>Детальніше</th>
+                            <th>ID Підрозділу</th>
+                            <th>Назва рідрозділу</th>
+                            <th>Коригувати</th>
+                            <th>Видалити</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="employee: ${employeeList}">
-                            <td th:text="${employee.lastName}"></td>
-                            <td th:text="${employee.firstName}"></td>
-                            <td th:text="${employee.surname}"></td>
-                            <td th:text="${#temporals.format(employee.birthdate, 'dd-MM-yyyy')}"></td>
-                            <td th:text="${employee.getProfession().name}"></td>
-                            <td th:text="${employee.getGrade().name}"></td>
-                            <td th:text="${employee.getDepartment().name}"></td>
-<!--                            <td><a th:href="@{'employee/delete/' + ${employee.id}}"/>Delete</a></td>-->
-                            <td><a class="btn btn-outline-warning btn-sm" th:href="@{'employee/showdetails/' + ${employee.id}}"/>Деталі</a></td>
-<!--                            <td><a th:href="@{'employee/edit/' + ${employee.id}}"/>Edit</a></td>-->
-
+                        <tr th:each="department: ${departments}">
+                            <td th:text="${department.id}"></td>
+                            <td th:text="${department.name}"></td>
+                            <td><a th:href="@{'department/edit/' + ${department.id}}" class="btn btn-outline-warning btn-sm">Edit</a></td>
+                            <td><a th:href="@{'department/delete/' + ${department.id}}" class="btn btn-outline-warning btn-sm">Delete</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -217,6 +176,12 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+</script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script>
+    new DataTable('#example', {scrollX: true});
+</script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package org.itstep.safetywork.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 //import org.itstep.safetywork.command.ProfessionCommand;
@@ -12,8 +13,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "profession")
-@NoArgsConstructor
+@EqualsAndHashCode(exclude = "employeeList")
 @ToString(exclude = "employeeList")
+@NoArgsConstructor
 public class Profession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

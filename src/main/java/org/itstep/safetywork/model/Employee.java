@@ -30,12 +30,17 @@ public class Employee {
  //   @NotBlank
     @Column(name = "birthday")
     private LocalDate birthdate;
-    @Column(name = "age")
-    private int age;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Profession profession;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Grade grade;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Department department;
+    @OneToOne (mappedBy = "employee", cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+// //   @PrimaryKeyJoinColumn
+// //   @JoinColumn(name = "medicine_id", referencedColumnName = "id")
+//
+    private Medicine medicine;
 
     public Employee(String firstName, String lastName, String surname, LocalDate birthdate) {
         this.firstName = firstName;
