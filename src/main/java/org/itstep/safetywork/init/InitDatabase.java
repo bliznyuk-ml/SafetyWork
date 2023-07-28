@@ -22,6 +22,7 @@ public class InitDatabase implements CommandLineRunner {
     private final GradeRepository gradeRepository;
     private final DepartmentRepository departmentRepository;
     private final MedicineRepository medicineRepository;
+    private final InstructionRepository instructionRepository;
     @Override
     public void run(String... args) throws Exception {
         toolRepository.save(new Tool("Болгарка", "DFEG346FG"));
@@ -46,7 +47,12 @@ public class InitDatabase implements CommandLineRunner {
         departmentRepository.save(new Department("Цех виготовлення високовольтного обладнання"));
         departmentRepository.save(new Department("Управління транспорту"));
 
-        EmployeeCommand employeeCommand = new EmployeeCommand("Шилов", "Максим", "Викторович", LocalDate.of(1980, 6, 12), 1, 2, LocalDate.of(2022, 6, 15), LocalDate.of(2024, 6, 15), "Заборона виконання робіт на висоті");
+        EmployeeCommand employeeCommand = new EmployeeCommand("Шилов", "Максим", "Викторович",
+                LocalDate.of(1980, 6, 12), 1, 2,
+                LocalDate.of(2022, 6, 15),
+                LocalDate.of(2024, 6, 15), "Заборона виконання робіт на висоті",
+                LocalDate.of(2017, 9,4),
+                LocalDate.of(2022, 9,1));
 
         Employee employee = Employee.fromCommand(employeeCommand);
         employee.setProfession(master);
@@ -54,10 +60,12 @@ public class InitDatabase implements CommandLineRunner {
         employee.setDepartment(remdpt);
         employeeRepository.save(employee);
         Medicine medicine = new Medicine(employeeCommand.dateOfPassage(), employeeCommand.nextPassDate(), employeeCommand.contraindications());
-
+        Instruction instruction = new Instruction(employeeCommand.introduction(), employeeCommand.reInstruction());
         employee.setMedicine(medicine);
         medicine.setEmployee(employee);
-
         medicineRepository.save(medicine);
+        employee.setInstruction(instruction);
+        instruction.setEmployee(employee);
+        instructionRepository.save(instruction);
     }
 }

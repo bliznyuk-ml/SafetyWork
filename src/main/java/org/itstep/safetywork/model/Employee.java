@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.itstep.safetywork.command.EmployeeCommand;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 @Data
 @Entity
 @Table(name = "employee")
+@ToString(exclude = "grade")
 @NoArgsConstructor
 public class Employee {
     @Id
@@ -36,11 +37,12 @@ public class Employee {
     private Grade grade;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
-    @OneToOne (mappedBy = "employee", cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
 // //   @PrimaryKeyJoinColumn
 // //   @JoinColumn(name = "medicine_id", referencedColumnName = "id")
-//
     private Medicine medicine;
+    @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
+    private Instruction instruction;
 
     public Employee(String firstName, String lastName, String surname, LocalDate birthdate) {
         this.firstName = firstName;

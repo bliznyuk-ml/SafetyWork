@@ -92,7 +92,7 @@
                                                            class="btn btn-warning col-12">Інструктажі</a></div>
                             <div class="accordion-body"><a th:href="@{/education}" type="button"
                                                            class="btn btn-warning col-12">Навчання</a></div>
-                            <div class="accordion-body"><a th:href="@{/medical}" type="button"
+                            <div class="accordion-body"><a th:href="@{/medicine}" type="button"
                                                            class="btn btn-warning col-12">Медогляд</a></div>
                         </div>
                     </div>
@@ -119,40 +119,49 @@
                     <h1>Персонал</h1>
                     <form method="post">
                         <fieldset>
-                            <legend>Додати нового співробітника</legend>
-                            <label>
+                            <h2 class="mt-3 text-warning-emphasis">Додати нового співробітника</h2>
+                            <label class="p-2 fs-5">
                                 Прізвище <input name="lastName" required>
-                            </label><br>
-                            <label>
+                            </label>
+                            <label class="p-2 fs-5">
                                 Ім'я <input name="firstName" th:value="${nameEmployee}" th:placeholder="${nameEmployee}" required>
-                            </label><br>
-                            <label>
+                            </label>
+                            <label class="p-2 fs-5">
                                 По батькові <input name="surname" required>
                             </label><br>
-                            <label>
+                            <label class="p-2 fs-5">
                                 Дата народження <input type="date" name="birthdate" required>
                             </label><div style="color: red" th:text="${wrongAge}"></div><br>
-                            <label>Підрозділ
+                            <label class="p-2 fs-5">Підрозділ
                                 <select name="departmentId" required>
                                     <option th:each="department: ${departments}" th:label="${department.name}"
                                             th:value="${department.id}"></option>
                                 </select>
-                            </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm" th:href="@{'/department'}">+</a></span><br>
-                            <label>Посада
+                            </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm" th:href="@{'/department'}">+</a></span>
+                            <label class="p-2 fs-5">Посада
                                 <select name="professionId" required>
                                     <option th:each="profession: ${professions}" th:label="${profession.name}"
                                             th:value="${profession.id}"></option>
                                 </select>
                             </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm" th:href="@{'/profession'}">+</a></span><br>
-                            <div>Медичний огляд</div>
-                            <label>Дата проходження медогляду
+                            <h2 class="mt-3 text-warning-emphasis">Медичний огляд</h2>
+                            <label class="p-2 fs-5">Дата проходження медогляду
                                 <input type="date" name="dateOfPassage" required>
-                            </label><div style="color: red" th:text="${wrongPeriodOfPassage}"></div><br>
-                            <label>Дата наступного медичного огляду
+                                <div style="color: red" th:text="${wrongPeriodOfPassage}"></div>
+                            </label>
+                            <label class="p-2 fs-5">Дата наступного медичного огляду
                                 <input type="date" name="nextPassDate" required>
-                            </label><div style="color: red" th:text="${wrongPeriodOfNextPass}"></div><br>
-                            <label>Протипоказання до роботи
+                                <div style="color: red" th:text="${wrongPeriodOfNextPass}"></div>
+                            </label><br>
+                            <label class="p-2 fs-5">Протипоказання до роботи
                             <input name="contraindications">
+                            </label>
+                            <h2 class="mt-3 text-warning-emphasis">Інструктажі</h2>
+                            <label class="p-2 fs-5">Вступний інструктаж
+                                <input type="date" name="introduction" required><div style="color: red" th:text="${wrongPeriodOfIntroduction}"></div><br>
+                            </label>
+                            <label class="p-2 fs-5">Первинний / Повторний інструктаж
+                                <input type="date" name="reInstruction" required><div style="color: red" th:text="${wrongPeriodOfReInstruction}"></div><br>
                             </label>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">

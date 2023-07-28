@@ -1,9 +1,7 @@
 package org.itstep.safetywork.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,8 @@ public class Medicine {
     private LocalDate nextPassDate;
     @Column(name = "contraindications")
     private String contraindications;
+    @Column
+    private Period periodToMedicalChekup;
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     //  @JoinColumn(name = "id")

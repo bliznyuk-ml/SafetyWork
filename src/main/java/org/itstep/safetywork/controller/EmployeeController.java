@@ -2,12 +2,8 @@ package org.itstep.safetywork.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.itstep.safetywork.command.EmployeeCommand;
-import org.itstep.safetywork.model.Department;
-import org.itstep.safetywork.model.Employee;
-import org.itstep.safetywork.model.Medicine;
-import org.itstep.safetywork.model.Profession;
+import org.itstep.safetywork.model.*;
 import org.itstep.safetywork.repository.*;
-import org.itstep.safetywork.service.EmployeeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +21,7 @@ public class EmployeeController {
     private final GradeRepository gradeRepository;
     private final DepartmentRepository departmentRepository;
     private final MedicineRepository medicineRepository;
+    private final InstructionRepository instructionRepository;
 
     @GetMapping
     public String showEmployee(Model model){
@@ -57,18 +54,29 @@ public class EmployeeController {
         int age = Employee.calculateAge(command.birthdate(), LocalDate.now());
         int periodOfPassage = Medicine.calculatePeriod(command.dateOfPassage(), LocalDate.now());
         int periodOfNextPass = Medicine.calculatePeriod(command.nextPassDate(), LocalDate.now());
-        if(periodOfPassage >= 0 && periodOfNextPass <= 0 && age >= 18){
+        int periodOfIntroduction = Medicine.calculatePeriod(command.introduction(), LocalDate.now());
+        int periodOfReInstruction = Medicine.calculatePeriod(command.reInstruction(), LocalDate.now());
+
+        if(periodOfPassage >= 0 && periodOfNextPass <= 0 && age >= 18 && periodOfIntroduction >= 0 && periodOfReInstruction >= 0){
             employeeRepository.save(employee);
             Medicine medicine = new Medicine(command.dateOfPassage(), command.nextPassDate(), command.contraindications());
+            Instruction instruction = new Instruction(command.introduction(), command.reInstruction());
             employee.setMedicine(medicine);
             medicine.setEmployee(employee);
+            employee.setInstruction(instruction);
+            instruction.setEmployee(employee);
             medicineRepository.save(medicine);
+            instructionRepository.save(instruction);
         } if (age < 18){
             model.addFlashAttribute("wrongAge", "Працівнику не може бути менше 18 років");
         } if (periodOfPassage < 0) {
             model.addFlashAttribute("wrongPeriodOfPassage", "Дата проходження медогляду не має бути пізніше за сьогоднішню");
         } if (periodOfNextPass > 0) {
             model.addFlashAttribute("wrongPeriodOfNextPass", "Дата наступного медогляду не має бути раніше за сьогоднішню");
+        }  if (periodOfIntroduction < 0) {
+            model.addFlashAttribute("wrongPeriodOfIntroduction", "Дата проходження вступного інструктажу не має бути пізніше за сьогоднішню");
+        } if (periodOfReInstruction < 0) {
+            model.addFlashAttribute("wrongPeriodOfReInstruction", "Дата проходження первинного / повторного інструктажу не має бути пізніше за сьогоднішню");
         }
     }
 }

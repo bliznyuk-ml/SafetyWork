@@ -8,5 +8,6 @@ import java.util.List;
 
 public record EmployeeCommand(String lastName, String firstName, String surname,
                               LocalDate birthdate, Integer professionId, Integer departmentId,
-                              LocalDate dateOfPassage, LocalDate nextPassDate, String contraindications) {
+                              LocalDate dateOfPassage, LocalDate nextPassDate, String contraindications,
+                              LocalDate introduction, LocalDate reInstruction) {
 }
