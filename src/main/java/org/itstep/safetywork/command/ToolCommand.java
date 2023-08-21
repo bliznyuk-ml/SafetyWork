@@ -1,4 +1,8 @@
 package org.itstep.safetywork.command;
 
-public record ToolCommand(String name, String serialNumber) {
+
+import java.time.LocalDate;
+
+public record ToolCommand(Integer toolNameId, Integer manufacturerId, String model, String serialNumber,
+                          LocalDate nextTestDate, Integer departmentId) {
 }

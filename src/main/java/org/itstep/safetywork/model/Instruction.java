@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Data
 @Entity
@@ -20,6 +21,8 @@ public class Instruction {
     @Column(name = "re_instruction")
     @PastOrPresent
     private LocalDate reInstruction;
+    @Column
+    private Period periodToInstruction;
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private Employee employee;

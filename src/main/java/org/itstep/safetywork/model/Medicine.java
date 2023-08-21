@@ -36,8 +36,4 @@ public class Medicine {
         this.nextPassDate = nextPassDate;
         this.contraindications = contraindications;
     }
-
-    public static int calculatePeriod(LocalDate date, LocalDate currentDate){
-        return Period.between(date, currentDate).getDays();
-    }
 }

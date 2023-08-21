@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -118,45 +119,38 @@
             </menu>
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
-            <div class="row m-4">
-                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <h1>Посади</h1>
-                    <form method="post">
-                        <fieldset>
-                            <legend>Додати нову посаду</legend>
-                            <label>
-                                Назва посади <input name="name" required>
-                            </label><br>
-                        </fieldset>
-                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm">
-                    </form>
-                </div>
-            </div>
-            <div class="row m-4">
-                <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
-                    <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th>ID посади</th>
-                            <th>Назва посади</th>
-                            <th>Коригувати</th>
-                            <th>Видалити</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="profession: ${professions}">
-                            <td th:text="${profession.id}"></td>
-                            <td th:text="${profession.name}"></td>
-                            <td><a th:href="@{'profession/edit/' + ${profession.id}}" class="btn btn-outline-warning btn-sm">Edit</a></td>
-                            <td><a th:href="@{'profession/delete/' + ${profession.id}}" class="btn btn-outline-warning btn-sm">Delete</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <h1 class="text-center p-3">Навчання з охорони праці</h1>
+            <form method="post">
+                <fieldset>
+                    <h2 class="mt-3 text-warning-emphasis">Редагувати вид навчання</h2>
+                    <div class="mt-3 fs-2 text-warning-emphasis" th:text="${employee.lastName} +' '+ ${employee.firstName} +' '+ ${employee.surname}">
+                    </div>
+                    <label class="p-2 fs-5">НПАОП
+                        <select name="npaopId" required>
+                            <option th:each="npaop: ${npaopList}" th:label="${npaop.name}"
+                                    th:value="${npaop.id}" th:selected="${npaopName.equals(npaop.getName())}"></option>
+                        </select>
+                    </label><br>
+                    <label class="p-2 fs-5">
+                        Серія та номер посвідчення<input name="numberOfCertificate" th:value="${education.getNumberOfCertificate()}" th:placeholder="${education.getNumberOfCertificate()}" required>
+                    </label><br>
+                    <label class="p-2 fs-5">Дата проходження навчання
+                        <input type="date" name="dateOfPassageEducation" th:value="${education.getDateOfPassageEducation()}" th:placeholder="${education.getDateOfPassageEducation()}" required>
+                        <div style="color: red" th:text="${wrongPeriodOfPassageOfEducation}"></div>
+                    </label>
+                    <label class="p-2 fs-5">Дата наступного навчання
+                        <input type="date" name="nextPassDateEducation" th:value="${education.getNextPassDateEducation()}" th:placeholder="${education.getNextPassDateEducation()}" required>
+                        <div style="color: red" th:text="${wrongPeriodOfNextPassOfEducation}"></div>
+                    </label>
+                    <label class="p-2 fs-5">
+                        Група з електробезпеки (при необхідності)<input name="groupOfEducation" type="number" min="1"
+                                                                        max="5" th:value="${education.getGroupOfEducation()}" th:placeholder="${education.getGroupOfEducation()}">
+                    </label><br>
+                </fieldset>
+                <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                <input type="submit" class="btn btn-outline-warning btn-sm">
+            </form>
         </div>
-    </div>
     </div>
 </main>
 <hr/>
@@ -179,8 +173,7 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous">
-</script>
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>

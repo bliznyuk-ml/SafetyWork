@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -23,24 +23,24 @@
                 <div>
                     <a th:href="@{/}" type="button" class="btn btn-warning col-12">Головна</a>
                 </div>
-                <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion accordion-flush mb-3" id="accordionFlushExample">
 
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseTwo" aria-expanded="false"
                                     aria-controls="flush-collapseTwo">
-                                Персонал
+                                <img th:src="@{/img/employee_64.png}" alt="employee" class="me-3"> Персонал
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/leaders}" type="button"
-                                                           class="btn btn-warning col-12">Керівники</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/leader_bw_32.png}" alt="leader" >Керівники</a></div>
                             <div class="accordion-body"><a th:href="@{/workers}" type="button"
-                                                           class="btn btn-warning col-12">Робітники</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
                             <div class="accordion-body"><a th:href="@{/addemployee}" type="button"
-                                                           class="btn btn-warning col-12">Додати працівника</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -48,17 +48,17 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseThree" aria-expanded="false"
                                     aria-controls="flush-collapseThree">
-                                Обладнання
+                                <img th:src="@{/img/equipment_64.png}" alt="equipment" class="me-3"> Обладнання
                             </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"><a th:href="@{/technique}"  type="button"
-                                                           class="btn btn-warning col-12">Техніка</a></div>
-                            <div class="accordion-body"><a th:href="@{/equipment}"  type="button"
-                                                           class="btn btn-warning col-12">Обладнання</a></div>
-                            <div class="accordion-body"><a th:href="@{/tools}"  type="button"
-                                                           class="btn btn-warning col-12">Інструмент</a></div>
+                            <div class="accordion-body"><a th:href="@{/technique}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                            <div class="accordion-body"><a th:href="@{/equipment}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
+                            <div class="accordion-body"><a th:href="@{/tools}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -66,17 +66,17 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseFourth" aria-expanded="false"
                                     aria-controls="flush-collapseThree">
-                                Роботи
+                                <img th:src="@{/img/work_64.png}" alt="work" class="me-3"> Роботи
                             </button>
                         </h2>
                         <div id="flush-collapseFourth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/work}" type="button"
-                                                           class="btn btn-warning col-12">Роботи</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
                             <div class="accordion-body"><a th:href="@{/workpermit}" type="button"
-                                                           class="btn btn-warning col-12">Наряд-допуски</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
                             <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
-                                                           class="btn btn-warning col-12">Перелік робіт підвищенної небезпеки</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної небезпеки</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -84,32 +84,35 @@
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#flush-collapseFifth" aria-expanded="false"
                                     aria-controls="flush-collapseThree">
-                                Охорона праці
+                                <img th:src="@{/img/icon_64.png}" alt="safety" class="me-3"> Охорона праці
                             </button>
                         </h2>
                         <div id="flush-collapseFifth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"><a th:href="@{/instructions}" type="button"
-                                                           class="btn btn-warning col-12">Інструктажі</a></div>
+                            <div class="accordion-body"><a th:href="@{/instruction}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
                             <div class="accordion-body"><a th:href="@{/education}" type="button"
-                                                           class="btn btn-warning col-12">Навчання</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
                             <div class="accordion-body"><a th:href="@{/medicine}" type="button"
-                                                           class="btn btn-warning col-12">Медогляд</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
                     <a th:href="@{/register}" type="button" class="btn btn-warning col-12 mb-5">Реєстрація
                         користувачів</a>
                 </div>
                 <div>
                     <div class="mt-5">
                         <p>Вітаю: <span th:text="${#authentication.name}"></span></p>
-                        <p>Роль: <span th:text="${role}"></span></p>
                     </div>
+                    <form method="post" th:action="@{/login}">
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-outline-success col-12 mb-3">Login</button>
+                    </form>
                     <form method="post" th:action="@{/logout}">
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <button type="submit" class="btn btn-warning col-12 mb-3">Logout</button>
+                        <button type="submit" class="btn btn-outline-danger col-12 mb-3">Logout</button>
                     </form>
                 </div>
             </menu>

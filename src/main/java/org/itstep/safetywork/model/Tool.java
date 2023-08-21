@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.itstep.safetywork.command.ToolCommand;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 @Data
 @Entity
 @Table(name = "tools")
@@ -15,19 +18,30 @@ public class Tool {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private ToolName toolName;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Manufacturer manufacturer;
     @NotBlank
-    @Column(name = "name")
-    private String name;
+    @Column(name = "model")
+    private String model;
     @NotBlank
     @Column(name = "serial_number")
     private String serialNumber;
+    @Column(name = "nextTestDate")
+    private LocalDate nextTestDate;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Department department;
+    @Column
+    private Period periodToNextToolChekup;
 
-    public Tool(String name, String serialNumber) {
-        this.name = name;
+    public Tool(String model, String serialNumber, LocalDate nextTestDate) {
+        this.model = model;
         this.serialNumber = serialNumber;
+        this.nextTestDate = nextTestDate;
     }
 
-    public static Tool fromCommand(ToolCommand toolCommand){
-        return new Tool(toolCommand.name(), toolCommand.serialNumber());
+    public static Tool toolFromCommand(ToolCommand toolCommand){
+        return new Tool(toolCommand.model(), toolCommand.serialNumber(), toolCommand.nextTestDate());
     }
 }

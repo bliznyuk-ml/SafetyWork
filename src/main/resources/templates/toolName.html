@@ -36,11 +36,15 @@
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/leaders}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/leader_bw_32.png}" alt="leader" >Керівники</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/leader_bw_32.png}" alt="leader">Керівники</a></div>
                             <div class="accordion-body"><a th:href="@{/workers}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
                             <div class="accordion-body"><a th:href="@{/addemployee}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a>
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -54,11 +58,14 @@
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/technique}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
                             <div class="accordion-body"><a th:href="@{/equipment}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
                             <div class="accordion-body"><a th:href="@{/tools}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -72,11 +79,15 @@
                         <div id="flush-collapseFourth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/work}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
                             <div class="accordion-body"><a th:href="@{/workpermit}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
                             <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної небезпеки</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної
+                                небезпеки</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -90,11 +101,14 @@
                         <div id="flush-collapseFifth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/instruction}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
                             <div class="accordion-body"><a th:href="@{/education}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
                             <div class="accordion-body"><a th:href="@{/medicine}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                         </div>
                     </div>
                 </div>
@@ -119,17 +133,15 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
+                <h1 class="text-center p-3">Електричний інструменит</h1>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <h1>Посади</h1>
-                    <form method="post">
+                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
                         <fieldset>
-                            <legend>Додати нову посаду</legend>
-                            <label>
-                                Назва посади <input name="name" required>
-                            </label><br>
+                            <legend>Додати вид інструменту</legend>
+                                <input name="name" required>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm">
+                        <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
                     </form>
                 </div>
             </div>
@@ -138,18 +150,14 @@
                     <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
                         <thead>
                         <tr>
-                            <th>ID посади</th>
-                            <th>Назва посади</th>
-                            <th>Коригувати</th>
-                            <th>Видалити</th>
+                            <th class="align-middle text-center">Id інструменту</th>
+                            <th class="align-middle text-center">Вид інструменту</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="profession: ${professions}">
-                            <td th:text="${profession.id}"></td>
-                            <td th:text="${profession.name}"></td>
-                            <td><a th:href="@{'profession/edit/' + ${profession.id}}" class="btn btn-outline-warning btn-sm">Edit</a></td>
-                            <td><a th:href="@{'profession/delete/' + ${profession.id}}" class="btn btn-outline-warning btn-sm">Delete</a></td>
+                        <tr th:each="toolName: ${toolNameList}">
+                            <td th:text="${toolName.id}"></td>
+                            <td th:text="${toolName.name}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -179,8 +187,7 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous">
-</script>
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>

@@ -11,22 +11,21 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "department")
-@EqualsAndHashCode(exclude = "employeeList")
-@ToString(exclude = "employeeList")
 @NoArgsConstructor
-public class Department {
+@Table(name = "toolName")
+@EqualsAndHashCode(exclude = "toolList")
+@ToString(exclude = "toolList")
+public class ToolName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "department")
-    private List<Employee> employeeList = new ArrayList<>();
-    @OneToMany(mappedBy = "department")
+
+    @OneToMany(mappedBy = "toolName")
     private List<Tool> toolList = new ArrayList<>();
 
-    public Department(String name) {
+    public ToolName(String name) {
         this.name = name;
     }
 }

@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
@@ -119,39 +118,45 @@
       </menu>
     </div>
     <div class="col-lg-9 col-sm-6 col-xs-12">
-      <h1 class="text-center p-3">Медичний огляд</h1>
       <div class="row m-4">
-        <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
+        <div class="col-lg-10 col-sm-12 bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
+          <h1>Роботи підвищеної небезпеки</h1>
+          <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+            <fieldset>
+              <legend>Додати вид робіт</legend>
+              <label>
+                Порядковий номер відповідно переліку <input name="id" type="number" min="1" max="137" required>
+              </label><br>
+              <label>
+                Назва виду робіт <textarea name="name" rows="4" cols="50" required></textarea>
+              </label><br>
+              <label class="p-2 fs-5">НПАОП
+                <select name="npaop" required>
+                  <option class="form-control" th:each="npaop: ${npaopList}" th:label="${npaop.name}"
+                          th:value="${npaop.id}"></option>
+                </select>
+              </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm" th:href="@{'/npaop'}">+</a></span><br>
+            </fieldset>
+            <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+            <input type="submit">
+          </form>
+        </div>
+      </div>
+      <div class="row m-4">
+        <div class="col-lg-12 col-sm-12 bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
           <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
             <thead>
             <tr>
-              <th>Прізвище</th>
-              <th>Ім'я</th>
-              <th>По батькові</th>
-              <th>Посада</th>
-              <th>Підрозділ</th>
-              <th>Дата проходження</th>
-              <th>Дата наступного</th>
-              <th>Період до наступного</th>
-              <th>Протипоказання</th>
-              <th>Редагувати</th>
+              <th>Порядковий номер відповідно переліку</th>
+              <th>Назва виду робіт</th>
+              <th>НПАОП</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="employee: ${employeeList}">
-              <td th:text="${employee.lastName}"></td>
-              <td th:text="${employee.firstName}"></td>
-              <td th:text="${employee.surname}"></td>
-              <td th:text="${employee.getProfession().name}"></td>
-              <td th:text="${employee.getDepartment().name}"></td>
-              <td th:text="${#temporals.format(employee.medicine.dateOfPassage, 'dd-MM-yyyy')}"></td>
-              <td th:text="${#temporals.format(employee.medicine.nextPassDate, 'dd-MM-yyyy')}"></td>
-              <td th:text="${employee.medicine.getPeriodToMedicalChekup().getYears() + 'р ' +
-              employee.medicine.getPeriodToMedicalChekup().getMonths() + 'м ' +
-              employee.medicine.getPeriodToMedicalChekup().getDays() + 'д'}"></td>
-              <td th:text="${employee.medicine.contraindications}"></td>
-              <td><a class="btn btn-outline-warning btn-sm"
-                     th:href="@{'/medicine/edit/' + ${employee.id}}">Редагувати</a></td>
+            <tr th:each="highRisk: ${highRiskList}">
+              <td th:text="${highRisk.id}"></td>
+              <td th:text="${highRisk.name}"></td>
+              <td><a th:href="${highRisk.getNpaop().link}" target="_blank"><span th:text="${highRisk.getNpaop().id}"></span></a></td>
             </tr>
             </tbody>
           </table>
@@ -183,7 +188,7 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
   new DataTable('#example', {scrollX: true});
 </script>

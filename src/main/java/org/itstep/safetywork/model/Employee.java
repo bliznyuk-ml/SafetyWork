@@ -3,17 +3,21 @@ package org.itstep.safetywork.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.itstep.safetywork.command.EmployeeCommand;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
 @Table(name = "employee")
-@ToString(exclude = "grade")
+@EqualsAndHashCode(exclude = {"instruction", "educationList", "medicine"})
+@ToString(exclude = {"instruction", "educationList", "medicine"})
 @NoArgsConstructor
 public class Employee {
     @Id
@@ -43,6 +47,8 @@ public class Employee {
     private Medicine medicine;
     @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
     private Instruction instruction;
+    @OneToMany (mappedBy = "employee")
+    private List<Education> educationList = new ArrayList<>();
 
     public Employee(String firstName, String lastName, String surname, LocalDate birthdate) {
         this.firstName = firstName;

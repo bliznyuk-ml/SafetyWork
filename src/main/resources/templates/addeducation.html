@@ -119,46 +119,84 @@
       </menu>
     </div>
     <div class="col-lg-9 col-sm-6 col-xs-12">
-      <h1 class="text-center p-3">Медичний огляд</h1>
+      <h1 class="text-center p-3">Навчання з охорони праці</h1>
+      <form method="post">
+        <fieldset>
+          <h2 class="mt-3 text-warning-emphasis">Додати вид навчання</h2>
+          <div class="p-2 fs-5" th:text="${employee.lastName} +' '+ ${employee.firstName} +' '+ ${employee.surname}">
+          </div>
+          <label class="p-2 fs-5">НПАОП
+            <select name="npaopId" required>
+              <option th:each="npaop: ${npaopList}" th:label="${npaop.name}"
+                      th:value="${npaop.id}"></option>
+            </select>
+          </label><br>
+          <label class="p-2 fs-5">
+            Серія та номер посвідчення<input name="numberOfCertificate" required>
+          </label><br>
+          <label class="p-2 fs-5">Дата проходження навчання
+            <input type="date" name="dateOfPassageEducation" required>
+            <div style="color: red" th:text="${wrongPeriodOfPassageOfEducation}"></div>
+          </label>
+          <label class="p-2 fs-5">Дата наступного навчання
+            <input type="date" name="nextPassDateEducation" required>
+            <div style="color: red" th:text="${wrongPeriodOfNextPassOfEducation}"></div>
+          </label>
+          <label class="p-2 fs-5">
+            Група з електробезпеки (при необхідності)<input name="groupOfEducation" type="number" min="1"
+                                                            max="5">
+          </label><br>
+        </fieldset>
+        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+        <input type="submit" class="btn btn-outline-warning btn-sm">
+      </form>
+
       <div class="row m-4">
         <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
+          <img th:src="@{/img/employee_64.png}" alt="employee">
+          <span class="mt-3 fs-2 text-warning-emphasis"
+                th:text="${employee.lastName} +' '+ ${employee.firstName} +' '+ ${employee.surname}"></span>
+          <div class="mb-3">
+            <img th:src="@{/img/department_64.png}" alt="department">
+            <span class="p-2 fs-5 fw-bolder">Підрозділ: </span>
+            <span class="p-2 fs-5" th:text="${employee.department.getName()}"></span>
+          </div>
+          <div class="mb-3">
+            <img th:src="@{/img/profession_64.png}" alt="profession">
+            <span class="p-2 fs-5 fw-bolder me-4">Посада: </span>
+            <span class="p-2 fs-5" th:text="${employee.profession.getName()}"></span>
+          </div>
           <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
             <thead>
             <tr>
-              <th>Прізвище</th>
-              <th>Ім'я</th>
-              <th>По батькові</th>
-              <th>Посада</th>
-              <th>Підрозділ</th>
-              <th>Дата проходження</th>
-              <th>Дата наступного</th>
-              <th>Період до наступного</th>
-              <th>Протипоказання</th>
+              <th>НПАОП</th>
+              <th>Назва</th>
+              <th>Номер<br>посвідчення</th>
+              <th>Група</th>
+              <th>Дата<br>порходження<br>навчання</th>
+              <th>Дата<br>наступного<br>проходження<br>навчання</th>
               <th>Редагувати</th>
+              <th>Видалити</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="employee: ${employeeList}">
-              <td th:text="${employee.lastName}"></td>
-              <td th:text="${employee.firstName}"></td>
-              <td th:text="${employee.surname}"></td>
-              <td th:text="${employee.getProfession().name}"></td>
-              <td th:text="${employee.getDepartment().name}"></td>
-              <td th:text="${#temporals.format(employee.medicine.dateOfPassage, 'dd-MM-yyyy')}"></td>
-              <td th:text="${#temporals.format(employee.medicine.nextPassDate, 'dd-MM-yyyy')}"></td>
-              <td th:text="${employee.medicine.getPeriodToMedicalChekup().getYears() + 'р ' +
-              employee.medicine.getPeriodToMedicalChekup().getMonths() + 'м ' +
-              employee.medicine.getPeriodToMedicalChekup().getDays() + 'д'}"></td>
-              <td th:text="${employee.medicine.contraindications}"></td>
+            <tr th:each="education: ${educationList}">
+              <td th:text="${education.getNpaop().id}"></td>
+              <td th:text="${education.getNpaop().name}"></td>
+              <td th:text="${education.numberOfCertificate}"></td>
+              <td th:text="${education.groupOfEducation}"></td>
+              <td th:text="${#temporals.format(education.getDateOfPassageEducation(), 'dd-MM-yyyy')}"></td>
+              <td th:text="${#temporals.format(education.getNextPassDateEducation(), 'dd-MM-yyyy')}"></td>
               <td><a class="btn btn-outline-warning btn-sm"
-                     th:href="@{'/medicine/edit/' + ${employee.id}}">Редагувати</a></td>
+                     th:href="@{${education.getEmployee().getId()} + '/edit/' + ${education.id}}">Редагувати</a></td>
+              <td><a class="btn btn-outline-warning btn-sm"
+                     th:href="@{${education.getEmployee().getId()} + '/delete/' + ${education.id}}">Виадлити</a></td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </main>
 <hr/>

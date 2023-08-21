@@ -1,32 +1,65 @@
 package org.itstep.safetywork.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.itstep.safetywork.model.Employee;
 import org.itstep.safetywork.model.Medicine;
 import org.itstep.safetywork.repository.EmployeeRepository;
 import org.itstep.safetywork.repository.MedicineRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/medicine")
 @RequiredArgsConstructor
 public class MedicalController {
     private final EmployeeRepository employeeRepository;
     private final MedicineRepository medicineRepository;
 
-    @GetMapping
+    @GetMapping("/medicine")
     public String showMedicine(Model model) {
-        List<Medicine> medicineList = medicineRepository.findAll();
         model.addAttribute("employeeList", employeeRepository.findAll());
+        List<Medicine> medicineList = medicineRepository.findAll();
         medicineList.forEach(m -> m.setPeriodToMedicalChekup(Period.between(LocalDate.now(), m.getNextPassDate())));
-        model.addAttribute("medicineList", medicineList);
         return "medicine";
+    }
+
+    @GetMapping("/medicine/edit/{employeeId}")
+    public String showEditMedicine(@PathVariable Integer employeeId, Model model){
+        Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+        if(optionalEmployee.isPresent()){
+            model.addAttribute("employee", optionalEmployee.get());
+        }
+        return "editMedicine";
+    }
+
+    @PostMapping("/medicine/edit/{employeeId}")
+    public String editMedicine(@PathVariable @ModelAttribute Integer employeeId, Medicine medicine, RedirectAttributes model){
+        Period periodOfPassage = Period.between(LocalDate.now(), medicine.getDateOfPassage());
+        Period periodOfNextPass = Period.between(LocalDate.now(), medicine.getNextPassDate());
+        if ((periodOfPassage.isNegative() || periodOfPassage.isZero()) &&
+                (!periodOfNextPass.isNegative() && !periodOfNextPass.isZero())){
+            Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
+            if(optionalEmployee.isPresent()){
+                Employee updatedEmployee = optionalEmployee.get();
+                Medicine updatedMedicine = updatedEmployee.getMedicine();
+                updatedMedicine.setDateOfPassage(medicine.getDateOfPassage());
+                updatedMedicine.setNextPassDate(medicine.getNextPassDate());
+                updatedMedicine.setContraindications(medicine.getContraindications());
+                medicineRepository.save(updatedMedicine);
+            }
+        }
+        if (!periodOfPassage.isNegative() && !periodOfPassage.isZero()) {
+            model.addFlashAttribute("wrongPeriodOfPassage", "Дата проходження медогляду не має бути пізніше за сьогоднішню");
+        }
+        if (periodOfNextPass.isNegative() || periodOfNextPass.isZero()) {
+            model.addFlashAttribute("wrongPeriodOfNextPass", "Дата наступного медогляду не має бути раніше за сьогоднішню або термін проходження витік");
+        }
+        return "redirect:/medicine/edit/" + employeeId;
     }
 }

@@ -119,9 +119,10 @@
       </menu>
     </div>
     <div class="col-lg-9 col-sm-6 col-xs-12">
-      <h1 class="text-center p-3">Медичний огляд</h1>
+      <h1 class="text-center p-3">Інструктажі</h1>
       <div class="row m-4">
         <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
+
           <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
             <thead>
             <tr>
@@ -130,10 +131,9 @@
               <th>По батькові</th>
               <th>Посада</th>
               <th>Підрозділ</th>
-              <th>Дата проходження</th>
-              <th>Дата наступного</th>
-              <th>Період до наступного</th>
-              <th>Протипоказання</th>
+              <th>Дата вступного інструктажа</th>
+              <th>Дата первинного/повторного інструктажа</th>
+              <th>Період до наступного інструктажа</th>
               <th>Редагувати</th>
             </tr>
             </thead>
@@ -144,14 +144,13 @@
               <td th:text="${employee.surname}"></td>
               <td th:text="${employee.getProfession().name}"></td>
               <td th:text="${employee.getDepartment().name}"></td>
-              <td th:text="${#temporals.format(employee.medicine.dateOfPassage, 'dd-MM-yyyy')}"></td>
-              <td th:text="${#temporals.format(employee.medicine.nextPassDate, 'dd-MM-yyyy')}"></td>
-              <td th:text="${employee.medicine.getPeriodToMedicalChekup().getYears() + 'р ' +
-              employee.medicine.getPeriodToMedicalChekup().getMonths() + 'м ' +
-              employee.medicine.getPeriodToMedicalChekup().getDays() + 'д'}"></td>
-              <td th:text="${employee.medicine.contraindications}"></td>
+              <td th:text="${#temporals.format(employee.instruction.introduction, 'dd-MM-yyyy')}"></td>
+              <td th:text="${#temporals.format(employee.instruction.reInstruction, 'dd-MM-yyyy')}"></td>
+              <td th:text="${employee.instruction.getPeriodToInstruction().getYears() + 'р ' +
+              employee.instruction.getPeriodToInstruction().getMonths() + 'м ' +
+              employee.instruction.getPeriodToInstruction().getDays() + 'д'}"></td>
               <td><a class="btn btn-outline-warning btn-sm"
-                     th:href="@{'/medicine/edit/' + ${employee.id}}">Редагувати</a></td>
+                     th:href="@{'/instruction/edit/' + ${employee.id}}">Редагувати</a></td>
             </tr>
             </tbody>
           </table>

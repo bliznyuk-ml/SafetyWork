@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,18 +25,21 @@ public class EmployeeController {
     private final DepartmentRepository departmentRepository;
     private final MedicineRepository medicineRepository;
     private final InstructionRepository instructionRepository;
+    private final NpaopRepository npaopRepository;
+    private final EducationRepository educationRepository;
 
     @GetMapping
-    public String showEmployee(Model model){
+    public String showEmployee(Model model) {
         model.addAttribute("nameEmployee", "Валерій");
         model.addAttribute("employeeList", employeeRepository.findAll());
         model.addAttribute("professions", professionRepository.findAll());
         model.addAttribute("departments", departmentRepository.findAll());
+        model.addAttribute("npaopList", npaopRepository.findAll());
         return "addemployee";
     }
 
     @PostMapping
-    public String create(@ModelAttribute EmployeeCommand command, RedirectAttributes model){
+    public String create(@ModelAttribute EmployeeCommand command, RedirectAttributes model) {
         addEmployee(command, model);
         return "redirect:/addemployee";
     }
@@ -44,7 +50,7 @@ public class EmployeeController {
         Employee employee = Employee.fromCommand(command);
         professionOptional.ifPresent(profession -> {
             employee.setProfession(profession);
-            if(profession.getId() == 1){
+            if (profession.getId() == 1) {
                 employee.setGrade(gradeRepository.getReferenceById(1));
             } else {
                 employee.setGrade(gradeRepository.getReferenceById(2));
@@ -52,12 +58,25 @@ public class EmployeeController {
         });
         departmentOptional.ifPresent(employee::setDepartment);
         int age = Employee.calculateAge(command.birthdate(), LocalDate.now());
-        int periodOfPassage = Medicine.calculatePeriod(command.dateOfPassage(), LocalDate.now());
-        int periodOfNextPass = Medicine.calculatePeriod(command.nextPassDate(), LocalDate.now());
-        int periodOfIntroduction = Medicine.calculatePeriod(command.introduction(), LocalDate.now());
-        int periodOfReInstruction = Medicine.calculatePeriod(command.reInstruction(), LocalDate.now());
+        Period periodOfPassage = Period.between(LocalDate.now(), command.dateOfPassage());
+        Period periodOfNextPass = Period.between(LocalDate.now(), command.nextPassDate());
+        Period periodOfIntroduction = Period.between(LocalDate.now(), command.introduction());
+        Period periodOfReInstruction = Period.between(LocalDate.now(), command.reInstruction());
 
-        if(periodOfPassage >= 0 && periodOfNextPass <= 0 && age >= 18 && periodOfIntroduction >= 0 && periodOfReInstruction >= 0){
+//        Education education = new Education(command.numberOfCertificate(), command.dateOfPassageEducation(),
+//                command.nextPassDateEducation(), command.groupOfEducation());
+//        Optional<Npaop> npaopOptional = npaopRepository.findById(command.npaopId());
+//        npaopOptional.ifPresent(education::setNpaop);
+//        List<Education> educationList = new ArrayList<>();
+//        educationList.add(education);
+//        employee.setEducationList(educationList);
+
+
+        if ((periodOfPassage.isNegative() || periodOfPassage.isZero()) &&
+                (!periodOfNextPass.isNegative() || periodOfNextPass.isZero()) &&
+                age >= 18 && (periodOfIntroduction.isNegative() || periodOfIntroduction.isZero())
+                && (periodOfReInstruction.isNegative() || periodOfReInstruction.isZero())) {
+            //           educationRepository.save(education);
             employeeRepository.save(employee);
             Medicine medicine = new Medicine(command.dateOfPassage(), command.nextPassDate(), command.contraindications());
             Instruction instruction = new Instruction(command.introduction(), command.reInstruction());
@@ -67,15 +86,20 @@ public class EmployeeController {
             instruction.setEmployee(employee);
             medicineRepository.save(medicine);
             instructionRepository.save(instruction);
-        } if (age < 18){
+        }
+        if (age < 18) {
             model.addFlashAttribute("wrongAge", "Працівнику не може бути менше 18 років");
-        } if (periodOfPassage < 0) {
+        }
+        if (!periodOfPassage.isNegative() && !periodOfPassage.isZero()) {
             model.addFlashAttribute("wrongPeriodOfPassage", "Дата проходження медогляду не має бути пізніше за сьогоднішню");
-        } if (periodOfNextPass > 0) {
+        }
+        if (periodOfNextPass.isNegative() && !periodOfNextPass.isZero()) {
             model.addFlashAttribute("wrongPeriodOfNextPass", "Дата наступного медогляду не має бути раніше за сьогоднішню");
-        }  if (periodOfIntroduction < 0) {
+        }
+        if (!periodOfIntroduction.isNegative() && !periodOfIntroduction.isZero()) {
             model.addFlashAttribute("wrongPeriodOfIntroduction", "Дата проходження вступного інструктажу не має бути пізніше за сьогоднішню");
-        } if (periodOfReInstruction < 0) {
+        }
+        if (!periodOfReInstruction.isNegative() && !periodOfReInstruction.isZero()) {
             model.addFlashAttribute("wrongPeriodOfReInstruction", "Дата проходження первинного / повторного інструктажу не має бути пізніше за сьогоднішню");
         }
     }

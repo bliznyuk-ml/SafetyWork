@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -118,45 +119,44 @@
             </menu>
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
-            <div class="row m-4">
-                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <h1>Посади</h1>
-                    <form method="post">
-                        <fieldset>
-                            <legend>Додати нову посаду</legend>
-                            <label>
-                                Назва посади <input name="name" required>
-                            </label><br>
-                        </fieldset>
-                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm">
-                    </form>
-                </div>
-            </div>
+            <h1 class="text-center p-3">Навчання з охорони праці</h1>
             <div class="row m-4">
                 <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
                     <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
                         <thead>
                         <tr>
-                            <th>ID посади</th>
-                            <th>Назва посади</th>
-                            <th>Коригувати</th>
-                            <th>Видалити</th>
+                            <th>Прізвище</th>
+                            <th>Ім'я</th>
+                            <th>По батькові</th>
+                            <th>Посада</th>
+                            <th>Підрозділ</th>
+                            <th>Види навчання</th>
+                            <th>Редагувати</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="profession: ${professions}">
-                            <td th:text="${profession.id}"></td>
-                            <td th:text="${profession.name}"></td>
-                            <td><a th:href="@{'profession/edit/' + ${profession.id}}" class="btn btn-outline-warning btn-sm">Edit</a></td>
-                            <td><a th:href="@{'profession/delete/' + ${profession.id}}" class="btn btn-outline-warning btn-sm">Delete</a></td>
+                        <tr th:each="employee: ${employeeList}">
+                            <td th:text="${employee.lastName}"></td>
+                            <td th:text="${employee.firstName}"></td>
+                            <td th:text="${employee.surname}"></td>
+                            <td th:text="${employee.getProfession().name}"></td>
+                            <td th:text="${employee.getDepartment().name}"></td>
+                            <td>
+                                <details>
+                                    <summary>Вид навчання</summary>
+                                    <p th:each="education: ${employee.getEducationList()}">
+                                        <span th:text="${education.getNpaop().id + ' ' + #temporals.format(education.getNextPassDateEducation(), 'dd-MM-yyyy')}"></span>
+                                    </p>
+                                </details>
+                            </td>
+                            <td><a class="btn btn-outline-warning btn-sm"
+                                   th:href="@{'addeducation/edit/' + ${employee.id}}"/>Редагувати</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <hr/>
@@ -179,8 +179,7 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous">
-</script>
+        crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>
