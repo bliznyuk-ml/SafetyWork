@@ -67,15 +67,14 @@ public class ToolController {
         if(optionalTool.isPresent()){
             Tool tool = optionalTool.get();
             Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
-            if((!periodOfNextTest.isNegative() || !periodOfNextTest.isZero()) && periodOfNextTest.getMonths() < 6 && periodOfNextTest.getYears() < 1){
-                tool.setNextTestDate(command.nextTestDate());
-                toolRepository.save(tool);
-            }
             if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
                 model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
             }
-            if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
+            else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
                 model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
+            } else {
+                tool.setNextTestDate(command.nextTestDate());
+                toolRepository.save(tool);
             }
         }
         return "redirect:/tools/edit/" + idTool;
@@ -91,14 +90,13 @@ public class ToolController {
         optionalToolName.ifPresent(tool::setToolName);
         optionalDepartment.ifPresent(tool::setDepartment);
         Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
-        if((!periodOfNextTest.isNegative() || !periodOfNextTest.isZero()) && periodOfNextTest.getMonths() < 6 && periodOfNextTest.getYears() < 1){
-            toolRepository.save(tool);
-        }
         if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
             model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
         }
-        if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
+        else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
             model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
+        } else {
+            toolRepository.save(tool);
         }
         return "redirect:/tools";
     }

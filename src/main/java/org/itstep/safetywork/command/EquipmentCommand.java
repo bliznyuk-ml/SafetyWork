@@ -1,13 +1,12 @@
 package org.itstep.safetywork.command;
 
-
 import java.time.LocalDate;
 
-public record ToolCommand(
-        Integer toolNameId,
-        Integer manufacturerId,
+public record EquipmentCommand(
+        String equipmentName,
         String model,
         String serialNumber,
         LocalDate nextTestDate,
-        Integer departmentId
+        Integer departmentId,
+        Integer employeeId
 ) {}

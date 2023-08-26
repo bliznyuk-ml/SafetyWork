@@ -6,30 +6,26 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "grade")
 @NoArgsConstructor
-@ToString(exclude = "employeeList")
-@EqualsAndHashCode(exclude = "employeeList")
-public class Grade {
+@Table(name = "equipmentName")
+@EqualsAndHashCode(exclude = "equipmentList")
+@ToString(exclude = "equipmentList")
+public class EquipmentName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+    @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "grade")
-    private List<Employee> employeeList = new ArrayList<>();
 
-    public Grade(String name) {
+    @OneToMany(mappedBy = "equipmentName")
+    private List <Equipment> equipmentList = new ArrayList<>();
+
+    public EquipmentName(String name) {
         this.name = name;
     }
-
-//    public static Grade fromCommand(GradeCommand command){
-//        return new Grade(command.name());
-//    }
 }
