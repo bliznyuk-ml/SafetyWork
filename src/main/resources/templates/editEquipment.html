@@ -183,16 +183,16 @@
                                             th:selected="${departmentName.equals(department.getName())}"></option>
                                 </select>
                             </label><br>
-                            <label class="p-2 fs-5">Відповідальна особа
-                                <select name="employeeId" required>
-                                    <option th:each="employee: ${employeeList}"
-                                            th:label="${employee.lastName} + ' ' + ${employee.firstName} + ' ' + ${employee.surname}"
-                                            th:value="${employee.id}"
-                                            th:selected="${employeeId == employee.id}">
-                                    </option>
-                                </select>
-                                <div style="color: red" th:text="${responsibleEmployee}"></div>
-                            </label>
+                            <label for="employeeName" class="p-2 fs-5">Відповідальна особа</label>
+                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}" required>
+                            <datalist id="employee">
+                                <option th:each="employeeEdit: ${employeeList}"
+                                        th:label="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}"
+                                        th:value="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}">
+                                </option>
+                            </datalist>
+                            <div style="color: red" th:text="${wrongName}"></div>
+                            <div style="color: red" th:text="${responsibleEmployee}"></div>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
                         <input type="submit" class="btn btn-outline-warning btn-sm mt-3">

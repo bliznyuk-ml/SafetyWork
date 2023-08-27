@@ -147,15 +147,6 @@
                                     <option th:each="equipmentName: ${equipmentNameList}"
                                             th:value="${equipmentName.getName()}"></option>
                                 </datalist>
-
-<!--                            <label class="p-2 fs-5">Вид обладнання-->
-<!--                                <select name="toolNameId" required>-->
-<!--                                    <option th:each="toolName: ${techniqueList}" th:label="${technique.name}"-->
-<!--                                            th:value="${toolName.id}"></option>-->
-<!--                                </select>-->
-<!--                            </label><span sec:authorize="hasRole('ROLE_ADMIN')">-->
-<!--                            <a class="btn btn-outline-warning btn-sm mb-2"-->
-<!--                               th:href="@{'/techniqueName'}">+</a></span><br>-->
                             <label class="p-2 fs-5">
                                 Модель обладнання <input name="model" required>
                             </label>
@@ -171,16 +162,19 @@
                                     <option th:each="department: ${departmentList}" th:label="${department.name}"
                                             th:value="${department.id}"></option>
                                 </select>
-                            </label><span sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span><br>
-                            <label class="p-2 fs-5">Відповідальна особа
-                                <select name="employeeId" required>
-                                    <option th:each="employee: ${employeeList}"
-                                            th:label="${employee.lastName + ' ' + employee.firstName + ' ' + employee.surname}"
-                                            th:value="${employee.id}"></option>
-                                </select>
-                                <div style="color: red" th:text="${responsibleEmployee}"></div>
                             </label>
+                            <span sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span><br>
+                            <label for="employeeName" class="p-2 fs-5">Відповідальна особа</label>
+                            <input list="employee" name="employeeName" id="employeeName" required>
+                            <datalist id="employee">
+                                <option th:each="employeeEdit: ${employeeList}"
+                                        th:label="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}"
+                                        th:value="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}">
+                                </option>
+                            </datalist>
+                            <div style="color: red" th:text="${wrongName}"></div>
+                            <div style="color: red" th:text="${responsibleEmployee}"></div>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
                         <input type="submit" class="btn btn-outline-warning btn-sm">
@@ -217,9 +211,6 @@
                             <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
                                                                     th:href="@{'/equipment/edit/' + ${equipment.id}}">&#128393;</a>
                             </td>
-<!--                            <td class="align-middle text-center"><a class="btn btn-outline-danger btn-sm"-->
-<!--                                                                    th:href="@{'/equipment/delete/' + ${equipment.id}}">&#128465;</a>-->
-<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>

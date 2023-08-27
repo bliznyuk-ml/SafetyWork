@@ -8,5 +8,6 @@ public record EquipmentCommand(
         String serialNumber,
         LocalDate nextTestDate,
         Integer departmentId,
-        Integer employeeId
+        Integer employeeId,
+        String employeeName
 ) {}

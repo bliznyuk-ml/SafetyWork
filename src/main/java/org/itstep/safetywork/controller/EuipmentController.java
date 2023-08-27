@@ -10,6 +10,7 @@ import org.itstep.safetywork.repository.DepartmentRepository;
 import org.itstep.safetywork.repository.EmployeeRepository;
 import org.itstep.safetywork.repository.EquipmentNameRepository;
 import org.itstep.safetywork.repository.EquipmentRepository;
+import org.itstep.safetywork.service.EquipmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class EuipmentController {
     private final DepartmentRepository departmentRepository;
     private final EquipmentRepository equipmentRepository;
     private final EquipmentNameRepository equipmentNameRepository;
+    private final EquipmentService equipmentService;
 
     @GetMapping("/equipment")
     public String showEquipment(Model model){
@@ -59,7 +61,7 @@ public class EuipmentController {
             model.addAttribute("equipment", equipment);
             String departmentName = equipment.getDepartment().getName();
             model.addAttribute("departmentName", departmentName);
-            model.addAttribute("employeeId", equipment.getEmployee().getId());
+            model.addAttribute("employee", equipment.getEmployee().getLastName() + ' ' + equipment.getEmployee().getFirstName() + ' ' + equipment.getEmployee().getSurname());
         }
         return "editEquipment";
     }
@@ -68,26 +70,22 @@ public class EuipmentController {
     public String createEquipment(EquipmentCommand command, RedirectAttributes model){
         Equipment equipment = Equipment.equipmentFromCommand(command);
         Optional<Department> optionalDepartment = departmentRepository.findById(command.departmentId());
-        Optional<Employee> optionalEmployee = employeeRepository.findById(command.employeeId());
+        Employee employee = equipmentService.getEmployee(command, model);
+        //Optional<Employee> optionalEmployee = employeeRepository.findById(command.employeeId());
         Optional<EquipmentName> optionalEquipmentName = equipmentNameRepository.findByName(command.equipmentName());
         optionalDepartment.ifPresent(equipment::setDepartment);
-        optionalEmployee.ifPresent(equipment::setEmployee);
+        //optionalEmployee.ifPresent(equipment::setEmployee);
         if(optionalEquipmentName.isPresent()){
             equipment.setEquipmentName(optionalEquipmentName.get());
         } else {
             EquipmentName equipmentName = new EquipmentName(command.equipmentName());
             equipment.setEquipmentName(equipmentName);
         }
-        Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
-        if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
-            model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
-        }
-        else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
-            model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
-        } else if (equipment.getDepartment().getId().equals(equipment.getEmployee().getDepartment().getId())) {
-            equipmentRepository.save(equipment);
-        } else {
-            model.addFlashAttribute("responsibleEmployee", "Відповідальна особа за обладнання має працювати у підрозділі, де зареєстровано обладнання");
+        if(employee != null) {
+            equipment.setEmployee(employee);
+            equipmentService.extracted(command, model, equipment);
+        }else {
+            model.addFlashAttribute("wrongName", "Працівник з таким ПІБ не зареєстровано");
         }
         return "redirect:/equipment";
     }
@@ -96,23 +94,60 @@ public class EuipmentController {
     public String editEquipment(@PathVariable @ModelAttribute Integer idEquipment, EquipmentCommand command, RedirectAttributes model){
         Optional<Equipment> optionalEquipment = equipmentRepository.findById(idEquipment);
         Optional<Department> optionalDepartment = departmentRepository.findById(command.departmentId());
-        Optional<Employee> optionalEmployee = employeeRepository.findById(command.employeeId());
+        Employee employee = equipmentService.getEmployee(command, model);
         if(optionalEquipment.isPresent()){
             Equipment equipment = optionalEquipment.get();
             optionalDepartment.ifPresent(equipment::setDepartment);
-            optionalEmployee.ifPresent(equipment::setEmployee);
-            Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
-            if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
-                model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
+            if(employee != null) {
+                equipment.setEmployee(employee);
+            }else {
+                model.addFlashAttribute("wrongName", "Працівник з таким ПІБ не зареєстровано");
             }
-            else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
-                model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
-            } else if (equipment.getDepartment().getId().equals(equipment.getEmployee().getDepartment().getId())) {
-                equipmentRepository.save(equipment);
-            } else {
-                model.addFlashAttribute("responsibleEmployee", "Відповідальна особа за обладнання має працювати у підрозділі, де зареєстровано обладнання");
-            }
+            equipmentService.extracted(command, model, equipment);
         }
         return "redirect:/equipment/edit/" + idEquipment;
     }
+
+//    private Employee getEmployee(EquipmentCommand command, RedirectAttributes model) {
+//        List<Employee> employeeList = employeeRepository.findAll();
+//        Employee[] employeeArray = new Employee[1];
+//        String[] name = command.employeeName().split("\\s+");
+//        String lastName;
+//        String firstName;
+//        String surname;
+//        if(name.length == 3) {
+//            lastName = name[0];
+//            firstName = name[1];
+//            surname = name[2];
+//        } else {
+//            surname = "";
+//            firstName = "";
+//            lastName = "";
+//            model.addFlashAttribute("wrongName", "Невірно введено ПІБ");
+//        }
+//        employeeList.forEach(e -> {
+//            if(e.getLastName().equals(lastName) && e.getFirstName().equals(firstName) && e.getSurname().equals(surname)){
+//                employeeArray[0] = e;
+//            }
+//        });
+//        Employee employee = null;
+//        if(employeeArray[0] != null){
+//            employee = employeeArray[0];
+//        }
+//        return employee;
+//    }
+//
+//    private void extracted(EquipmentCommand command, RedirectAttributes model, Equipment equipment) {
+//        Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
+//        if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
+//            model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
+//        }
+//        else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
+//            model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
+//        } else if (equipment.getDepartment().getId().equals(equipment.getEmployee().getDepartment().getId())) {
+//            equipmentRepository.save(equipment);
+//        } else {
+//            model.addFlashAttribute("responsibleEmployee", "Відповідальна особа за обладнання має працювати у підрозділі, де зареєстровано обладнання");
+//        }
+//    }
 }
