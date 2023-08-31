@@ -16,13 +16,13 @@ public class ToolNameController {
     private final ToolNameRepository toolNameRepository;
 
     @GetMapping
-    String showToolName(Model model){
+    public String showToolName(Model model){
         model.addAttribute("toolNameList", toolNameRepository.findAll());
         return "toolName";
     }
 
     @PostMapping
-    String createToolName(String name){
+    public String createToolName(String name){
         ToolName toolName = new ToolName(name);
         toolNameRepository.save(toolName);
         return "redirect:/toolName";

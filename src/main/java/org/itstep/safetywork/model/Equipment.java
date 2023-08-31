@@ -25,7 +25,7 @@ public class Equipment {
     @NotBlank
     @Column(name = "serial_number")
     private String serialNumber;
-    @Column(name = "nextTestDate")
+    @Column(name = "next_test_date")
     private LocalDate nextTestDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;

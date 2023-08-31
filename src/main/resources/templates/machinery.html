@@ -59,7 +59,7 @@
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/machinery}" type="button"
                                                            class="btn btn-warning col-12"><img
-                                    th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                                    th:src="@{/img/technique_bw_32.png}" alt="machinery"> Техніка</a></div>
                             <div class="accordion-body"><a th:href="@{/equipment}" type="button"
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
@@ -110,7 +110,8 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -135,31 +136,104 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
-                <h1 class="text-center p-3 text-warning-emphasis">Електричний інструмент</h1>
+                <h1 class="text-center p-3 text-warning-emphasis">Техніка</h1>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
                     <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
                         <fieldset>
-                            <legend>Додати вид інструменту</legend>
-                                <input name="name" required>
+                            <legend>Додати нову техніку</legend>
+                            <label class="p-2 fs-5">Тип техніки
+                                <select name="typeOfMachineryId" required>
+                                    <option th:each="typeOfMachinery: ${typeOfMachineryList}"
+                                            th:label="${typeOfMachinery.type}"
+                                            th:value="${typeOfMachinery.id}"></option>
+                                </select>
+                            </label>
+                            <span sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-outline-warning btn-sm mb-2"
+                               th:href="@{'/addTypeOfMachinery'}">+</a></span><br>
+                            <label for="machineryModel" class="p-2 fs-5">Модель техніки</label>
+                            <input type="text" list="model" name="machineryModel" id="machineryModel">
+                            <datalist id="model" required>
+                                <option th:each="machineryModel: ${machineryModelList}"
+                                        th:value="${machineryModel.getModel()}"></option>
+                            </datalist>
+                            <label class="p-2 fs-5">
+                                Реєстраційний номер <input name="registration" required>
+                            </label><br>
+                            <label class="p-2 fs-5">
+                                Державний номер <input name="stateNumber" required>
+                            </label><br>
+                            <label class="p-2 fs-5">Дата наступного часткового технічного обслуговування
+                                <input type="date" name="ChTO" required>
+                                <div style="color: red" th:text="${wrongPeriodChTO}"></div>
+                            </label><br>
+                            <label class="p-2 fs-5">Дата наступного повного технічного обслуговування
+                                <input type="date" name="PTO" required>
+                                <div style="color: red" th:text="${wrongPeriodPTO}"></div>
+                            </label><br>
+                            <label class="p-2 fs-5">Підрозділ якому належить техніка
+                                <select name="departmentId" required>
+                                    <option th:each="department: ${departmentList}" th:label="${department.name}"
+                                            th:value="${department.id}"></option>
+                                </select>
+                            </label>
+                            <span sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span><br>
+                            <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
+                                <select name="responsibleId" required>
+                                    <option th:each="responsible: ${responsibleList}"
+                                            th:label="${responsible.employee.lastName} + ' ' + ${responsible.employee.firstName} + ' ' +${responsible.employee.surname}"
+                                            th:value="${responsible.id}"></option>
+                                </select>
+                            </label>
+                            <span sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/responsible'}">+</a></span><br>
+                            <div style="color: red" th:text="${wrongName}"></div>
+                            <div style="color: red" th:text="${responsibleEmployee}"></div>
+
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
+                        <input type="submit" class="btn btn-outline-warning btn-sm">
                     </form>
                 </div>
             </div>
             <div class="row m-4">
                 <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
-                    <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
+                    <table class="table table-sm table-dark table-striped" id="tools" style="width:100%">
                         <thead>
                         <tr>
-                            <th class="align-middle text-center">Id інструменту</th>
-                            <th class="align-middle text-center">Вид інструменту</th>
+                            <th class="align-middle text-center">Тип техніки</th>
+                            <th class="align-middle text-center">Модель</th>
+                            <th class="align-middle text-center">Реєстраційний номер</th>
+                            <th class="align-middle text-center">Державний номер</th>
+                            <th class="align-middle text-center">Дата<br> наступного<br> ЧТО</th>
+                            <th class="align-middle text-center">Дата<br> наступного<br> ПТО</th>
+                            <th class="align-middle text-center">Підрозділ</th>
+                            <th class="align-middle text-center">Відповідальна особа</th>
+                            <th class="align-middle text-center">Номер і дата наказу</th>
+                            <th class="align-middle text-center">Редагувати</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="toolName: ${toolNameList}">
-                            <td th:text="${toolName.id}"></td>
-                            <td th:text="${toolName.name}"></td>
+                        <tr th:each="machinery: ${machinerylList}">
+                            <td th:text="${machinery.typeOfMachinery.type}"></td>
+                            <td th:text="${machinery.machineryModel.model}" class="text-center"></td>
+                            <td th:text="${machinery.registration}" class="text-center"></td>
+                            <td th:text="${machinery.stateNumber}" class="text-center"></td>
+                            <td th:text="${#temporals.format(machinery.getChTO(), 'dd-MM-yyyy')}"
+                                class="text-center"></td>
+                            <td th:text="${#temporals.format(machinery.getPTO(), 'dd-MM-yyyy')}"
+                                class="text-center"></td>
+                            <td th:text="${machinery.department.name}" class="text-center"></td>
+                            <td th:text="${machinery.responsibleForMachinery.employee.lastName + '&#10 ' +
+                                           machinery.responsibleForMachinery.employee.firstName + '&#10 ' +
+                                           machinery.responsibleForMachinery.employee.surname}"
+                                class="text-center"></td>
+                            <td th:text="${machinery.responsibleForMachinery.orderNumber + ' ' +  #temporals.format(machinery.responsibleForMachinery.getDateOrder(), 'dd-MM-yyyy')}"
+                                class="text-center"></td>
+                            <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
+                                                                    th:href="@{'/machinery/edit/' + ${machinery.id}}">&#128393;</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -167,11 +241,11 @@
             </div>
         </div>
     </div>
-    </div>
+
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0" >
+    <div class="row col- m-0">
         <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
             <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
             <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
@@ -197,7 +271,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>
-    new DataTable('#example', {scrollX: true});
+    new DataTable('#tools', {scrollX: true});
 </script>
 </body>
 </html>

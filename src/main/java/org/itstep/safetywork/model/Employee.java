@@ -16,8 +16,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "employee")
-@EqualsAndHashCode(exclude = {"instruction", "educationList", "medicine", "equipmentList"})
-@ToString(exclude = {"instruction", "educationList", "medicine", "equipmentList"})
+@EqualsAndHashCode(exclude = {"instruction", "educationList", "medicine", "equipmentList", "responsibleForEngineering"})
+@ToString(exclude = {"instruction", "educationList", "medicine", "equipmentList", "responsibleForEngineering"})
 @NoArgsConstructor
 public class Employee {
     @Id
@@ -42,11 +42,13 @@ public class Employee {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
     @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
-// //   @PrimaryKeyJoinColumn
-// //   @JoinColumn(name = "medicine_id", referencedColumnName = "id")
+ //   @PrimaryKeyJoinColumn
+ //   @JoinColumn(name = "medicine_id", referencedColumnName = "id")
     private Medicine medicine;
     @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
     private Instruction instruction;
+    @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
+    private ResponsibleForMachinery responsibleForMachinery;
     @OneToMany (mappedBy = "employee")
     private List<Education> educationList = new ArrayList<>();
     @OneToMany(mappedBy = "employee")

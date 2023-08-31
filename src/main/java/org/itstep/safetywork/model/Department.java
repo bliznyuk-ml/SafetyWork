@@ -12,8 +12,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "department")
-@EqualsAndHashCode(exclude = {"employeeList", "equipmentList", "toolList"})
-@ToString(exclude = {"employeeList", "equipmentList", "toolList"})
+@EqualsAndHashCode(exclude = {"employeeList", "equipmentList", "toolList", "machineryList"})
+@ToString(exclude = {"employeeList", "equipmentList", "toolList", "machineryList"})
 @NoArgsConstructor
 public class Department {
     @Id
@@ -27,6 +27,8 @@ public class Department {
     private List<Tool> toolList = new ArrayList<>();
     @OneToMany(mappedBy = "department")
     private List<Equipment> equipmentList = new ArrayList<>();
+    @OneToMany(mappedBy = "department")
+    private List<Machinery> machineryList = new ArrayList<>();
 
     public Department(String name) {
         this.name = name;

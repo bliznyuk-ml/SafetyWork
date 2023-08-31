@@ -110,7 +110,8 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -135,34 +136,92 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
-                <h1 class="text-center p-3 text-warning-emphasis">Електричний інструмент</h1>
+                <h1 class="text-center p-3 text-warning-emphasis">Техніка</h1>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
+                    <div>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="fw-bolder">Тип техніки:</td>
+                                <td th:text="${machineryEdit.getTypeOfMachinery().type}" class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Модель:</td>
+                                <td th:text="${machineryEdit.getMachineryModel().model}" class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Реєстраційний номер:</td>
+                                <td th:text="${machineryEdit.registration}" class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Державний номер:</td>
+                                <td th:text="${machineryEdit.stateNumber}" class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Дата наступного ЧТО:</td>
+                                <td th:text="${#temporals.format(machineryEdit.getChTO(), 'dd-MM-yyyy')}"
+                                    class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Дата наступного ПТО:</td>
+                                <td th:text="${#temporals.format(machineryEdit.getPTO(), 'dd-MM-yyyy')}"
+                                    class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Підрозділ:</td>
+                                <td th:text="${machineryEdit.getDepartment().name}" class="fw-light"></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Відповідальна особа:</td>
+                                <td th:text="${machineryEdit.getResponsibleForMachinery().employee.lastName} + ' ' +
+                                             ${machineryEdit.getResponsibleForMachinery().employee.firstName} + ' ' +
+                                             ${machineryEdit.getResponsibleForMachinery().employee.surname}"
+                                    class="fw-light"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <h2>Коригувати техніку</h2>
                         <fieldset>
-                            <legend>Додати вид інструменту</legend>
-                                <input name="name" required>
+                            <label class="p-2 fs-5">Дата наступного ЧТО
+                                <input type="date" name="ChTO" required th:value="${machineryEdit.ChTO}"
+                                       th:placeholder="${machineryEdit.ChTO}">
+                                <div style="color: red" th:text="${wrongPeriodChTO}"></div>
+                            </label><br>
+                            <label class="p-2 fs-5">Дата наступного ПТО
+                                <input type="date" name="PTO" required th:value="${machineryEdit.PTO}"
+                                       th:placeholder="${machineryEdit.PTO}">
+                                <div style="color: red" th:text="${wrongPeriodPTO}"></div>
+                            </label><br>
+                            <label class="p-2 fs-5">Підрозділ якому належить техніка
+                                <select name="departmentId" required>
+                                    <option th:each="department: ${departmentList}"
+                                            th:label="${department.name}"
+                                            th:value="${department.id}"
+                                            th:selected="${departmentName.equals(department.getName())}"></option>
+                                </select>
+                            </label><br>
+                            <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
+                                <select name="responsibleId" required>
+                                    <option th:each="responsible: ${responsibleList}"
+                                            th:label="${responsible.employee.lastName} + ' ' + ${responsible.employee.firstName} + ' ' +${responsible.employee.surname}"
+                                            th:value="${responsible.id}"
+                                            th:selected="${responsibleId.equals(responsible.id)}">>
+                                    </option>
+                                </select>
+                            </label>
+                            <div style="color: red" th:text="${wrongName}"></div>
+                            <div style="color: red" th:text="${responsibleEmployee}"></div>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
                         <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
+                        <a class="btn btn-outline-warning btn-sm mt-3" type="button"
+                           th:href="@{'/machinery'}">Повернутись до техніки</a>
+                        <a class="btn btn-outline-danger btn-sm mt-3" type="button"
+                           th:href="@{'/machinery/delete/' + ${machineryEdit.id}}">Видалити техніку</a>
                     </form>
-                </div>
-            </div>
-            <div class="row m-4">
-                <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
-                    <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
-                        <thead>
-                        <tr>
-                            <th class="align-middle text-center">Id інструменту</th>
-                            <th class="align-middle text-center">Вид інструменту</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="toolName: ${toolNameList}">
-                            <td th:text="${toolName.id}"></td>
-                            <td th:text="${toolName.name}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
@@ -171,7 +230,7 @@
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0" >
+    <div class="row col- m-0">
         <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
             <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
             <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>

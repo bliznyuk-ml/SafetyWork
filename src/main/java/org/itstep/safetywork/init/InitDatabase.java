@@ -29,6 +29,9 @@ public class InitDatabase implements CommandLineRunner {
     private final EducationRepository educationRepository;
     private final ToolNameRepository toolNameRepository;
     private final ManufacturerRepository manufacturerRepository;
+    private final MachineryRepository machineryRepository;
+    private final ResponsibleForMachineryRepository responsibleForMachineryRepository;
+    private final TypeOfMachineryRepository typeOfMachineryRepository;
     @Override
     public void run(String... args) throws Exception {
         toolNameRepository.save(new ToolName("Кутова шлифовальна машина"));
@@ -95,6 +98,8 @@ public class InitDatabase implements CommandLineRunner {
         npaopRepository.save(gasHazardous);
         Npaop crane = new Npaop("НПАОП 0.00-1.80-18", "Правила охорони праці під час експлуатації вантажопідіймальних кранів, підіймальних пристроїв і відповідного обладнання", "https://zakon.rada.gov.ua/laws/show/z0244-18#Text");
         npaopRepository.save(gasHazardous);
+        Npaop loader = new Npaop("НПАОП 0.00-1.83-18", "Правила охорони праці під час експлуатації навантажувачів", "https://zakon.rada.gov.ua/laws/show/z1082-18#Text");
+        npaopRepository.save(loader);
 
 
 
@@ -163,15 +168,49 @@ public class InitDatabase implements CommandLineRunner {
         instructionRepository.save(instruction);
 
         Education educationHeight = new Education("AX4573567", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3));
-        Optional<Npaop> npaopOptional = npaopRepository.findById("НПАОП 0.00-1.15-07");
-        npaopOptional.ifPresent(educationHeight::setNpaop);
+        Optional<Npaop> heightOptional = npaopRepository.findById("НПАОП 0.00-1.15-07");
+        heightOptional.ifPresent(educationHeight::setNpaop);
         educationHeight.setEmployee(employee);
         educationRepository.save(educationHeight);
 
-        Education educationOxygen = new Education("3567", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3), 3);
-        Optional<Npaop> npaopOptional2 = npaopRepository.findById("НПАОП 0.00-1.65-88");
-        npaopOptional2.ifPresent(educationOxygen::setNpaop);
+        Education educationOxygen = new Education("3567", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3));
+        Optional<Npaop> oxygenOptional = npaopRepository.findById("НПАОП 0.00-1.65-88");
+        oxygenOptional.ifPresent(educationOxygen::setNpaop);
         educationOxygen.setEmployee(employee);
         educationRepository.save(educationOxygen);
+
+        Education educationCrane = new Education("4758", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3) );
+        Optional<Npaop> craneOptional = npaopRepository.findById("НПАОП 0.00-1.80-18");
+        craneOptional.ifPresent(educationCrane::setNpaop);
+        educationCrane.setEmployee(employee);
+        educationRepository.save(educationCrane);
+
+        Education educationLoader = new Education("4758", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3) );
+        Optional<Npaop> loaderOptional = npaopRepository.findById("НПАОП 0.00-1.83-18");
+        loaderOptional.ifPresent(educationLoader::setNpaop);
+        educationLoader.setEmployee(employee);
+        educationRepository.save(educationLoader);
+
+        TypeOfMachinery truckCrane = new TypeOfMachinery("Автомобільний кран");
+        TypeOfMachinery carLift = new TypeOfMachinery("Автомобільний підйомник");
+        TypeOfMachinery carLoader = new TypeOfMachinery("Автонавантажувач");
+        TypeOfMachinery excavator = new TypeOfMachinery("Екскаватор");
+
+        typeOfMachineryRepository.save(truckCrane);
+        typeOfMachineryRepository.save(carLift);
+        typeOfMachineryRepository.save(carLoader);
+        typeOfMachineryRepository.save(excavator);
+
+        Optional<Npaop> craneOptional1 = npaopRepository.findById("НПАОП 0.00-1.80-18");
+        if(craneOptional1.isPresent()){
+            truckCrane.setNpaop(craneOptional1.get());
+            carLift.setNpaop(craneOptional1.get());
+        }
+        Optional<Npaop> loaderOptional1 = npaopRepository.findById("НПАОП 0.00-1.83-18");
+        if(loaderOptional1.isPresent()){
+            carLoader.setNpaop(loaderOptional1.get());
+            excavator.setNpaop(loaderOptional1.get());
+        }
+
     }
 }

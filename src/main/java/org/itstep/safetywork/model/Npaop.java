@@ -13,8 +13,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="npaop")
-@EqualsAndHashCode(exclude = {"highRiskWorkList", "educationList"})
-@ToString(exclude = {"highRiskWorkList", "educationList"})
+@EqualsAndHashCode(exclude = {"highRiskWorkList", "educationList", "typeOfMachineryList"})
+@ToString(exclude = {"highRiskWorkList", "educationList", "typeOfMachineryList"})
 @NoArgsConstructor
 public class Npaop {
     @Id
@@ -27,6 +27,8 @@ public class Npaop {
     private List<HighRiskWork> highRiskWorkList = new ArrayList<>();
     @OneToMany(mappedBy = "npaop")
     private List<Education> educationList = new ArrayList<>();
+    @OneToMany(mappedBy = "npaop")
+    private List<TypeOfMachinery> typeOfMachineryList = new ArrayList<>();
 
     public Npaop(String id, String name) {
         this.id = id;

@@ -19,10 +19,10 @@ public class EquipmentService {
     private final EmployeeRepository employeeRepository;
     private final EquipmentRepository equipmentRepository;
 
-    public Employee getEmployee(EquipmentCommand command, RedirectAttributes model) {
+    public Employee getEmployee(String employeeName, RedirectAttributes model) {
         List<Employee> employeeList = employeeRepository.findAll();
         Employee[] employeeArray = new Employee[1];
-        String[] name = command.employeeName().split("\\s+");
+        String[] name = employeeName.split("\\s+");
         String lastName;
         String firstName;
         String surname;
