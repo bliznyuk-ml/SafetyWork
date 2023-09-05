@@ -31,8 +31,8 @@ public class Instruction {
         this.introduction = introduction;
         this.reInstruction = reInstruction;
     }
-
-    public Instruction(LocalDate introduction) {
-        this.introduction = introduction;
-    }
+//
+//    public Instruction(LocalDate introduction) {
+//        this.introduction = introduction;
+//    }
 }

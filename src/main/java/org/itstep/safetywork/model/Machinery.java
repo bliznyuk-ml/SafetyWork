@@ -33,6 +33,8 @@ public class Machinery {
     private ResponsibleForMachinery responsibleForMachinery;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Department department;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Work work;
 
     public Machinery(String registration, String stateNumber, LocalDate chTO, LocalDate PTO) {
         this.registration = registration;

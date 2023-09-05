@@ -67,6 +67,14 @@ public class InitDatabase implements CommandLineRunner {
         manufacturerRepository.save(new Manufacturer("Kress"));
         manufacturerRepository.save(new Manufacturer("No Name"));
 
+
+
+
+
+
+
+
+
         Profession master = new Profession("Майстер");
         professionRepository.save(master);
         professionRepository.save(new Profession("Електромонтер"));
@@ -103,7 +111,7 @@ public class InitDatabase implements CommandLineRunner {
 
 
 
-        HighRiskWork welding = new HighRiskWork(1, "Електрозварювальні, газополум'яні, наплавочні і паяльні роботи. Контроль за зварювальними з'єднаннями");
+        HighRiskWork welding = new HighRiskWork(1, "Електрозварювальні, газополум'яні, наплавочні і паяльні роботи");
         welding.setNpaop(fire);
         highRiskWorkRepository.save(welding);
         HighRiskWork electrical = new HighRiskWork(2, "Роботи в охоронних зонах ліній електропередач");
@@ -112,19 +120,19 @@ public class InitDatabase implements CommandLineRunner {
         HighRiskWork cable = new HighRiskWork(3, "Роботи на кабельних лініях і діючих електроустановках");
         cable.setNpaop(electricalInstalations);
         highRiskWorkRepository.save(cable);
-        HighRiskWork ignition = new HighRiskWork(10, "Роботи з надзвичайно займистими, легкозаймистими, займистими та вибухонебезпечними речовинами");
+        HighRiskWork ignition = new HighRiskWork(10, "Роботи з легкозаймистими, займистими та вибухонебезпечними речовинами");
         ignition.setNpaop(fire);
         highRiskWorkRepository.save(ignition);
-        HighRiskWork balloon = new HighRiskWork(12, "Транспортування балонів, контейнерів, ємностей із стисненими, зрідженими, отруйними, вибухонебезпечними та інертними газами, їх заповнення та ремонт");
+        HighRiskWork balloon = new HighRiskWork(12, "Транспортування балонів, із газами, їх заповнення та ремонт");
         balloon.setNpaop(oxygen);
         highRiskWorkRepository.save(balloon);
         HighRiskWork gas = new HighRiskWork(15, "Виконання газонебезпечних робіт");
         gas.setNpaop(gasHazardous);
         highRiskWorkRepository.save(gas);
-        HighRiskWork airProducts = new HighRiskWork(54, "Комплекс робіт щодо виробництва, переробки, розподілу, зберігання і застосування продуктів розділення повітря, водню, хлору, аміаку, природного та супровідних металургійному та хімічному виробництву газів");
+        HighRiskWork airProducts = new HighRiskWork(54, "Роботи із застосуванням продуктів розділення повітря, природного та іншіх газів");
         airProducts.setNpaop(oxygen);
         highRiskWorkRepository.save(airProducts);
-        HighRiskWork ground = new HighRiskWork(89, "Земляні роботи, що виконуються в зоні розташування підземних комунікацій, під водою та на глибині більше 2 метрів");
+        HighRiskWork ground = new HighRiskWork(89, "Земляні роботи, що виконуються в зоні розташування підземних комунікацій");
         ground.setNpaop(electricalInstalations);
         highRiskWorkRepository.save(ground);
         HighRiskWork heightWork = new HighRiskWork(94, "Роботи верхолазні та на висоті");
@@ -139,7 +147,7 @@ public class InitDatabase implements CommandLineRunner {
         HighRiskWork loading = new HighRiskWork(101, "Вантажно-розвантажувальні роботи за допомогою машин і механізмів");
         loading.setNpaop(crane);
         highRiskWorkRepository.save(loading);
-        HighRiskWork craneRepair = new HighRiskWork(104, "Монтаж, наладка, технічне обслуговування, експлуатація, ремонт і демонтаж вантажопідіймальних машин і механізмів, ліфтів, конвеєрів, підвісного канатного гідравлічного транспорту, технологічного і верстатного обладнання, електроустановок та ліній електропередач");
+        HighRiskWork craneRepair = new HighRiskWork(104, "Монтаж, ТО, ремонт вантажопідіймальних машин, ліфтів, конвеєрів, електроустановок та ліній електропередач");
         craneRepair.setNpaop(crane);
         highRiskWorkRepository.save(craneRepair);
 

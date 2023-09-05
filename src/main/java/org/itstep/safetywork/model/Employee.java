@@ -16,8 +16,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "employee")
-@EqualsAndHashCode(exclude = {"instruction", "educationList", "medicine", "equipmentList", "responsibleForEngineering"})
-@ToString(exclude = {"instruction", "educationList", "medicine", "equipmentList", "responsibleForEngineering"})
+@EqualsAndHashCode(exclude = {"instruction", "educationList", "medicine", "equipmentList", "responsibleForMachinery"})
+@ToString(exclude = {"instruction", "educationList", "medicine", "equipmentList", "responsibleForMachinery"})
 @NoArgsConstructor
 public class Employee {
     @Id
@@ -41,6 +41,8 @@ public class Employee {
     private Grade grade;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Work work;
     @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
  //   @PrimaryKeyJoinColumn
  //   @JoinColumn(name = "medicine_id", referencedColumnName = "id")

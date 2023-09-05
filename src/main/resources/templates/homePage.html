@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" th:href="@{/img/icon_64.png}" type="image/x-icon">
+    <title>Safety Work</title>
+</head>
+<body data-bs-theme="dark">
+<header>
+    <div class="row col- m-0">
+        <img th:src="@{/img/liderlogo.png}" alt="logo" class="p-0">
+    </div>
+</header>
+<main>
+    <div class="row col- m-0">
+        <div class="col-lg-3 col-sm-6 col-xs-9  mh-100 ">
+            <menu class="me-5">
+                <div>
+                    <a th:href="@{/}" type="button" class="btn btn-warning col-12">Головна</a>
+                </div>
+                <div class="accordion accordion-flush mb-3" id="accordionFlushExample">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                <img th:src="@{/img/employee_64.png}" alt="employee" class="me-3"> Персонал
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/leaders}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/leader_bw_32.png}" alt="leader">Керівники</a></div>
+                            <div class="accordion-body"><a th:href="@{/workers}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
+                            <div class="accordion-body"><a th:href="@{/addemployee}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <img th:src="@{/img/equipment_64.png}" alt="equipment" class="me-3"> Обладнання
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/machinery}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/technique_bw_32.png}" alt="machinery"> Техніка</a></div>
+                            <div class="accordion-body"><a th:href="@{/equipment}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
+                            <div class="accordion-body"><a th:href="@{/tools}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFourth" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <img th:src="@{/img/work_64.png}" alt="work" class="me-3"> Роботи
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFourth" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/work}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
+                            <div class="accordion-body"><a th:href="@{/workpermit}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
+                            <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної
+                                небезпеки</a></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFifth" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <img th:src="@{/img/icon_64.png}" alt="safety" class="me-3"> Охорона праці
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFifth" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/instruction}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
+                            <div class="accordion-body"><a th:href="@{/education}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
+                            <div class="accordion-body"><a th:href="@{/medicine}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
+                            <div class="accordion-body"><a th:href="@{/violation}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/register}" type="button" class="btn btn-warning col-12 mb-5">Реєстрація
+                        користувачів</a>
+                </div>
+                <div>
+                    <div class="mt-5">
+                        <p>Вітаю: <span th:text="${#authentication.name}"></span></p>
+                    </div>
+                    <form method="post" th:action="@{/login}">
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-outline-success col-12 mb-3">Login</button>
+                    </form>
+                    <form method="post" th:action="@{/logout}">
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-outline-danger col-12 mb-3">Logout</button>
+                    </form>
+                </div>
+            </menu>
+        </div>
+        <div class="col-lg-9 col-sm-6 col-xs-12">
+            <div class="row m-4">
+                <div class="col-lg-5 col-sm-12 bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
+                    <h4 class="text-warning-emphasis text-center mb-3">Погода</h4>
+                    <main id="weather">
+                        <div id="date" class="float-start"></div>
+                        <div id="city" class="text-end fw-bolder"></div>
+                        <div id="temp" class="float-start fs-1 text-info-emphasis align-middle"></div>
+                        <div>
+                            <figure style="text-align: center; margin: 0;">
+                                <img src="" alt="icon" class="figure-img img-fluid rounded" id="pic">
+                            </figure>
+                        </div>
+                        <div id="stopWorkHeat"
+                             class="text-danger bg-warning bg-gradient rounded-3 text-center fw-bolder"></div>
+                        <div id="stopWorkRain"
+                             class="text-danger bg-warning bg-gradient rounded-3 text-center fw-bolder"></div>
+                        <div id="minMaxTemp">
+                            <div id="min" style="color: yellow"></div>
+                            <div id="max" style="color: darkorange"></div>
+                        </div>
+
+                        <div id="param">
+                            <div id="wind"></div>
+                            <div id="stopWorkWind"
+                                 class="text-danger bg-warning bg-gradient rounded-3 text-center fw-bolder"></div>
+                            <div id="press"></div>
+                            <div id="humidity"></div>
+                        </div>
+                        <div id="sun">
+                            <div id="sunrise"></div>
+                            <div id="sunset"></div>
+                        </div>
+
+                        <hr>
+                        <label for="chooseCity">Вибрати місто</label>
+                        <select id="chooseCity" name="chooseCity">
+                            <option value="Київ">Київ</option>
+                            <option value="Вінниця">Вінниця</option>
+                            <option value="Дніпро">Дніпро</option>
+                            <option value="Донецьк">Донецьк</option>
+                            <option value="Маріуполь" selected>Маріуполь</option>
+                            <option value="Житомир">Житомир</option>
+                            <option value="Запоріжжя">Запоріжжя</option>
+                            <option value="Івано-Франківськ">Івано-Франківськ</option>
+                            <option value="Кропівницький">Кропівницький</option>
+                            <option value="Луганськ">Луганськ</option>
+                            <option value="Луцьк">Луцьк</option>
+                            <option value="Львів">Львів</option>
+                            <option value="Миколаїв">Миколаїв</option>
+                            <option value="Одеса">Одеса</option>
+                            <option value="Полтава">Полтава</option>
+                            <option value="Рівне">Рівне</option>
+                            <option value="Суми">Суми</option>
+                            <option value="Тернопіль">Тернопіль</option>
+                            <option value="Ужгород">Ужгород</option>
+                            <option value="Харків">Харків</option>
+                            <option value="Херсон">Херсон</option>
+                            <option value="Хмельницький">Хмельницький</option>
+                            <option value="Черкаси">Черкаси</option>
+                            <option value="Чернігів">Чернігів</option>
+                            <option value="Чернівці">Чернівці</option>
+                            <option value="Сімферополь">Сімферополь</option>
+
+                        </select>
+                    </main>
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-4 bg-info-subtle float-start p-4 rounded-3">
+                    <h4 class="text-warning-emphasis text-center mb-3">Роботи</h4>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam deleniti laboriosam praesentium
+                    quisquam reiciendis tempora. Itaque nemo porro ut! Consequatur dolore dolorem eius eveniet facilis
+                    ipsa iste laudantium magnam maiores nam, nisi optio placeat quos rem repellendus temporibus totam
+                    voluptas voluptates. At blanditiis dolore fuga itaque laudantium nihil odit optio pariatur quas
+                    sint! Ab adipisci consectetur, consequatur consequuntur eveniet ex fuga fugiat nam nemo odit ratione
+                    repudiandae unde. Dolore, dolorum ex hic id iure minus qui repudiandae sapiente veritatis
+                    voluptatum? Accusamus aliquam consequatur deserunt dolorum eos esse facilis, fugit incidunt
+                    laboriosam libero nam odit placeat quibusdam quod soluta? Ea, voluptatum.
+                    Роботи
+                </div>
+            </div>
+            <div class="row m-4">
+                <div class="col-lg-5 col-sm-12 mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
+                    <h4 class="text-warning-emphasis text-center mb-3">Зауваження</h4>
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-4 bg-info-subtle float-start p-4 rounded-3">
+                    <h4 class="text-warning-emphasis text-center mb-3">Охорона праці</h4>
+                    <table class="table table-sm table-dark table-striped" id="tools" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th class="align-middle text-center">ПІБ або Назва</th>
+                            <th class="align-middle text-center">Період</th>
+                            <th class="align-middle text-center">Суть проблеми</th>
+                            <th class="align-middle text-center">Деталі</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="term: ${expiringTermsList}">
+                            <td th:text="${term.name}"></td>
+                            <td th:text="${term.period.getDays() + 'д'}" class="text-center"></td>
+                            <td th:text="${term.message}"
+                                class="text-center"></td>
+                            <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
+                                                                    th:href="@{${term.link}}">Деталі</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+<hr/>
+<footer>
+    <div class="row col- m-0">
+        <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
+            <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
+            <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
+        </div>
+        <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
+            <div class="text-center">
+                Низьковольтне і високовольтне обладнання<br>
+                Комплексні системи енергозабезпечення
+            </div>
+        </div>
+        <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
+            <div class="text-warning">Контакти</div>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
+            e-mail: office@lider.com.ua
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script>
+    new DataTable('#tools', {scrollX: true});
+</script>
+<script>
+    let date = document.getElementById('date');
+    let d = new Date();
+    let city = document.getElementById('city');
+    let temp = document.getElementById('temp');
+    let min = document.getElementById('min');
+    let max = document.getElementById('max');
+    let pic = document.getElementById('pic');
+    let wind = document.getElementById('wind');
+    let press = document.getElementById('press');
+    let humidity = document.getElementById('humidity');
+    let stopWork = document.getElementById("stopWorkWind");
+    let stopWorkRain = document.getElementById("stopWorkRain");
+    let stopWorkHeat = document.getElementById("stopWorkHeat");
+
+    let cities = [{name: "Київ", lat: 50.45000, lon: 30.52333},
+        {name: "Вінниця", lat: 49.23278, lon: 28.46806},
+        {name: 'Дніпро', lat: 48.45000, lon: 34.98333},
+        {name: 'Донецьк', lat: 48.00278, lon: 37.80528}, {name: 'Mariupol', lat: 47.09750, lon: 37.54361},
+        {name: 'Житомир', lat: 50.25667, lon: 28.66417},
+        {name: 'Запоріжжя', lat: 47.84361, lon: 35.13056},
+        {name: 'Івано-Франківськ', lat: 48.92278, lon: 24.71028},
+        {name: 'Кропівницький', lat: 48.50917, lon: 32.25889},
+        {name: 'Луганськ', lat: 48.57444, lon: 39.30778},
+        {name: 'Луцьк', lat: 50.74722, lon: 25.32528},
+        {name: 'Львів', lat: 49.83917, lon: 24.02972},
+        {name: 'Миколаїв', lat: 46.97583, lon: 31.99472},
+        {name: 'Одеса', lat: 46.46667, lon: 30.73333},
+        {name: 'Полтава', lat: 49.58944, lon: 34.55139},
+        {name: 'Рівне', lat: 50.62111, lon: 26.25194},
+        {name: 'Суми', lat: 50.90722, lon: 34.79861},
+        {name: 'Тернопіль', lat: 49.55306, lon: 25.59500},
+        {name: 'Ужгород', lat: 48.62111, lon: 22.28778},
+        {name: 'Харків', lat: 50.00444, lon: 36.23139},
+        {name: 'Херсон', lat: 46.63611, lon: 32.61694},
+        {name: 'Хмельницький', lat: 49.42194, lon: 26.98972},
+        {name: 'Черкаси', lat: 49.44444, lon: 32.05972},
+        {name: 'Чернігів', lat: 51.50000, lon: 31.30000},
+        {name: 'Чернівці', lat: 48.29222, lon: 25.93500},
+        {name: 'Сімферополь', lat: 44.94806, lon: 34.10417}];
+
+    date.innerHTML = d.toDateString();
+
+    let select = document.getElementById('chooseCity');
+    select.addEventListener('change', selectCity);
+
+
+    function selectCity() {
+        for (let i = 0; i < cities.length; i++) {
+            if (cities[i].name === select.value) {
+                ask(cities[i].lat, cities[i].lon, 2);
+            }
+        }
+    }
+
+    ask(47.09750, 37.54361);
+
+    function extracted(lat, lon, request) {
+        const weatherUrl = `http://api.openweathermap.org/data/2.5/weather?APPID=7b5cbb6bb21d0fc862c3b47a3b967ddf&lat=${lat}&lon=${lon}&units=metric`;
+        request.open("GET", weatherUrl);
+        request.addEventListener("readystatechange", () => {
+            console.log("readyState = " + request.readyState);
+            if (request.readyState === 4 && request.status === 200) {
+                const json = JSON.parse(request.response);
+                console.log(json);
+                city.innerHTML = select.value;
+                temp.innerHTML = json.main.temp.toFixed(0) + ' &#8451;';
+                if(json.main.temp.toFixed(0) >= 25){
+                    stopWorkHeat.innerHTML = "Увага! Температура повітря за прогнозом перевищує 30&#8451;. " +
+                        "Усіх працівників, що виконують роботи на відкритому повітрі забезпечити" +
+                        "питною водою та ввести додатковий режим відпочинку!"
+                } else {
+                    stopWorkHeat.innerHTML = ''
+                }
+                min.innerHTML = 'Мінімальна температура: ' + json.main.temp_min.toFixed(0) + ' &#8451;';
+                max.innerHTML = 'Максимальна температура: ' + json.main.temp_max.toFixed(0) + ' &#8451;';
+                pic.src = `https://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`;
+                if (json.wind.speed > 5) {
+                    stopWork.innerHTML = "Увага! Швидкість вітру за прогнозом перевищує 10 м/с! Забороняється виконання " +
+                        "робіт вантажопідйомними кранами та роботи на висоті! " +
+                        "Перед початком робіт перевір фактичну швидкість вітру анемометром."
+                } else {
+                    stopWork.innerHTML = ''
+                }
+                let rain = json.weather[0].icon.valueOf();
+                if(rain === '09d' || rain === '10d' || rain === '09n' || rain === '10n'){
+                    stopWorkRain.innerHTML = "Увага! За прогнозом очікується дощ. Під час дощу забороняється" +
+                        "ведення електрозварювальних робіт на відкритому повітрі. Необхідно зупинити роботи, або " +
+                        "забезпечити місце проведення робіт навісами від дощу."
+                } else {
+                    stopWorkRain.innerHTML = ''
+                }
+                wind.innerHTML = 'Швидкість вітру: ' + json.wind.speed + 'м/с';
+                press.innerHTML = 'Атмосферний тиск: ' + json.main.grnd_level + 'мм';
+                humidity.innerHTML = 'Вологість: ' + json.main.humidity + '%';
+
+            }
+        });
+    }
+
+    function ask(lat, lon) {
+        let request;
+        if (window.XMLHttpRequest) {
+            request = new XMLHttpRequest();
+        } else {
+            request = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        extracted(lat, lon, request);
+        request.send();
+    }
+
+</script>
+</body>
+</html>

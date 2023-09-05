@@ -32,6 +32,8 @@ public class Tool {
     private LocalDate nextTestDate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Work work;
     @Column
     private Period periodToNextToolChekup;
 

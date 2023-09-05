@@ -35,7 +35,7 @@ public class MachineryController {
         model.addAttribute("machineryModelList", machineryModelRepository.findAll());
         model.addAttribute("departmentList", departmentRepository.findAll());
         model.addAttribute("employeeList", employeeRepository.findAll());
-        model.addAttribute("machinerylList", machineryRepository.findAll());
+        model.addAttribute("machineryList", machineryRepository.findAll());
         model.addAttribute("responsibleList", responsibleForMachineryRepository.findAll());
         return "machinery";
     }

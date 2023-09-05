@@ -31,6 +31,8 @@ public class Equipment {
     private Department department;
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Employee employee;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Work work;
     @Column
     private Period periodOfNextTest;
 

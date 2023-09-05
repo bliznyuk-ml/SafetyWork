@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" th:href="@{/img/icon_64.png}" type="image/x-icon">
+    <title>Safety Work</title>
+</head>
+<body data-bs-theme="dark">
+<header>
+    <div class="row col- m-0">
+        <img th:src="@{/img/liderlogo.png}" alt="logo" class="p-0">
+    </div>
+</header>
+<main>
+    <div class="row col- m-0">
+        <div class="col-lg-3 col-sm-6 col-xs-9  mh-100 ">
+            <menu class="me-5">
+                <div>
+                    <a th:href="@{/}" type="button" class="btn btn-warning col-12">Головна</a>
+                </div>
+                <div class="accordion accordion-flush mb-3" id="accordionFlushExample">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                    aria-controls="flush-collapseTwo">
+                                <img th:src="@{/img/employee_64.png}" alt="employee" class="me-3"> Персонал
+                            </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/leaders}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/leader_bw_32.png}" alt="leader" >Керівники</a></div>
+                            <div class="accordion-body"><a th:href="@{/workers}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
+                            <div class="accordion-body"><a th:href="@{/addemployee}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <img th:src="@{/img/equipment_64.png}" alt="equipment" class="me-3"> Обладнання
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/machinery}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                            <div class="accordion-body"><a th:href="@{/equipment}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
+                            <div class="accordion-body"><a th:href="@{/tools}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFourth" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <img th:src="@{/img/work_64.png}" alt="work" class="me-3"> Роботи
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFourth" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/work}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
+                            <div class="accordion-body"><a th:href="@{/workpermit}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
+                            <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної небезпеки</a></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseFifth" aria-expanded="false"
+                                    aria-controls="flush-collapseThree">
+                                <img th:src="@{/img/icon_64.png}" alt="safety" class="me-3"> Охорона праці
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFifth" class="accordion-collapse collapse"
+                             data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body"><a th:href="@{/instruction}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
+                            <div class="accordion-body"><a th:href="@{/education}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
+                            <div class="accordion-body"><a th:href="@{/medicine}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
+                            <div class="accordion-body"><a th:href="@{/violation}" type="button"
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/register}" type="button" class="btn btn-warning col-12 mb-5">Реєстрація
+                        користувачів</a>
+                </div>
+                <div>
+                    <div class="mt-5">
+                        <p>Вітаю: <span th:text="${#authentication.name}"></span></p>
+                    </div>
+                    <form method="post" th:action="@{/login}">
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-outline-success col-12 mb-3">Login</button>
+                    </form>
+                    <form method="post" th:action="@{/logout}">
+                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <button type="submit" class="btn btn-outline-danger col-12 mb-3">Logout</button>
+                    </form>
+                </div>
+            </menu>
+        </div>
+        <div class="col-lg-9 col-sm-6 col-xs-12">
+            <div class="row m-4">
+                <h1 class="mt-3 text-warning-emphasis text-center">Роботи</h1>
+                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
+                    <h2 class="text-warning-emphasis text-center">Створити наряд-допуск</h2>
+                    <form method="post">
+                        <fieldset>
+                            <label class="p-2 fs-5">Виконуєма робота
+                                <textarea class="form-control" name="name" style="height: 150px; width: 500px"></textarea>
+                            </label><br>
+                            <label class="p-2 fs-5">Дата початку виконання робіт
+                                <input type="date" name="dateStart" required>
+                                <div style="color: red" th:text="${wrongPeriodOfStartWork}"></div>
+                            </label>
+                            <label class="p-2 fs-5">Дата закінчення робіт
+                                <input type="date" name="dateEnd" required>
+                                <div style="color: red" th:text="${wrongPeriodOfEndWork}"></div>
+                            </label><br>
+                            <label class="p-2 fs-5">Які роботи підвищеної небезпеки будуть виконуватись<br>
+                                <select name="highRiskId" required>
+                                    <option th:each="risk: ${highRiskWorkList}"
+                                            th:label="${risk.name}"
+                                            th:value="${risk.id}"></option>
+                                </select>
+                            </label>
+                            <button type="button" class="btn btn-outline-warning btn-sm mb-2" onclick="addHIghRiskField()">+</button><br>
+                            <div id="highRiskField"></div>
+
+
+                            <label class="p-2 fs-5">Керівник робіт
+                                <select name="leader" required>
+                                    <option th:each="leader: ${leadersList}"
+                                            th:label="${leader.lastName} + ' ' + ${leader.firstName} + ' ' +${leader.surname}"
+                                            th:value="${leader.id}"></option>
+                                </select>
+                            </label><br>
+
+                            <label for="employeeName" class="p-2 fs-5">Робітники</label>
+                            <input list="employee" name="employeeName" id="employeeName" required>
+                            <datalist id="employee">
+                                <option th:each="employee: ${employeeList}"
+                                        th:label="${employee.lastName} + ' ' + ${employee.firstName} + ' ' + ${employee.surname}"
+                                        th:value="${employee.lastName} + ' ' + ${employee.firstName} + ' ' + ${employee.surname}">
+                                </option>
+                            </datalist>
+                            <button type="button" class="btn btn-outline-warning btn-sm mb-2" onclick="addEmployeeField()">+</button><br>
+                            <div id="employeeFields"></div>
+                            <div style="color: red" th:text="${wrongName}"></div>
+                            <div style="color: red" th:text="${responsibleEmployee}"></div>
+
+                            <label class="p-2 fs-5">Техніка, яка буде задіяна<br>
+                                <select name="machineryId">
+                                    <option th:each="machinery: ${machineryList}"
+                                            th:label="${machinery.typeOfMachinery.type} + ' ' + ${machinery.machineryModel.model} +  ' рег.№ ' + ${machinery.registration}"
+                                            th:value="${machinery.id}"></option>
+                                </select>
+                            </label>
+                            <button type="button" class="btn btn-outline-warning btn-sm mb-2" onclick="machineryField()">+</button><br>
+                            <div id="machineryField"></div>
+
+                            <label class="p-2 fs-5">Обладнання, що буде задіяно<br>
+                                <select name="equipmentId">
+                                    <option th:each="equipment: ${equipmentList}"
+                                            th:label="${equipment.equipmentName.name} + ' ' + ${equipment.model} + ' сер.№ ' + ${equipment.serialNumber}"
+                                            th:value="${equipment.id}"></option>
+                                </select>
+                            </label>
+                            <button type="button" class="btn btn-outline-warning btn-sm mb-2" onclick="equipmentField()">+</button><br>
+                            <div id="equipmentField"></div>
+
+                            <label class="p-2 fs-5">Інструмент, що буде використовуватись<br>
+                                <select name="toolId">
+                                    <option th:each="tool: ${toolList}"
+                                            th:label="${tool.toolName.name} + ' ' + ${tool.manufacturer.name} + ' модель ' + ${tool.model} + ' сер.№ ' + ${tool.serialNumber}"
+                                            th:value="${tool.id}"></option>
+                                </select>
+                            </label>
+                            <button type="button" class="btn btn-outline-warning btn-sm mb-2" onclick="toolField()">+</button><br>
+                            <div id="toolField"></div>
+
+
+                            <label class="p-2 fs-5">
+                                Номер наряд-допуску <input name="workPermitNuber" required>
+                            </label>
+                            <label class="p-2 fs-5">Дата видачі наряд-допуску
+                                <input type="date" name="dateWorkPermit" required>
+                                <div style="color: red" th:text="${wrongPeriodOfWorkPermit}"></div>
+                            </label><br>
+                        </fieldset>
+                        <input id="csrfToken" th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                        <input type="submit" class="btn btn-outline-warning btn-sm">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+<hr/>
+<footer>
+    <div class="row col- m-0" >
+        <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
+            <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
+            <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
+        </div>
+        <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
+            <div class="text-center">
+                Низьковольтне і високовольтне обладнання</br>
+                Комплексні системи енергозабезпечення
+            </div>
+        </div>
+        <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
+            <div class="text-warning">Контакти</div>
+            м.Запоріжжя</br>
+            вул. Новобудов, 3</br>
+            тел.: +38-050-362-52-56</br>
+            e-mail: office@lider.com.ua
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+<!--<script th:inline="javascript">-->
+<!--    let  machinery = [[${machineryList}]];-->
+<!--    console.log(machinery);-->
+<!--</script>-->
+<!--<script th:src="@{/machinery_list}">-->
+
+<!--</script>-->
+<script>
+
+    getMachinery();
+
+    function getMachinery(){
+        const machineryUrl = `/api/v1/machinery_list`;
+        let request = new XMLHttpRequest();
+        request.open("GET", machineryUrl);
+        request.addEventListener("readystatechange", () => {
+            console.log("readyState = " + request.readyState);
+            if (request.readyState === 4 && request.status === 200) {
+                const json = JSON.parse(request.response);
+                console.log(json);
+            }
+        });
+        request.send();
+    }
+
+    const csrfTokenInput = document.getElementById('csrfToken');
+    const csrfToken = csrfTokenInput.value;
+
+    fetch(`/api/v1/high_risk_work`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+        .then(data => data.json())
+        .then(json => console.log(json));
+
+
+
+
+    function addEmployeeField() {
+        const employeeFields = document.getElementById("employeeFields");
+        const input = document.createElement("input");
+        input.setAttribute("list", "employee");
+        input.name = "employeeName";
+        input.id = "employeeName";
+        input.required = true;
+        const datalist = document.createElement("datalist");
+        datalist.id = "employee";
+        const option = document.createElement("option");
+        option.setAttribute("th:each", "employee: ${employeeList}");
+        option.setAttribute("th:label", "${employee.lastName} + ' ' + ${employee.firstName} + ' ' + ${employee.surname}");
+        option.setAttribute("th:value", "${employee.lastName} + ' ' + ${employee.firstName} + ' ' + ${employee.surname}");
+        datalist.appendChild(option);
+        employeeFields.appendChild(input);
+        employeeFields.appendChild(datalist);
+    }
+
+    function addHIghRiskField(){
+        const highRiskField = document.getElementById("highRiskField");
+        const select = document.createElement("select");
+        select.name = "highRiskId";
+        select.required = true;
+        const option = document.createElement("option");
+        option.setAttribute("th:each", "risk: ${highRiskWorkList}");
+        option.setAttribute("th:label", "${risk.name}");
+        option.setAttribute("th:value", "${risk.id}");
+        select.appendChild(option);
+        highRiskField.appendChild(select);
+    }
+
+    function machineryField(){
+        const machineryField = document.getElementById("machineryField");
+        const select = document.createElement("select");
+        select.name = "machineryId";
+        select.required = false;
+        const option = document.createElement("option");
+        option.setAttribute("th:each", "risk: ${machineryList}");
+        option.setAttribute("th:label", "${machinery.typeOfMachinery.type} + ' рег.№ ' + ${machinery.registration}");
+        option.setAttribute("th:value", "${machinery.id}");
+        select.appendChild(option);
+        machineryField.appendChild(select);
+    }
+
+    function equipmentField(){
+        const equipmentField = document.getElementById("equipmentField");
+        const select = document.createElement("select");
+        select.name = "equipmentId";
+        select.required = false;
+        const option = document.createElement("option");
+        option.setAttribute("th:each", "equipment: ${equipmentList}");
+        option.setAttribute("th:label", "${equipment.equipmentName.name} + ' ' + ${equipment.model} + ' сер.№ ' + ${equipment.serialNumber}");
+        option.setAttribute("th:value", "${equipment.id}");
+        select.appendChild(option);
+        equipmentField.appendChild(select);
+    }
+
+    function toolField(){
+        const toolField = document.getElementById("toolField");
+        const select = document.createElement("select");
+        select.name = "toolId";
+        select.required = false;
+        const option = document.createElement("option");
+        option.setAttribute("th:each", "tool: ${toolList}");
+        option.setAttribute("th:label", "${tool.toolName.name} + ' ' + ${tool.manufacturer.name} + ' модель ' + ${tool.model} + ' сер.№ ' + ${tool.serialNumber}");
+        option.setAttribute("th:value", "${tool.id}");
+        select.appendChild(option);
+        toolField.appendChild(select);
+    }
+
+</script>
+</body>
+</html>

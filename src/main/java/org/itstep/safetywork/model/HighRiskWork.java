@@ -20,7 +20,8 @@ public class HighRiskWork {
     private String name;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Npaop npaop;
-
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Work work;
     public HighRiskWork(Integer id, String name) {
         this.id = id;
         this.name = name;
