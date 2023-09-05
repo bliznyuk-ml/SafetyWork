@@ -302,15 +302,8 @@
 
     function addHIghRiskField(){
         const highRiskField = document.getElementById("highRiskField");
-        const select = document.createElement("select");
-        select.name = "highRiskId";
-        select.required = true;
-        const option = document.createElement("option");
-        option.setAttribute("th:each", "risk: ${highRiskWorkList}");
-        option.setAttribute("th:label", "${risk.name}");
-        option.setAttribute("th:value", "${risk.id}");
-        select.appendChild(option);
-        highRiskField.appendChild(select);
+        const originalSelect = document.querySelector('[name="highRiskId"]');
+        highRiskField.append(originalSelect.cloneNode(true));
     }
 
     function machineryField(){
