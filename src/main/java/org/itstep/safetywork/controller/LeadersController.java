@@ -25,6 +25,7 @@ public class LeadersController {
     private final EmployeeDaoImpl employeeDao;
     @GetMapping("/leaders")
     public String showLeaders(Model model){
+        model.addAttribute("title", "Керівники");
         model.addAttribute("employeeList", employeeDao.findLeaders());
         model.addAttribute("professions", professionRepository.findAll());
         model.addAttribute("departments", departmentRepository.findAll());
@@ -34,6 +35,7 @@ public class LeadersController {
 
     @GetMapping("/workers")
     public String showWorkers(Model model){
+        model.addAttribute("title", "Робітники");
         model.addAttribute("employeeList", employeeDao.findWorkers());
         model.addAttribute("professions", professionRepository.findAll());
         model.addAttribute("departments", departmentRepository.findAll());

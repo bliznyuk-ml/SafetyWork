@@ -14,9 +14,9 @@ import java.util.List;
 @Entity
 @Table(name = "work")
 @EqualsAndHashCode(exclude = {"workPermit", "employeeList", "highRiskWorkList",
-"machineryList", "equipmentList", "toolList"})
+"machineryList", "equipmentList", "toolList", "violationList"})
 @ToString(exclude = {"workPermit", "employeeList", "highRiskWorkList",
-"machineryList", "equipmentList", "toolList"})
+"machineryList", "equipmentList", "toolList", "violationList"})
 @NoArgsConstructor
 public class Work {
     @Id
@@ -34,7 +34,7 @@ public class Work {
     private WorkPermit workPermit;
     @OneToMany(mappedBy = "work")
     private List<Employee> employeeList = new ArrayList<>();
-    @OneToMany(mappedBy = "work")
+    @ManyToMany(mappedBy = "workList")
     private List<HighRiskWork> highRiskWorkList = new ArrayList<>();
     @OneToMany(mappedBy = "work")
     private List<Machinery> machineryList = new ArrayList<>();
@@ -42,6 +42,8 @@ public class Work {
     private List<Equipment> equipmentList = new ArrayList<>();
     @OneToMany(mappedBy = "work")
     private List<Tool> toolList = new ArrayList<>();
+    @OneToMany(mappedBy = "work")
+    private List<Violation> violationList = new ArrayList<>();
 
     public Work(String name, LocalDate dateStart, LocalDate dateEnd) {
         this.name = name;

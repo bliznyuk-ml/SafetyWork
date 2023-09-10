@@ -30,8 +30,7 @@ public class JobController {
 
     @PostMapping("/job")
     public String savePhone(String job, String[]phone){
-        String addedJob = job;
-        Job job1 = new Job(addedJob);
+        Job job1 = new Job(job);
         jobRepository.save(job1);
 //        String[] phones;
 //        phones = Arrays.copyOf(phone, phone.length);

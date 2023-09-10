@@ -43,6 +43,11 @@ public class Machinery {
         this.PTO = PTO;
     }
 
+    public Machinery(String registration, String stateNumber) {
+        this.registration = registration;
+        this.stateNumber = stateNumber;
+    }
+
     public static Machinery fromCommand(MachineryCommand machineryCommand){
         return new Machinery(
                 machineryCommand.registration(),

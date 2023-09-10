@@ -42,6 +42,11 @@ public class Equipment {
         this.nextTestDate = nextTestDate;
     }
 
+    public Equipment(String model, String serialNumber) {
+        this.model = model;
+        this.serialNumber = serialNumber;
+    }
+
     public static Equipment equipmentFromCommand(EquipmentCommand equipmentCommand){
         return new Equipment(equipmentCommand.model(), equipmentCommand.serialNumber(), equipmentCommand.nextTestDate());
     }

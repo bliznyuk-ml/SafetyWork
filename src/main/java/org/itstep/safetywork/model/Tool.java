@@ -43,6 +43,11 @@ public class Tool {
         this.nextTestDate = nextTestDate;
     }
 
+    public Tool(String model, String serialNumber) {
+        this.model = model;
+        this.serialNumber = serialNumber;
+    }
+
     public static Tool toolFromCommand(ToolCommand toolCommand){
         return new Tool(toolCommand.model(), toolCommand.serialNumber(), toolCommand.nextTestDate());
     }

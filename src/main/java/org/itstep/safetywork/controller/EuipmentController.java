@@ -10,6 +10,7 @@ import org.itstep.safetywork.repository.DepartmentRepository;
 import org.itstep.safetywork.repository.EmployeeRepository;
 import org.itstep.safetywork.repository.EquipmentNameRepository;
 import org.itstep.safetywork.repository.EquipmentRepository;
+import org.itstep.safetywork.service.EmployeeService;
 import org.itstep.safetywork.service.EquipmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ public class EuipmentController {
     private final EquipmentRepository equipmentRepository;
     private final EquipmentNameRepository equipmentNameRepository;
     private final EquipmentService equipmentService;
+    private final EmployeeService employeeService;
 
     @GetMapping("/equipment")
     public String showEquipment(Model model) {
@@ -71,7 +73,7 @@ public class EuipmentController {
     public String createEquipment(EquipmentCommand command, RedirectAttributes model) {
         Equipment equipment = Equipment.equipmentFromCommand(command);
         Optional<Department> optionalDepartment = departmentRepository.findById(command.departmentId());
-        Employee employee = equipmentService.getEmployee(command.employeeName(), model);
+        Employee employee = employeeService.checkEmployee(command.employeeName(), model);
         Optional<EquipmentName> optionalEquipmentName = equipmentNameRepository.findByName(command.equipmentName());
         optionalDepartment.ifPresent(equipment::setDepartment);
         if (optionalEquipmentName.isPresent()) {
@@ -84,7 +86,7 @@ public class EuipmentController {
             equipment.setEmployee(employee);
             equipmentService.extracted(command, model, equipment);
         } else {
-            model.addFlashAttribute("wrongName", "Працівник з таким ПІБ не зареєстровано");
+            model.addFlashAttribute("wrongName", "Працівник з ПІБ " + command.employeeName() + " не зареєстровано");
         }
         return "redirect:/equipment";
     }
@@ -93,7 +95,7 @@ public class EuipmentController {
     public String editEquipment(@PathVariable @ModelAttribute Integer idEquipment, EquipmentCommand command, RedirectAttributes model) {
         Optional<Equipment> optionalEquipment = equipmentRepository.findById(idEquipment);
         Optional<Department> optionalDepartment = departmentRepository.findById(command.departmentId());
-        Employee employee = equipmentService.getEmployee(command.employeeName(), model);
+        Employee employee = employeeService.checkEmployee(command.employeeName(), model);
         if (optionalEquipment.isPresent()) {
             Equipment equipment = optionalEquipment.get();
             optionalDepartment.ifPresent(equipment::setDepartment);

@@ -59,7 +59,7 @@
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/machinery}" type="button"
                                                            class="btn btn-warning col-12"><img
-                                    th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                                    th:src="@{/img/technique_bw_32.png}" alt="machinery"> Техніка</a></div>
                             <div class="accordion-body"><a th:href="@{/equipment}" type="button"
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
@@ -139,97 +139,48 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
-                <h1 class="text-center p-3 text-warning-emphasis">Техніка</h1>
-                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <div>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td class="fw-bolder">Тип техніки:</td>
-                                <td th:text="${machineryEdit.getTypeOfMachinery().type}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Модель:</td>
-                                <td th:text="${machineryEdit.getMachineryModel().model}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Реєстраційний номер:</td>
-                                <td th:text="${machineryEdit.registration}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Державний номер:</td>
-                                <td th:text="${machineryEdit.stateNumber}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Дата наступного ЧТО:</td>
-                                <td th:text="${#temporals.format(machineryEdit.getChTO(), 'dd-MM-yyyy')}"
-                                    class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Дата наступного ПТО:</td>
-                                <td th:text="${#temporals.format(machineryEdit.getPTO(), 'dd-MM-yyyy')}"
-                                    class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Підрозділ:</td>
-                                <td th:text="${machineryEdit.getDepartment().name}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Відповідальна особа:</td>
-                                <td th:text="${machineryEdit.getResponsibleForMachinery().employee.lastName} + ' ' +
-                                             ${machineryEdit.getResponsibleForMachinery().employee.firstName} + ' ' +
-                                             ${machineryEdit.getResponsibleForMachinery().employee.surname}"
-                                    class="fw-light"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <h2>Коригувати техніку</h2>
-                        <fieldset>
-                            <label class="p-2 fs-5">Дата наступного ЧТО
-                                <input type="date" name="ChTO" required th:value="${machineryEdit.ChTO}"
-                                       th:placeholder="${machineryEdit.ChTO}">
-                                <div style="color: red" th:text="${wrongPeriodChTO}"></div>
-                            </label><br>
-                            <label class="p-2 fs-5">Дата наступного ПТО
-                                <input type="date" name="PTO" required th:value="${machineryEdit.PTO}"
-                                       th:placeholder="${machineryEdit.PTO}">
-                                <div style="color: red" th:text="${wrongPeriodPTO}"></div>
-                            </label><br>
-                            <label class="p-2 fs-5">Підрозділ якому належить техніка
-                                <select name="departmentId" required>
-                                    <option th:each="department: ${departmentList}"
-                                            th:label="${department.name}"
-                                            th:value="${department.id}"
-                                            th:selected="${departmentName.equals(department.getName())}"></option>
-                                </select>
-                            </label><br>
-                            <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
-                                <select name="responsibleId" required>
-                                    <option th:each="responsible: ${responsibleList}"
-                                            th:label="${responsible.employee.lastName} + ' ' + ${responsible.employee.firstName} + ' ' +${responsible.employee.surname}"
-                                            th:value="${responsible.id}"
-                                            th:selected="${responsibleId.equals(responsible.id)}">>
-                                    </option>
-                                </select>
-                            </label>
-                            <div style="color: red" th:text="${wrongName}"></div>
-                            <div style="color: red" th:text="${responsibleEmployee}"></div>
-                        </fieldset>
-                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
-                        <a class="btn btn-outline-warning btn-sm mt-3" type="button"
-                           th:href="@{'/machinery'}">Повернутись до техніки</a>
-                        <a class="btn btn-outline-danger btn-sm mt-3" type="button"
-                           th:href="@{'/machinery/delete/' + ${machineryEdit.id}}">Видалити техніку</a>
-                    </form>
+                <h1 class="text-center p-3 text-warning-emphasis" th:text="${title}"></h1>
+            </div>
+            <div class="row m-4">
+                <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
+                    <table class="table table-sm table-dark table-striped" id="tools" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th class="align-middle text-center">Дата<br> виявлення<br> порушення</th>
+                            <th class="align-middle text-center">Номер<br> наряд-допуска</th>
+                            <th class="align-middle text-center">Дата<br> видачи НД</th>
+                            <th class="align-middle text-center">Керівник робіт</th>
+                            <th class="align-middle text-center">Найменування роботи</th>
+                            <th class="align-middle text-center">ПІБ<br> виявившего<br> порушення</th>
+                            <th class="align-middle text-center">Суть<br> порушення</th>
+                            <th class="align-middle text-center">Деталі</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="violation: ${violationList}">
+                            <td th:text="${#temporals.format(violation.getDate(), 'dd-MM-yyyy')}" class="text-center"></td>
+                            <td th:text="${violation.work.workPermit.number}" class="text-center"></td>
+                            <td th:text="${#temporals.format(violation.work.workPermit.getDate(), 'dd-MM-yyyy')}" class="text-center"></td>
+                            <td class="text-center">
+                                <p th:each="leader: ${violation.work.employeeList}" class="mb-0">
+                                    <span th:if="${leader.grade.id == 1}" th:text="${leader.lastName + ' ' + leader.firstName + ' ' + leader.surname}"></span>
+                                </p>
+                            </td>
+                            <td th:text="${violation.work.name}" class="text-center"></td>
+                            <td th:text="${violation.employee.lastName + ' ' + violation.employee.firstName + ' ' + violation.employee.surname}" class="text-center"></td>
+                            <td th:text="${violation.violation}"></td>
+                            <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
+                                                                    th:href="@{'/work/edit/' + ${violation.work.id}}">&#128393;</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-outline-warning btn-sm" th:href="@{'/work/addViolation'}">Додати порушення</a>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 </main>
 <hr/>
 <footer>
@@ -259,7 +210,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>
-    new DataTable('#example', {scrollX: true});
+    new DataTable('#tools', {scrollX: true});
 </script>
 </body>
 </html>

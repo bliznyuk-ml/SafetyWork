@@ -8,10 +8,13 @@ import org.hibernate.validator.constraints.UniqueElements;
 import org.itstep.safetywork.command.HighRiskWorkCommand;
 import org.itstep.safetywork.command.ToolCommand;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "high_risk_work")
-@ToString(exclude = "npaop")
+@ToString(exclude = {"npaop", "workList"})
 @NoArgsConstructor
 public class HighRiskWork {
     @Id
@@ -20,8 +23,10 @@ public class HighRiskWork {
     private String name;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Npaop npaop;
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Work work;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "highRiskWork_work", joinColumns = @JoinColumn(name = "highRiskWork_id"),
+    inverseJoinColumns = @JoinColumn(name = "work_id"))
+    private List<Work> workList = new ArrayList<>();
     public HighRiskWork(Integer id, String name) {
         this.id = id;
         this.name = name;

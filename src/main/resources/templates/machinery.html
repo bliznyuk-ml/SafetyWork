@@ -88,6 +88,9 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної
                                 небезпеки</a></div>
+                            <div class="accordion-body"><a th:href="@{/work/completed}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/rest_bw_32.png}" alt="work"> Архів виконаних робіт</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -141,6 +144,13 @@
                     <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
                         <fieldset>
                             <legend>Додати нову техніку</legend>
+                            <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
+                                <select name="responsibleId" required>
+                                    <option th:each="responsible: ${responsibleList}"
+                                            th:label="${responsible.employee.lastName} + ' ' + ${responsible.employee.firstName} + ' ' +${responsible.employee.surname}"
+                                            th:value="${responsible.id}"></option>
+                                </select>
+                            </label>
                             <label class="p-2 fs-5">Тип техніки
                                 <select name="typeOfMachineryId" required>
                                     <option th:each="typeOfMachinery: ${typeOfMachineryList}"
@@ -179,13 +189,6 @@
                             </label>
                             <span sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span><br>
-                            <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
-                                <select name="responsibleId" required>
-                                    <option th:each="responsible: ${responsibleList}"
-                                            th:label="${responsible.employee.lastName} + ' ' + ${responsible.employee.firstName} + ' ' +${responsible.employee.surname}"
-                                            th:value="${responsible.id}"></option>
-                                </select>
-                            </label>
                             <span sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/responsible'}">+</a></span><br>
                             <div style="color: red" th:text="${wrongName}"></div>

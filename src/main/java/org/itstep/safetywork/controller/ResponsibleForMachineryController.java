@@ -1,13 +1,12 @@
 package org.itstep.safetywork.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.itstep.safetywork.command.MachineryCommand;
 import org.itstep.safetywork.model.Employee;
-import org.itstep.safetywork.model.Equipment;
 import org.itstep.safetywork.model.ResponsibleForMachinery;
 import org.itstep.safetywork.repository.EmployeeRepository;
 import org.itstep.safetywork.repository.ResponsibleForMachineryRepository;
+import org.itstep.safetywork.service.EmployeeService;
 import org.itstep.safetywork.service.EquipmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +27,7 @@ public class ResponsibleForMachineryController {
     private final ResponsibleForMachineryRepository responsibleForMachineryRepository;
     private final EmployeeRepository employeeRepository;
     private final EquipmentService equipmentService;
+    private final EmployeeService employeeService;
     private final static Integer GRADE_RESPONSIBLE = 1;
 
     @GetMapping
@@ -42,7 +42,7 @@ public class ResponsibleForMachineryController {
         Period periodOfOrder = Period.between(LocalDate.now(), command.dateOrder());
         if (periodOfOrder.isNegative() || periodOfOrder.isZero()) {
             ResponsibleForMachinery responsible = new ResponsibleForMachinery(command.orderNumber(), command.dateOrder());
-            Employee foundedEmployee = equipmentService.getEmployee(command.employeeName(), model);
+            Employee foundedEmployee = employeeService.checkEmployee(command.employeeName(), model);
             if (foundedEmployee != null) {
                 Optional<Employee> optionalEmployee = employeeRepository.findById(foundedEmployee.getId());
                 optionalEmployee.ifPresent(responsible::setEmployee);

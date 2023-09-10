@@ -113,8 +113,7 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -139,91 +138,110 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
-                <h1 class="text-center p-3 text-warning-emphasis">Техніка</h1>
+                <h1 class="text-center p-3 text-warning-emphasis">Роботи</h1>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
                     <div>
                         <table>
                             <tbody>
                             <tr>
-                                <td class="fw-bolder">Тип техніки:</td>
-                                <td th:text="${machineryEdit.getTypeOfMachinery().type}" class="fw-light"></td>
+                                <td class="fw-bolder">Номер наряд-допуска:</td>
+                                <td th:text="${work.workPermit.number}" class="fw-light"></td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Модель:</td>
-                                <td th:text="${machineryEdit.getMachineryModel().model}" class="fw-light"></td>
+                                <td class="fw-bolder">Дата видачі:</td>
+                                <td th:text="${#temporals.format(work.workPermit.getDate(), 'dd-MM-yyyy')}" class="fw-light"></td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Реєстраційний номер:</td>
-                                <td th:text="${machineryEdit.registration}" class="fw-light"></td>
+                                <td class="fw-bolder">Найменування роботи:</td>
+                                <td th:text="${work.name}" class="fw-light"></td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Державний номер:</td>
-                                <td th:text="${machineryEdit.stateNumber}" class="fw-light"></td>
+                                <td class="fw-bolder">Дата початку робіт:</td>
+                                <td th:text="${#temporals.format(work.getDateStart(), 'dd-MM-yyyy')}" class="fw-light"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="fw-bolder">Дата закінчення робіт:</td>
+                                <td th:text="${#temporals.format(work.getDateEnd(), 'dd-MM-yyyy')}" class="fw-light"></td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Дата наступного ЧТО:</td>
-                                <td th:text="${#temporals.format(machineryEdit.getChTO(), 'dd-MM-yyyy')}"
-                                    class="fw-light"></td>
+                                <td class="fw-bolder">Керівник робіт:</td>
+                                <td class="fw-light">
+                                    <p th:each="leader: ${work.employeeList}" class="mb-0">
+                                        <span th:if="${leader.grade.id == 1}" th:text="${leader.lastName + ' ' + leader.firstName + ' ' + leader.surname}"></span>
+                                    </p>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Дата наступного ПТО:</td>
-                                <td th:text="${#temporals.format(machineryEdit.getPTO(), 'dd-MM-yyyy')}"
-                                    class="fw-light"></td>
+                                <td class="fw-bolder">Склад бригади:</td>
+                                <td class="fw-light">
+                                    <ul th:each="employee: ${work.employeeList}" class="mb-0">
+                                        <li th:if="${employee.grade.id == 2}" th:text="${employee.lastName + ' ' + employee.firstName + ' ' + employee.surname + ' ' + employee.profession.name}"></li>
+                                    </ul>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Підрозділ:</td>
-                                <td th:text="${machineryEdit.getDepartment().name}" class="fw-light"></td>
+                                <td class="fw-bolder">Задіяна техніка:</td>
+                                <td class="fw-light">
+                                    <ul th:each="machinery: ${work.machineryList}" class="mb-0">
+                                        <li th:text="${machinery.typeOfMachinery.type + ' ' + machinery.machineryModel.model + ' рег.№ ' + machinery.registration + ' держ.№ ' + machinery.stateNumber}"></li>
+                                    </ul>
+                                </td>
                             </tr>
                             <tr>
-                                <td class="fw-bolder">Відповідальна особа:</td>
-                                <td th:text="${machineryEdit.getResponsibleForMachinery().employee.lastName} + ' ' +
-                                             ${machineryEdit.getResponsibleForMachinery().employee.firstName} + ' ' +
-                                             ${machineryEdit.getResponsibleForMachinery().employee.surname}"
-                                    class="fw-light"></td>
+                                <td class="fw-bolder">Обладнання, яке використовується:</td>
+                                <td class="fw-light">
+                                    <ul th:each="equipment: ${work.equipmentList}" class="mb-0">
+                                        <li th:text="${equipment.equipmentName.name + ' ' + equipment.model + ' сер.№ ' + equipment.serialNumber}"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Інструмент, що використовується:</td>
+                                <td class="fw-light">
+                                    <ul th:each="tool: ${work.toolList}" class="mb-0">
+                                        <li th:text="${tool.toolName.name + ' ' + tool.manufacturer.name + ' ' + tool.model + ' сер.№ ' + tool.serialNumber}"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bolder">Виявлені порушення:</td>
+                                <td class="fw-light">
+                                    <ul th:each="violation: ${work.violationList}" class="mb-0">
+                                        <li th:text="${'Дата виявлення порушення: ' + #temporals.format(violation.getDate(), 'dd-MM-yyyy') + ', хто виявив: ' + violation.employee.lastName + ', суть порушення: ' + violation.violation}"></li>
+                                    </ul>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-
+                </div>
+                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
                     <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <h2>Коригувати техніку</h2>
+                        <h2>Додати виявлене порушення</h2>
                         <fieldset>
-                            <label class="p-2 fs-5">Дата наступного ЧТО
-                                <input type="date" name="ChTO" required th:value="${machineryEdit.ChTO}"
-                                       th:placeholder="${machineryEdit.ChTO}">
-                                <div style="color: red" th:text="${wrongPeriodChTO}"></div>
-                            </label><br>
-                            <label class="p-2 fs-5">Дата наступного ПТО
-                                <input type="date" name="PTO" required th:value="${machineryEdit.PTO}"
-                                       th:placeholder="${machineryEdit.PTO}">
-                                <div style="color: red" th:text="${wrongPeriodPTO}"></div>
-                            </label><br>
-                            <label class="p-2 fs-5">Підрозділ якому належить техніка
-                                <select name="departmentId" required>
-                                    <option th:each="department: ${departmentList}"
-                                            th:label="${department.name}"
-                                            th:value="${department.id}"
-                                            th:selected="${departmentName.equals(department.getName())}"></option>
-                                </select>
-                            </label><br>
-                            <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
-                                <select name="responsibleId" required>
-                                    <option th:each="responsible: ${responsibleList}"
-                                            th:label="${responsible.employee.lastName} + ' ' + ${responsible.employee.firstName} + ' ' +${responsible.employee.surname}"
-                                            th:value="${responsible.id}"
-                                            th:selected="${responsibleId.equals(responsible.id)}">>
-                                    </option>
-                                </select>
-                            </label>
+                            <label for="employeeName" class="p-2 fs-5">Хто виявив порушення</label>
+                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}" required>
+                            <datalist id="employee">
+                                <option th:each="employeeEdit: ${employeeList}"
+                                        th:label="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}"
+                                        th:value="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}">
+                                </option>
+                            </datalist>
                             <div style="color: red" th:text="${wrongName}"></div>
+                            <br>
+                            <label class="p-2 fs-5">Суть порушення
+                                <textarea class="form-control" name="violation" style="height: 150px; width: 500px"
+                                          required></textarea>
+                            </label><br>
                             <div style="color: red" th:text="${responsibleEmployee}"></div>
                         </fieldset>
                         <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
                         <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
                         <a class="btn btn-outline-warning btn-sm mt-3" type="button"
-                           th:href="@{'/machinery'}">Повернутись до техніки</a>
+                           th:href="@{'/work'}">Повернутись до робіт</a>
                         <a class="btn btn-outline-danger btn-sm mt-3" type="button"
-                           th:href="@{'/machinery/delete/' + ${machineryEdit.id}}">Видалити техніку</a>
+                           th:href="@{'/work/edit/complited/' + ${work.id}}">Відмітити виконання</a>
                     </form>
                 </div>
             </div>
@@ -233,7 +251,7 @@
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0">
+    <div class="row col- m-0" >
         <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
             <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
             <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>

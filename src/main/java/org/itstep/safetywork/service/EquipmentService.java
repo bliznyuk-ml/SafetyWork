@@ -19,35 +19,6 @@ public class EquipmentService {
     private final EmployeeRepository employeeRepository;
     private final EquipmentRepository equipmentRepository;
 
-    public Employee getEmployee(String employeeName, RedirectAttributes model) {
-        List<Employee> employeeList = employeeRepository.findAll();
-        Employee[] employeeArray = new Employee[1];
-        String[] name = employeeName.split("\\s+");
-        String lastName;
-        String firstName;
-        String surname;
-        if(name.length == 3) {
-            lastName = name[0];
-            firstName = name[1];
-            surname = name[2];
-        } else {
-            surname = "";
-            firstName = "";
-            lastName = "";
-            model.addFlashAttribute("wrongName", "Невірно введено ПІБ");
-        }
-        employeeList.forEach(e -> {
-            if(e.getLastName().equals(lastName) && e.getFirstName().equals(firstName) && e.getSurname().equals(surname)){
-                employeeArray[0] = e;
-            }
-        });
-        Employee employee = null;
-        if(employeeArray[0] != null){
-            employee = employeeArray[0];
-        }
-        return employee;
-    }
-
     public void extracted(EquipmentCommand command, RedirectAttributes model, Equipment equipment) {
         Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
         if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){

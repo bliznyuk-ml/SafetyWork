@@ -69,15 +69,10 @@ public class InitDatabase implements CommandLineRunner {
 
 
 
-
-
-
-
-
-
         Profession master = new Profession("Майстер");
         professionRepository.save(master);
-        professionRepository.save(new Profession("Електромонтер"));
+        Profession electric = new Profession("Електромонтер");
+        professionRepository.save(electric);
         professionRepository.save(new Profession("Газоелектрозварювальник"));
         professionRepository.save(new Profession("Стропальник"));
         professionRepository.save(new Profession("Машиніст автопідйомника"));
@@ -85,7 +80,8 @@ public class InitDatabase implements CommandLineRunner {
 
         Grade itr = new Grade("ІТР");
         gradeRepository.save(itr);
-        gradeRepository.save(new Grade("Робочі"));
+        Grade worker = new Grade("Робочі");
+        gradeRepository.save(worker);
 
         Department remdpt = new Department("Ремонтне управління");
         departmentRepository.save(remdpt);
@@ -198,6 +194,41 @@ public class InitDatabase implements CommandLineRunner {
         loaderOptional.ifPresent(educationLoader::setNpaop);
         educationLoader.setEmployee(employee);
         educationRepository.save(educationLoader);
+
+
+        EmployeeCommand employeeCommand2 = new EmployeeCommand("Ломикін", "Валерій", "Олексійович",
+                LocalDate.of(1971, 9, 19), 2, 1,
+                LocalDate.of(2022, 6, 15),
+                LocalDate.of(2024, 6, 15), "",
+                LocalDate.of(2017, 9,4),
+                LocalDate.of(2022, 9,1));
+
+        Employee employee2 = Employee.fromCommand(employeeCommand2);
+
+
+        employee2.setProfession(electric);
+        employee2.setGrade(worker);
+        employee2.setDepartment(remdpt);
+        employeeRepository.save(employee2);
+        Medicine medicine2 = new Medicine(employeeCommand2.dateOfPassage(), employeeCommand2.nextPassDate(), employeeCommand2.contraindications());
+        Instruction instruction2 = new Instruction(employeeCommand2.introduction(), employeeCommand2.reInstruction());
+        employee2.setMedicine(medicine2);
+        medicine2.setEmployee(employee2);
+        medicineRepository.save(medicine2);
+        employee2.setInstruction(instruction2);
+        instruction2.setEmployee(employee2);
+        instructionRepository.save(instruction2);
+
+        Education educationHeight2 = new Education("567", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3));
+        Optional<Npaop> heightOptional2 = npaopRepository.findById("НПАОП 0.00-1.15-07");
+        heightOptional2.ifPresent(educationHeight2::setNpaop);
+        educationHeight2.setEmployee(employee2);
+        educationRepository.save(educationHeight2);
+
+
+
+
+
 
         TypeOfMachinery truckCrane = new TypeOfMachinery("Автомобільний кран");
         TypeOfMachinery carLift = new TypeOfMachinery("Автомобільний підйомник");

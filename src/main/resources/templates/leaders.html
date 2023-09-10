@@ -78,6 +78,9 @@
                                                            class="btn btn-warning col-12"><img th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
                             <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
                                                            class="btn btn-warning col-12"><img th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної небезпеки</a></div>
+                            <div class="accordion-body"><a th:href="@{/work/completed}" type="button"
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/rest_bw_32.png}" alt="work"> Архів виконаних робіт</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -122,7 +125,7 @@
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
             <div class="row m-4">
-                <h1 class="text-center text-warning-emphasis">Керівники</h1>
+                <h1 class="text-center text-warning-emphasis" th:text="${title}"></h1>
                 <div class=" mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
                     <table class="table table-sm table-dark table-striped" id="example" style="width:100%">
                         <thead>
