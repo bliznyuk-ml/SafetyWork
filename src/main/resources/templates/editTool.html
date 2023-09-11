@@ -170,7 +170,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_FOREMAN')">
                         <fieldset>
                             <label class="p-2 fs-5">Коригувати дату наступної перевірки
                                 <input type="date" name="nextTestDate" required th:value="${tool.nextTestDate}" th:placeholder="${tool.nextTestDate}">
@@ -181,6 +181,8 @@
                         <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
                         <a class="btn btn-outline-warning btn-sm mt-3" type="button"
                            th:href="@{'/tools'}">Повернутись до інструментів</a>
+                        <a class="btn btn-outline-danger btn-sm mt-3" type="button"
+                           th:href="@{'/tools/delete/' + ${tool.id}}">Видалити</a>
                     </form>
                 </div>
             </div>

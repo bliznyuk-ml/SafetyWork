@@ -214,6 +214,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SAFETY')">
+                    <a class="btn btn-outline-warning btn-sm"
+                       th:href="@{'/employee/edit/' + ${employee.getId()}}">Редагувати дані працівника</a></span>
                 </div>
             </div>
         </div>

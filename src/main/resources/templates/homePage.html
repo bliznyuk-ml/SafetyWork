@@ -205,25 +205,56 @@
                     </main>
                 </div>
                 <div class="col-lg-6 col-sm-12 mb-4 bg-info-subtle float-start p-4 rounded-3">
-                    <h4 class="text-warning-emphasis text-center mb-3">Роботи</h4>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam deleniti laboriosam praesentium
-                    quisquam reiciendis tempora. Itaque nemo porro ut! Consequatur dolore dolorem eius eveniet facilis
-                    ipsa iste laudantium magnam maiores nam, nisi optio placeat quos rem repellendus temporibus totam
-                    voluptas voluptates. At blanditiis dolore fuga itaque laudantium nihil odit optio pariatur quas
-                    sint! Ab adipisci consectetur, consequatur consequuntur eveniet ex fuga fugiat nam nemo odit ratione
-                    repudiandae unde. Dolore, dolorum ex hic id iure minus qui repudiandae sapiente veritatis
-                    voluptatum? Accusamus aliquam consequatur deserunt dolorum eos esse facilis, fugit incidunt
-                    laboriosam libero nam odit placeat quibusdam quod soluta? Ea, voluptatum.
-                    Роботи
+                    <h4 class="text-warning-emphasis text-center mb-3">Поточні роботи</h4>
+                    <table class="table table-sm table-dark table-striped" id="works" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th class="align-middle text-center">Номер<br> наряд-допуска</th>
+                            <th class="align-middle text-center">Дата<br> видачи</th>
+                            <th class="align-middle text-center">Найменування роботи</th>
+                            <th class="align-middle text-center">Деталі</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="work: ${worksList}">
+                            <td th:text="${work.workPermit.number}" class="text-center"></td>
+                            <td th:text="${#temporals.format(work.workPermit.getDate(), 'dd-MM-yyyy')}" class="text-center"></td>
+                            <td th:text="${work.name}"></td>
+                            <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
+                                                                    th:href="@{'/work/edit/' + ${work.id}}">&#128393;</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col-lg-5 col-sm-12 mb-4 me-4 col-xs-9 bg-info-subtle float-start p-4 rounded-3">
-                    <h4 class="text-warning-emphasis text-center mb-3">Зауваження</h4>
+                    <h4 class="text-warning-emphasis text-center mb-3">Порушення</h4>
+                    <table class="table table-sm table-dark table-striped" id="violations" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th class="align-middle text-center">Дата<br> виявлення<br> порушення</th>
+                            <th class="align-middle text-center">Номер<br> НД</th>
+                            <th class="align-middle text-center">Суть<br> порушення</th>
+                            <th class="align-middle text-center">Деталі</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="violation: ${violationList}">
+                            <td th:text="${#temporals.format(violation.getDate(), 'dd-MM-yyyy')}" class="text-center"></td>
+                            <td th:text="${violation.work.workPermit.number}" class="text-center"></td>
+                            <td th:text="${violation.violation}"></td>
+                            <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
+                                                                    th:href="@{'/work/edit/' + ${violation.work.id}}">&#128393;</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-lg-6 col-sm-12 mb-4 bg-info-subtle float-start p-4 rounded-3">
                     <h4 class="text-warning-emphasis text-center mb-3">Охорона праці</h4>
-                    <table class="table table-sm table-dark table-striped" id="tools" style="width:100%">
+                    <table class="table table-sm table-dark table-striped" id="safety" style="width:100%">
                         <thead>
                         <tr>
                             <th class="align-middle text-center">ПІБ або Назва</th>
@@ -239,7 +270,7 @@
                             <td th:text="${term.message}"
                                 class="text-center"></td>
                             <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
-                                                                    th:href="@{${term.link}}">Деталі</a>
+                                                                    th:href="@{${term.link}}">&#128393;</a>
                             </td>
                         </tr>
                         </tbody>
@@ -278,7 +309,9 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 <script>
-    new DataTable('#tools', {scrollX: true});
+    new DataTable('#works', {scrollX: true});
+    new DataTable('#safety', {scrollX: true});
+    new DataTable('#violations', {scrollX: true});
 </script>
 <script>
     let date = document.getElementById('date');

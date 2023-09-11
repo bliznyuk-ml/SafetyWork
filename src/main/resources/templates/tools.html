@@ -140,7 +140,7 @@
             <div class="row m-4">
                 <h1 class="text-center p-3 text-warning-emphasis">Електричний інструмент</h1>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'FOREMAN')">
                         <fieldset>
                             <legend>Додати новий інструмент</legend>
 <!--                            <label class="p-2 fs-5">Вид інструменту-->
@@ -156,8 +156,7 @@
                                             th:value="${toolName.id}"></option>
                                 </select>
                             </label>
-                            <span sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/toolName'}">+</a></span><br>
+                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/toolName'}">+</a><br>
                             <label class="p-2 fs-5">Виробник
                                 <select name="manufacturerId" required>
                                     <option th:each="manufacturer: ${manufacturerList}" th:label="${manufacturer.name}"
@@ -201,7 +200,6 @@
                             <th class="align-middle text-center">Період до<br> наступної<br> перевірки</th>
                             <th class="align-middle text-center">Підрозділ</th>
                             <th class="align-middle text-center">Редагувати</th>
-                            <th class="align-middle text-center">Видалити</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -218,9 +216,6 @@
                             <td th:text="${tool.department.name}" class="text-center"></td>
                             <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
                                                                     th:href="@{'/tools/edit/' + ${tool.id}}">Редагувати</a>
-                            </td>
-                            <td class="align-middle text-center"><a class="btn btn-outline-danger btn-sm"
-                                                                    th:href="@{'/tools/delete/' + ${tool.id}}">Видалити</a>
                             </td>
                         </tr>
                         </tbody>

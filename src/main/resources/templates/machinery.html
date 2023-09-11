@@ -141,7 +141,7 @@
             <div class="row m-4">
                 <h1 class="text-center p-3 text-warning-emphasis">Техніка</h1>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'TECHNICAL')">
                         <fieldset>
                             <legend>Додати нову техніку</legend>
                             <label class="p-2 fs-5">Відповідальна особа за технічно справний стан
@@ -151,6 +151,7 @@
                                             th:value="${responsible.id}"></option>
                                 </select>
                             </label>
+                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/responsible'}">+</a><br>
                             <label class="p-2 fs-5">Тип техніки
                                 <select name="typeOfMachineryId" required>
                                     <option th:each="typeOfMachinery: ${typeOfMachineryList}"
@@ -158,9 +159,8 @@
                                             th:value="${typeOfMachinery.id}"></option>
                                 </select>
                             </label>
-                            <span sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-outline-warning btn-sm mb-2"
-                               th:href="@{'/addTypeOfMachinery'}">+</a></span><br>
+                               th:href="@{'/addTypeOfMachinery'}">+</a><br>
                             <label for="machineryModel" class="p-2 fs-5">Модель техніки</label>
                             <input type="text" list="model" name="machineryModel" id="machineryModel">
                             <datalist id="model" required>
@@ -189,8 +189,6 @@
                             </label>
                             <span sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span><br>
-                            <span sec:authorize="hasRole('ROLE_ADMIN')">
-                            <a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/responsible'}">+</a></span><br>
                             <div style="color: red" th:text="${wrongName}"></div>
                             <div style="color: red" th:text="${responsibleEmployee}"></div>
 

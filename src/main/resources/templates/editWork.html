@@ -217,7 +217,7 @@
                     </div>
                 </div>
                 <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form method="post">
                         <h2>Додати виявлене порушення</h2>
                         <fieldset>
                             <label for="employeeName" class="p-2 fs-5">Хто виявив порушення</label>
@@ -240,8 +240,9 @@
                         <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
                         <a class="btn btn-outline-warning btn-sm mt-3" type="button"
                            th:href="@{'/work'}">Повернутись до робіт</a>
+                        <span sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_FOREMAN')">
                         <a class="btn btn-outline-danger btn-sm mt-3" type="button"
-                           th:href="@{'/work/edit/complited/' + ${work.id}}">Відмітити виконання</a>
+                           th:href="@{'/work/edit/complited/' + ${work.id}}">Робота завершена</a></span>
                     </form>
                 </div>
             </div>

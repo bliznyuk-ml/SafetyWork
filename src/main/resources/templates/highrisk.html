@@ -126,7 +126,7 @@
       <div class="row m-4">
         <h1 class="text-center text-warning-emphasis">Роботи підвищеної небезпеки</h1>
         <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-          <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+          <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_SAFETY')">
             <fieldset>
               <legend>Додати вид робіт</legend>
               <label class="p-2 fs-5">

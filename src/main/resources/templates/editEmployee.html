@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -36,15 +37,11 @@
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/leaders}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/leader_bw_32.png}" alt="leader">Керівники</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/leader_bw_32.png}" alt="leader" >Керівники</a></div>
                             <div class="accordion-body"><a th:href="@{/workers}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
                             <div class="accordion-body"><a th:href="@{/addemployee}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a>
-                            </div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -58,14 +55,11 @@
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/machinery}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
                             <div class="accordion-body"><a th:href="@{/equipment}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
                             <div class="accordion-body"><a th:href="@{/tools}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -79,15 +73,11 @@
                         <div id="flush-collapseFourth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/work}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
                             <div class="accordion-body"><a th:href="@{/workpermit}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
                             <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної
-                                небезпеки</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної небезпеки</a></div>
                             <div class="accordion-body"><a th:href="@{/work/completed}" type="button"
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/rest_bw_32.png}" alt="work"> Архів виконаних робіт</a></div>
@@ -104,14 +94,11 @@
                         <div id="flush-collapseFifth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/instruction}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
                             <div class="accordion-body"><a th:href="@{/education}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
                             <div class="accordion-body"><a th:href="@{/medicine}" type="button"
-                                                           class="btn btn-warning col-12"><img
-                                    th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
+                                                           class="btn btn-warning col-12"><img th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
                                                            class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
@@ -137,77 +124,37 @@
             </menu>
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
-            <div class="row m-4">
-                <h1 class="text-center p-3 text-warning-emphasis">Обладнання</h1>
-                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <div>
-                        <table>
-                            <tbody>
-                            <tr>
-                                <td class="fw-bolder">Вид обладнання:</td>
-                                <td th:text="${equipment.getEquipmentName().name}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Модель:</td>
-                                <td th:text="${equipment.model}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Серійний номер:</td>
-                                <td th:text="${equipment.serialNumber}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Дата наступної перевірки:</td>
-                                <td th:text="${#temporals.format(equipment.getNextTestDate(), 'dd-MM-yyyy')}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Підрозділ:</td>
-                                <td th:text="${equipment.department.name}" class="fw-light"></td>
-                            </tr>
-                            <tr>
-                                <td class="fw-bolder">Відповідальна особа:</td>
-                                <td th:text="${equipment.getEmployee().lastName} + ' ' + ${equipment.getEmployee().firstName} + ' ' + ${equipment.getEmployee().surname}" class="fw-light"></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_TECHNICAL')">
-                        <h2>Коригувати обладнання</h2>
-                        <fieldset>
-                            <label class="p-2 fs-5">Дата наступної перевірки
-                                <input type="date" name="nextTestDate" required th:value="${equipment.nextTestDate}" th:placeholder="${equipment.nextTestDate}">
-                                <div style="color: red" th:text="${wrongPeriodOfNextTest}"></div>
-                            </label><br>
-                            <label class="p-2 fs-5">Підрозділ якому належить обладнання
-                                <select name="departmentId" required>
-                                    <option th:each="department: ${departmentList}"
-                                            th:label="${department.name}"
-                                            th:value="${department.id}"
-                                            th:selected="${departmentName.equals(department.getName())}"></option>
-                                </select>
-                            </label><br>
-                            <label for="employeeName" class="p-2 fs-5">Відповідальна особа</label>
-                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}" required>
-                            <datalist id="employee">
-                                <option th:each="employeeEdit: ${employeeList}"
-                                        th:label="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}"
-                                        th:value="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}">
-                                </option>
-                            </datalist>
-                            <div style="color: red" th:text="${wrongName}"></div>
-                            <div style="color: red" th:text="${responsibleEmployee}"></div>
-                        </fieldset>
-                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm mt-3">
-                        <a class="btn btn-outline-warning btn-sm mt-3" type="button"
-                           th:href="@{'/equipment'}">Повернутись до обладнання</a>
-                        <a class="btn btn-outline-danger btn-sm mt-3" type="button"
-                           th:href="@{'/equipment/delete/' + ${equipment.id}}">Видалити обладнання</a>
-                    </form>
-                </div>
+            <h1 class="text-center text-warning-emphasis p-3">Редагування даних співробітника</h1>
+            <div class="row m-4 bg-info-subtle p-4 rounded-3">
+                 <span class="mt-3 fs-2 text-warning-emphasis"
+                       th:text="${employee.lastName} +' '+ ${employee.firstName} +' '+ ${employee.surname}"></span>
+                <form method="post">
+                    <fieldset>
+                        <label class="p-2 fs-5">Підрозділ
+                            <select name="departmentId" required>
+                                <option th:each="department: ${departments}"
+                                        th:label="${department.name}"
+                                        th:value="${department.id}"
+                                        th:selected="${departmentName.equals(department.name)}"></option>
+                            </select>
+                        </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span>
+                        <div style="color: red" th:text="${wrongDepartment}"></div>
+                        <label class="p-2 fs-5">Посада
+                            <select name="professionId" required>
+                                <option th:each="profession: ${professions}"
+                                        th:label="${profession.name}"
+                                        th:value="${profession.id}"
+                                        th:selected="${professionName.equals(profession.name)}"></option>
+                            </select>
+                        </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/profession'}">+</a></span><br>
+                        <div style="color: red" th:text="${wrongProfession}"></div>
+                    </fieldset>
+                    <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                    <input type="submit" class="btn btn-outline-warning btn-sm">
+                </form>
             </div>
+
         </div>
-    </div>
     </div>
 </main>
 <hr/>

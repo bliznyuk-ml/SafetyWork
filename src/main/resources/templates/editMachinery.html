@@ -185,7 +185,7 @@
                         </table>
                     </div>
 
-                    <form method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_TECHNICAL')">
                         <h2>Коригувати техніку</h2>
                         <fieldset>
                             <label class="p-2 fs-5">Дата наступного ЧТО

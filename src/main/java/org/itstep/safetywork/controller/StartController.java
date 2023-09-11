@@ -24,6 +24,8 @@ public class StartController {
     private final InstructionRepository instructionRepository;
     private final MedicineRepository medicineRepository;
     private final EducationRepository educationRepository;
+    private final WorkRepository workRepository;
+    private final ViolationRepository violationRepository;
     @GetMapping("/")
     String showPeriods(Model model){
         List<ExpiringTerms> expiringTermsList = new ArrayList<>();
@@ -76,17 +78,22 @@ public class StartController {
                 ))
         );
 
+
         List<Instruction> instructionList = instructionRepository.findAll();
+        instructionList.forEach(i ->
+                i.setPeriodToInstruction(Period.between(LocalDate.now(), i.getReInstruction().plusMonths(3))));
+
         List<Instruction> collectInstruction = instructionList.stream().filter((i) ->
-                        ((Period.between(LocalDate.now(), i.getReInstruction())).getDays() < 10) &&
-                                ((Period.between(LocalDate.now(), i.getReInstruction())).getMonths() < 1) &&
-                                ((Period.between(LocalDate.now(), i.getReInstruction())).getYears() < 1))
+                ((i.getPeriodToInstruction().isNegative()) ||
+                        (((i.getPeriodToInstruction()).getDays() < 10) &&
+                                ((i.getPeriodToInstruction()).getMonths() < 1) &&
+                                ((i.getPeriodToInstruction()).getYears() < 1))))
                 .toList();
 
         collectInstruction.forEach(instruction ->
                 expiringTermsList.add(new ExpiringTerms(
                         (instruction.getEmployee().getLastName() + ' ' + instruction.getEmployee().getFirstName() + ' ' + instruction.getEmployee().getSurname()),
-                        (Period.between(LocalDate.now(), instruction.getReInstruction())),
+                        (instruction.getPeriodToInstruction()),
                         "Спливає термін повторного інструктажу",
                         "/instruction/edit/" + instruction.getId()
                 ))
@@ -125,6 +132,10 @@ public class StartController {
         );
 
         model.addAttribute("expiringTermsList", expiringTermsList);
+
+        model.addAttribute("worksList", workRepository.findAllByIsDone(false));
+
+        model.addAttribute("violationList", violationRepository.findAllViolationByWorkIsDone(false));
         return "homePage";
     }
 }
