@@ -17,16 +17,16 @@ public class NpaopController {
     private final NpaopRepository npaopRepository;
 
     @GetMapping
-    String showNpaop(Model model){
+    String showNpaop(Model model) {
         model.addAttribute("npaopList", npaopRepository.findAll());
         return "npaop";
     }
 
     @PostMapping
     @Transactional
-    public String create(String id, String name, String link){
+    public String create(String id, String name, String link) {
         Npaop npaop;
-        if(link == null) {
+        if (link == null) {
             npaop = new Npaop(id, name);
         } else {
             npaop = new Npaop(id, name, link);

@@ -158,16 +158,20 @@
                         </thead>
                         <tbody>
                         <tr th:each="violation: ${violationList}">
-                            <td th:text="${#temporals.format(violation.getDate(), 'dd-MM-yyyy')}" class="text-center"></td>
+                            <td th:text="${#temporals.format(violation.getDate(), 'dd-MM-yyyy')}"
+                                class="text-center"></td>
                             <td th:text="${violation.work.workPermit.number}" class="text-center"></td>
-                            <td th:text="${#temporals.format(violation.work.workPermit.getDate(), 'dd-MM-yyyy')}" class="text-center"></td>
+                            <td th:text="${#temporals.format(violation.work.workPermit.getDate(), 'dd-MM-yyyy')}"
+                                class="text-center"></td>
                             <td class="text-center">
                                 <p th:each="leader: ${violation.work.employeeList}" class="mb-0">
-                                    <span th:if="${leader.grade.id == 1}" th:text="${leader.lastName + ' ' + leader.firstName + ' ' + leader.surname}"></span>
+                                    <span th:if="${leader.grade.id == 1}"
+                                          th:text="${leader.lastName + ' ' + leader.firstName + ' ' + leader.surname}"></span>
                                 </p>
                             </td>
                             <td th:text="${violation.work.name}" class="text-center"></td>
-                            <td th:text="${violation.employee.lastName + ' ' + violation.employee.firstName + ' ' + violation.employee.surname}" class="text-center"></td>
+                            <td th:text="${violation.employee.lastName + ' ' + violation.employee.firstName + ' ' + violation.employee.surname}"
+                                class="text-center"></td>
                             <td th:text="${violation.violation}"></td>
                             <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
                                                                     th:href="@{'/work/edit/' + ${violation.work.id}}">&#128393;</a>
@@ -191,15 +195,15 @@
         </div>
         <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
             <div class="text-center">
-                Низьковольтне і високовольтне обладнання</br>
+                Низьковольтне і високовольтне обладнання<br>
                 Комплексні системи енергозабезпечення
             </div>
         </div>
         <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
             <div class="text-warning">Контакти</div>
-            м.Запоріжжя</br>
-            вул. Новобудов, 3</br>
-            тел.: +38-050-362-52-56</br>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
             e-mail: office@lider.com.ua
         </div>
     </div>

@@ -14,9 +14,9 @@ public class ViolationController {
     private final ViolationRepository violationRepository;
 
     @GetMapping
-    public String showViolations(Model model){
+    public String showViolations(Model model) {
         model.addAttribute("violationList", violationRepository.findAllViolationByWorkIsDone(false));
         model.addAttribute("title", "Порушення");
-        return  "violation";
+        return "violation";
     }
 }

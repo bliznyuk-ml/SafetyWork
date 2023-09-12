@@ -28,7 +28,6 @@ public class Medicine {
     private Period periodToMedicalChekup;
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
-    //  @JoinColumn(name = "id")
     private Employee employee;
 
     public Medicine(LocalDate dateOfPassage, LocalDate nextPassDate, String contraindications) {

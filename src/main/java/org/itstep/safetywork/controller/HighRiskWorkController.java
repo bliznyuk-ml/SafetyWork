@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.Optional;
 
 @Controller
@@ -19,15 +20,16 @@ import java.util.Optional;
 public class HighRiskWorkController {
     private final HighRiskWorkRepository highRiskWorkRepository;
     private final NpaopRepository npaopRepository;
+
     @GetMapping
-    String showHighRiskWorks(Model model){
+    String showHighRiskWorks(Model model) {
         model.addAttribute("highRiskList", highRiskWorkRepository.findAll());
         model.addAttribute("npaopList", npaopRepository.findAll());
         return "highrisk";
     }
 
     @PostMapping
-    String createHighRiskWork(HighRiskWorkCommand command){
+    String createHighRiskWork(HighRiskWorkCommand command) {
         Optional<Npaop> npaopOptional = npaopRepository.findById(command.npaop());
         HighRiskWork highRiskWork = HighRiskWork.fromCommand(command);
         npaopOptional.ifPresent(highRiskWork::setNpaop);

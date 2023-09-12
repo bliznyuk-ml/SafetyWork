@@ -47,7 +47,7 @@ public class Equipment {
         this.serialNumber = serialNumber;
     }
 
-    public static Equipment equipmentFromCommand(EquipmentCommand equipmentCommand){
+    public static Equipment equipmentFromCommand(EquipmentCommand equipmentCommand) {
         return new Equipment(equipmentCommand.model(), equipmentCommand.serialNumber(), equipmentCommand.nextTestDate());
     }
 }

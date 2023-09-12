@@ -20,5 +20,4 @@ public class EmployeeDaoImpl {
     public List<Employee> findWorkers(){
         return entityManager.createQuery("from Employee where grade.id = 2 order by lastName").getResultList();
     }
-
 }

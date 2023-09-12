@@ -17,7 +17,7 @@
     </div>
 </header>
 <main>
-    <div class="row col- m-0" >
+    <div class="row col- m-0">
         <div class="col-lg-3 col-sm-6 col-xs-9  mh-100 ">
             <menu class="me-5">
                 <div>
@@ -113,7 +113,8 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -143,13 +144,13 @@
                     <form method="post" sec:authorize="hasAnyRole('ROLE_ADMIN', 'FOREMAN')">
                         <fieldset>
                             <legend>Додати новий інструмент</legend>
-<!--                            <label class="p-2 fs-5">Вид інструменту-->
-<!--                                <input list="toolName" name="toolNameId">-->
-<!--                                <datalist id="toolName" required>-->
-<!--                                    <option th:each="toolName: ${toolNameList}" th:label="${toolName.name}"-->
-<!--                                            th:value="${toolName.id}"></option>-->
-<!--                                </datalist>-->
-<!--                            </label>-->
+                            <!--                            <label class="p-2 fs-5">Вид інструменту-->
+                            <!--                                <input list="toolName" name="toolNameId">-->
+                            <!--                                <datalist id="toolName" required>-->
+                            <!--                                    <option th:each="toolName: ${toolNameList}" th:label="${toolName.name}"-->
+                            <!--                                            th:value="${toolName.id}"></option>-->
+                            <!--                                </datalist>-->
+                            <!--                            </label>-->
                             <label class="p-2 fs-5">Вид інструменту
                                 <select name="toolNameId" required>
                                     <option th:each="toolName: ${toolNameList}" th:label="${toolName.name}"
@@ -228,24 +229,24 @@
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0" >
-    <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
-        <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
-        <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
-    </div>
-    <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
-        <div class="text-center">
-        Низьковольтне і високовольтне обладнання</br>
-        Комплексні системи енергозабезпечення
+    <div class="row col- m-0">
+        <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
+            <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
+            <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
         </div>
-    </div>
-    <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
-        <div class="text-warning">Контакти</div>
-        м.Запоріжжя</br>
-        вул. Новобудов, 3</br>
-        тел.: +38-050-362-52-56</br>
-        e-mail: office@lider.com.ua
-    </div>
+        <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
+            <div class="text-center">
+                Низьковольтне і високовольтне обладнання<br>
+                Комплексні системи енергозабезпечення
+            </div>
+        </div>
+        <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
+            <div class="text-warning">Контакти</div>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
+            e-mail: office@lider.com.ua
+        </div>
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

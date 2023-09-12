@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name="npaop")
+@Table(name = "npaop")
 @EqualsAndHashCode(exclude = {"highRiskWorkList", "educationList", "typeOfMachineryList"})
 @ToString(exclude = {"highRiskWorkList", "educationList", "typeOfMachineryList"})
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class Npaop {
     private String id;
     @Column(name = "name", length = 1000)
     private String name;
-    @Column(name="link", length = 1000)
+    @Column(name = "link", length = 1000)
     private String link;
     @OneToMany(mappedBy = "npaop")
     private List<HighRiskWork> highRiskWorkList = new ArrayList<>();

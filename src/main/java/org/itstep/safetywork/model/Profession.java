@@ -28,8 +28,4 @@ public class Profession {
     public Profession(String name) {
         this.name = name;
     }
-
-//    public static Profession fromCommand(ProfessionCommand command){
-//        return new Profession(command.name());
-//    }
 }

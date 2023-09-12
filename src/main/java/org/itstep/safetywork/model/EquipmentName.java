@@ -23,7 +23,7 @@ public class EquipmentName {
     private String name;
 
     @OneToMany(mappedBy = "equipmentName")
-    private List <Equipment> equipmentList = new ArrayList<>();
+    private List<Equipment> equipmentList = new ArrayList<>();
 
     public EquipmentName(String name) {
         this.name = name;

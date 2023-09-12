@@ -3,25 +3,24 @@ package org.itstep.safetywork.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name="education")
+@Table(name = "education")
 @NoArgsConstructor
 public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    @Column(name = "number_of_certificate")
+    //    @Column(name = "number_of_certificate")
     private String numberOfCertificate;
-//    @Column(name = "date_of_passage")
+    //    @Column(name = "date_of_passage")
     private LocalDate dateOfPassageEducation;
-//    @Column(name = "next_pass_date")
+    //    @Column(name = "next_pass_date")
     private LocalDate nextPassDateEducation;
-//    @Column(name = "group")
+    //    @Column(name = "group")
     private Integer groupOfEducation;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Npaop npaop;

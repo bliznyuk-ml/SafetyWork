@@ -2,21 +2,17 @@ package org.itstep.safetywork.service;
 
 import lombok.RequiredArgsConstructor;
 import org.itstep.safetywork.command.EquipmentCommand;
-import org.itstep.safetywork.model.Employee;
 import org.itstep.safetywork.model.Equipment;
-import org.itstep.safetywork.repository.EmployeeRepository;
 import org.itstep.safetywork.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class EquipmentService {
-    private final EmployeeRepository employeeRepository;
     private final EquipmentRepository equipmentRepository;
 
     public void extracted(EquipmentCommand command, RedirectAttributes model, Equipment equipment) {

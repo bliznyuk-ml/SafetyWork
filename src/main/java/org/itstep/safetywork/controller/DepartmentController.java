@@ -17,14 +17,14 @@ public class DepartmentController {
     private final DepartmentRepository departmentRepository;
 
     @GetMapping
-    public String showDepartment(Model model){
+    public String showDepartment(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
         return "departments";
     }
 
     @PostMapping
     @Transactional
-    public String create(String name){
+    public String create(String name) {
         Department department = new Department(name);
         departmentRepository.save(department);
         return "redirect:/addemployee";

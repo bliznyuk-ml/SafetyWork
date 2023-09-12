@@ -17,7 +17,6 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 public class InitDatabase implements CommandLineRunner {
-    private final ToolRepository toolRepository;
     private final ProfessionRepository professionRepository;
     private final EmployeeRepository employeeRepository;
     private final GradeRepository gradeRepository;
@@ -29,9 +28,8 @@ public class InitDatabase implements CommandLineRunner {
     private final EducationRepository educationRepository;
     private final ToolNameRepository toolNameRepository;
     private final ManufacturerRepository manufacturerRepository;
-    private final MachineryRepository machineryRepository;
-    private final ResponsibleForMachineryRepository responsibleForMachineryRepository;
     private final TypeOfMachineryRepository typeOfMachineryRepository;
+
     @Override
     public void run(String... args) throws Exception {
         toolNameRepository.save(new ToolName("Кутова шлифовальна машина"));
@@ -66,7 +64,6 @@ public class InitDatabase implements CommandLineRunner {
         manufacturerRepository.save(new Manufacturer("InterTool"));
         manufacturerRepository.save(new Manufacturer("Kress"));
         manufacturerRepository.save(new Manufacturer("No Name"));
-
 
 
         Profession master = new Profession("Майстер");
@@ -104,7 +101,6 @@ public class InitDatabase implements CommandLineRunner {
         npaopRepository.save(gasHazardous);
         Npaop loader = new Npaop("НПАОП 0.00-1.83-18", "Правила охорони праці під час експлуатації навантажувачів", "https://zakon.rada.gov.ua/laws/show/z1082-18#Text");
         npaopRepository.save(loader);
-
 
 
         HighRiskWork welding = new HighRiskWork(1, "Електрозварювальні, газополум'яні, наплавочні і паяльні роботи");
@@ -148,13 +144,12 @@ public class InitDatabase implements CommandLineRunner {
         highRiskWorkRepository.save(craneRepair);
 
 
-
         EmployeeCommand employeeCommand = new EmployeeCommand("Шилов", "Максим", "Викторович",
                 LocalDate.of(1980, 6, 12), 1, 2,
                 LocalDate.of(2022, 6, 15),
                 LocalDate.of(2024, 6, 15), "Заборона виконання робіт на висоті",
-                LocalDate.of(2017, 9,4),
-                LocalDate.of(2022, 9,1));
+                LocalDate.of(2017, 9, 4),
+                LocalDate.of(2022, 9, 1));
 
         Employee employee = Employee.fromCommand(employeeCommand);
 
@@ -183,13 +178,13 @@ public class InitDatabase implements CommandLineRunner {
         educationOxygen.setEmployee(employee);
         educationRepository.save(educationOxygen);
 
-        Education educationCrane = new Education("4758", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3) );
+        Education educationCrane = new Education("4758", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3));
         Optional<Npaop> craneOptional = npaopRepository.findById("НПАОП 0.00-1.80-18");
         craneOptional.ifPresent(educationCrane::setNpaop);
         educationCrane.setEmployee(employee);
         educationRepository.save(educationCrane);
 
-        Education educationLoader = new Education("4758", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3) );
+        Education educationLoader = new Education("4758", LocalDate.of(2023, 8, 3), LocalDate.of(2024, 8, 3));
         Optional<Npaop> loaderOptional = npaopRepository.findById("НПАОП 0.00-1.83-18");
         loaderOptional.ifPresent(educationLoader::setNpaop);
         educationLoader.setEmployee(employee);
@@ -200,8 +195,8 @@ public class InitDatabase implements CommandLineRunner {
                 LocalDate.of(1971, 9, 19), 2, 1,
                 LocalDate.of(2022, 6, 15),
                 LocalDate.of(2024, 6, 15), "",
-                LocalDate.of(2017, 9,4),
-                LocalDate.of(2022, 9,1));
+                LocalDate.of(2017, 9, 4),
+                LocalDate.of(2022, 9, 1));
 
         Employee employee2 = Employee.fromCommand(employeeCommand2);
 
@@ -226,10 +221,6 @@ public class InitDatabase implements CommandLineRunner {
         educationRepository.save(educationHeight2);
 
 
-
-
-
-
         TypeOfMachinery truckCrane = new TypeOfMachinery("Автомобільний кран");
         TypeOfMachinery carLift = new TypeOfMachinery("Автомобільний підйомник");
         TypeOfMachinery carLoader = new TypeOfMachinery("Автонавантажувач");
@@ -241,12 +232,12 @@ public class InitDatabase implements CommandLineRunner {
         typeOfMachineryRepository.save(excavator);
 
         Optional<Npaop> craneOptional1 = npaopRepository.findById("НПАОП 0.00-1.80-18");
-        if(craneOptional1.isPresent()){
+        if (craneOptional1.isPresent()) {
             truckCrane.setNpaop(craneOptional1.get());
             carLift.setNpaop(craneOptional1.get());
         }
         Optional<Npaop> loaderOptional1 = npaopRepository.findById("НПАОП 0.00-1.83-18");
-        if(loaderOptional1.isPresent()){
+        if (loaderOptional1.isPresent()) {
             carLoader.setNpaop(loaderOptional1.get());
             excavator.setNpaop(loaderOptional1.get());
         }

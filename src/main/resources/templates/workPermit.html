@@ -260,7 +260,6 @@
             </div>
         </div>
     </div>
-    </div>
 </main>
 <hr/>
 <footer>
@@ -271,15 +270,15 @@
         </div>
         <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
             <div class="text-center">
-                Низьковольтне і високовольтне обладнання</br>
+                Низьковольтне і високовольтне обладнання<br>
                 Комплексні системи енергозабезпечення
             </div>
         </div>
         <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
             <div class="text-warning">Контакти</div>
-            м.Запоріжжя</br>
-            вул. Новобудов, 3</br>
-            тел.: +38-050-362-52-56</br>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
             e-mail: office@lider.com.ua
         </div>
     </div>
@@ -288,41 +287,15 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
 <script th:src="@{js/buttons.js}"></script>
+<script th:src="@{js/checkDates.js}"></script>
 <script>
     const dateStart = document.getElementById("dateStart");
     const dateEnd = document.getElementById("dateEnd");
     const datePermit = document.getElementById("dateWorkPermit");
 
-
-    function checkPastDate(checkDate, message) {
-        return function () {
-            const currentDate = new Date();
-            const inputDate = new Date(checkDate.value);
-            currentDate.setHours(0, 0, 0, 0);
-            inputDate.setHours(0, 0, 0, 0);
-            if (inputDate.getTime() < currentDate.getTime()) {
-                alert(message);
-                checkDate.value = "";
-            }
-        };
-    }
-
-    function checkNowDate(checkDate, message) {
-        return function () {
-            const currentDate = new Date();
-            const inputDate = new Date(checkDate.value);
-            currentDate.setHours(0, 0, 0, 0);
-            inputDate.setHours(0, 0, 0, 0);
-            if (inputDate.getTime() !== currentDate.getTime()) {
-                alert(message);
-                checkDate.value = "";
-            }
-        };
-    }
-
-    dateStart.addEventListener("input", checkPastDate(dateStart, "Дата початку робіт не може бути минулою"));
-    dateEnd.addEventListener("input", checkPastDate(dateEnd, "Дата закінчення робіт не може бути минулою"));
-    datePermit.addEventListener("input", checkNowDate(datePermit, "Дата реєстрації наряд-допуску має бути сьогоднішньою"))
+    dateStart.addEventListener("input", checkDate(dateStart, "Дата початку робіт не може бути минулою", isInputDateBeforeCurrentDate));
+    dateEnd.addEventListener("input", checkDate(dateEnd, "Дата закінчення робіт не може бути минулою", isInputDateBeforeCurrentDate));
+    datePermit.addEventListener("input", checkDate(datePermit, "Дата реєстрації наряд-допуску має бути сьогоднішньою", isInputDateNotEqualToCurrentDate))
 </script>
 </body>
 </html>

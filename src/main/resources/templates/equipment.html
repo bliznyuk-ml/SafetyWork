@@ -145,11 +145,11 @@
                         <fieldset>
                             <legend>Додати нове обладнання</legend>
                             <label for="equipmentName" class="p-2 fs-5">Вид обладнання</label>
-                                <input type="text" list="equipment" name="equipmentName" id="equipmentName">
-                                <datalist id="equipment" required>
-                                    <option th:each="equipmentName: ${equipmentNameList}"
-                                            th:value="${equipmentName.getName()}"></option>
-                                </datalist>
+                            <input type="text" list="equipment" name="equipmentName" id="equipmentName">
+                            <datalist id="equipment" required>
+                                <option th:each="equipmentName: ${equipmentNameList}"
+                                        th:value="${equipmentName.getName()}"></option>
+                            </datalist>
                             <label class="p-2 fs-5">
                                 Модель обладнання <input name="model" required>
                             </label>
@@ -210,7 +210,8 @@
               equipment.periodOfNextTest.getMonths() + 'м ' +
               equipment.periodOfNextTest.getDays() + 'д'}" class="text-center"></td>
                             <td th:text="${equipment.department.name}" class="text-center"></td>
-                            <td th:text="${equipment.employee.lastName + '&#10 ' + equipment.employee.firstName + '&#10 ' + equipment.employee.surname}" class="text-center"></td>
+                            <td th:text="${equipment.employee.lastName + '&#10 ' + equipment.employee.firstName + '&#10 ' + equipment.employee.surname}"
+                                class="text-center"></td>
                             <td class="align-middle text-center"><a class="btn btn-outline-warning btn-sm"
                                                                     th:href="@{'/equipment/edit/' + ${equipment.id}}">&#128393;</a>
                             </td>
@@ -232,15 +233,15 @@
         </div>
         <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
             <div class="text-center">
-                Низьковольтне і високовольтне обладнання</br>
+                Низьковольтне і високовольтне обладнання<br>
                 Комплексні системи енергозабезпечення
             </div>
         </div>
         <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
             <div class="text-warning">Контакти</div>
-            м.Запоріжжя</br>
-            вул. Новобудов, 3</br>
-            тел.: +38-050-362-52-56</br>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
             e-mail: office@lider.com.ua
         </div>
     </div>

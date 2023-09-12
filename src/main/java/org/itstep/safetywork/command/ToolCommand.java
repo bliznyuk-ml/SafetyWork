@@ -10,4 +10,5 @@ public record ToolCommand(
         String serialNumber,
         LocalDate nextTestDate,
         Integer departmentId
-) {}
+) {
+}

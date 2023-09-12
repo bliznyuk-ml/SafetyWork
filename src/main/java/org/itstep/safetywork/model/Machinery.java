@@ -48,7 +48,7 @@ public class Machinery {
         this.stateNumber = stateNumber;
     }
 
-    public static Machinery fromCommand(MachineryCommand machineryCommand){
+    public static Machinery fromCommand(MachineryCommand machineryCommand) {
         return new Machinery(
                 machineryCommand.registration(),
                 machineryCommand.stateNumber(),

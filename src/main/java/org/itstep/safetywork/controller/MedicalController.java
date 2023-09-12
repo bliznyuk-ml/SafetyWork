@@ -32,9 +32,7 @@ public class MedicalController {
     @GetMapping("/medicine/edit/{employeeId}")
     public String showEditMedicine(@PathVariable Integer employeeId, Model model){
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
-        if(optionalEmployee.isPresent()){
-            model.addAttribute("employee", optionalEmployee.get());
-        }
+        optionalEmployee.ifPresent(employee -> model.addAttribute("employee", employee));
         return "editMedicine";
     }
 

@@ -22,7 +22,7 @@ public class InstructionController {
     private final InstructionRepository instructionRepository;
 
     @GetMapping("/instruction")
-    public String showInstructions(Model model){
+    public String showInstructions(Model model) {
         model.addAttribute("employeeList", employeeRepository.findAll());
         List<Instruction> instructionList = instructionRepository.findAll();
         instructionList.forEach(i ->
@@ -31,18 +31,16 @@ public class InstructionController {
     }
 
     @GetMapping("/instruction/edit/{employeeId}")
-    public String showEditInstruction(@PathVariable Integer employeeId, Model model){
+    public String showEditInstruction(@PathVariable Integer employeeId, Model model) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
-        if(optionalEmployee.isPresent()){
-            model.addAttribute("employee", optionalEmployee.get());
-        }
+        optionalEmployee.ifPresent(employee -> model.addAttribute("employee", employee));
         return "editInstruction";
     }
 
     @PostMapping("/instruction/edit/{employeeId}")
-    public String editInstruction(@PathVariable @ModelAttribute Integer employeeId, Instruction instruction, RedirectAttributes model){
+    public String editInstruction(@PathVariable @ModelAttribute Integer employeeId, Instruction instruction, RedirectAttributes model) {
         Period periodOfNextPassage = Period.between(LocalDate.now(), instruction.getReInstruction());
-        if(periodOfNextPassage.isNegative() || periodOfNextPassage.isZero()) {
+        if (periodOfNextPassage.isNegative() || periodOfNextPassage.isZero()) {
             Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
             if (optionalEmployee.isPresent()) {
                 Employee updatedEmployee = optionalEmployee.get();
@@ -51,7 +49,7 @@ public class InstructionController {
                 instructionRepository.save(updatedInstruction);
             }
         }
-        if(!periodOfNextPassage.isNegative() && !periodOfNextPassage.isZero()){
+        if (!periodOfNextPassage.isNegative() && !periodOfNextPassage.isZero()) {
             model.addFlashAttribute("wrongPeriodOfIntroduction", "дата проходження інструктажу не може бути пізніше за сьогоднішню");
         }
         return "redirect:/instruction/edit/" + employeeId;

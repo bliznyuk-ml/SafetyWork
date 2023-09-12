@@ -2,20 +2,17 @@ package org.itstep.safetywork.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.itstep.safetywork.command.ToolCommand;
-import org.itstep.safetywork.model.Department;
-import org.itstep.safetywork.model.Manufacturer;
 import org.itstep.safetywork.model.Tool;
-import org.itstep.safetywork.model.ToolName;
 import org.itstep.safetywork.repository.DepartmentRepository;
 import org.itstep.safetywork.repository.ManufacturerRepository;
 import org.itstep.safetywork.repository.ToolNameRepository;
 import org.itstep.safetywork.repository.ToolRepository;
+import org.itstep.safetywork.service.ToolService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -30,10 +27,10 @@ public class ToolController {
     private final ToolNameRepository toolNameRepository;
     private final DepartmentRepository departmentRepository;
     private final ManufacturerRepository manufacturerRepository;
-
+    private final ToolService toolService;
 
     @GetMapping("/tools")
-    String showTools(Model model){
+    String showTools(Model model) {
         List<Tool> toolList = toolRepository.findAll();
         toolList.forEach(tool -> tool.setPeriodToNextToolChekup(Period.between(LocalDate.now(), tool.getNextTestDate())));
         model.addAttribute("tools", toolList);
@@ -45,9 +42,9 @@ public class ToolController {
     }
 
     @GetMapping("/tools/edit/{idTool}")
-    public String editTool(@PathVariable Integer idTool, Model model){
+    public String editTool(@PathVariable Integer idTool, Model model) {
         Optional<Tool> optionalTool = toolRepository.findById(idTool);
-        if(optionalTool.isPresent()){
+        if (optionalTool.isPresent()) {
             Tool tool = optionalTool.get();
             model.addAttribute("tool", tool);
         }
@@ -55,50 +52,21 @@ public class ToolController {
     }
 
     @GetMapping("/tools/delete/{idTool}")
-    public String deleteTool(@PathVariable Integer idTool, Model model){
+    public String deleteTool(@PathVariable Integer idTool) {
         Optional<Tool> optionalTool = toolRepository.findById(idTool);
         optionalTool.ifPresent(tool -> toolRepository.deleteById(idTool));
         return "redirect:/tools";
     }
 
     @PostMapping("/tools/edit/{idTool}")
-    public String editTool(@PathVariable Integer idTool, ToolCommand command, RedirectAttributes model){
-        Optional<Tool> optionalTool = toolRepository.findById(idTool);
-        if(optionalTool.isPresent()){
-            Tool tool = optionalTool.get();
-            Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
-            if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
-                model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
-            }
-            else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
-                model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
-            } else {
-                tool.setNextTestDate(command.nextTestDate());
-                toolRepository.save(tool);
-            }
-        }
+    public String editTool(@PathVariable Integer idTool, ToolCommand command, RedirectAttributes model) {
+        toolService.editToolService(idTool, command, model);
         return "redirect:/tools/edit/" + idTool;
     }
 
     @PostMapping("/tools")
-    String createTool(ToolCommand command, RedirectAttributes model){
-        Tool tool = Tool.toolFromCommand(command);
-        Optional<Manufacturer> optionalManufacturer = manufacturerRepository.findById(command.manufacturerId());
-        Optional<ToolName> optionalToolName = toolNameRepository.findById(command.toolNameId());
-        Optional<Department> optionalDepartment = departmentRepository.findById(command.departmentId());
-        optionalManufacturer.ifPresent(tool::setManufacturer);
-        optionalToolName.ifPresent(tool::setToolName);
-        optionalDepartment.ifPresent(tool::setDepartment);
-        Period periodOfNextTest = Period.between(LocalDate.now(), command.nextTestDate());
-        if(periodOfNextTest.isNegative() || periodOfNextTest.isZero()){
-            model.addFlashAttribute("wrongPeriodOfNextTest", "Дата наступної перевірки не може бути раніше за сьогоднішню або термін перевірки виплив");
-        }
-        else if(periodOfNextTest.getMonths() >= 6 || periodOfNextTest.getYears() >=1){
-            model.addFlashAttribute("wrongPeriodOfNextTest", "Термін перевірки інструменту не може перевищувати 6 місяців");
-        } else {
-            toolRepository.save(tool);
-        }
+    String createTool(ToolCommand command, RedirectAttributes model) {
+        toolService.addToolServise(command, model);
         return "redirect:/tools";
     }
-
 }

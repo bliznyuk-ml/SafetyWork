@@ -32,7 +32,7 @@ public class Employee {
     @NotBlank
     @Column(name = "surname")
     private String surname;
- //   @NotBlank
+    //   @NotBlank
     @Column(name = "birthday")
     private LocalDate birthdate;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -43,15 +43,13 @@ public class Employee {
     private Department department;
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Work work;
-    @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
- //   @PrimaryKeyJoinColumn
- //   @JoinColumn(name = "medicine_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
     private Medicine medicine;
-    @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
     private Instruction instruction;
-    @OneToOne (mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.PERSIST, optional = false, fetch = FetchType.LAZY)
     private ResponsibleForMachinery responsibleForMachinery;
-    @OneToMany (mappedBy = "employee")
+    @OneToMany(mappedBy = "employee")
     private List<Education> educationList = new ArrayList<>();
     @OneToMany(mappedBy = "employee")
     private List<Equipment> equipmentList = new ArrayList<>();
@@ -64,22 +62,12 @@ public class Employee {
         this.surname = surname;
         this.birthdate = birthdate;
     }
-//
-//    public void addProfession(Profession profession){
-//        profession.getEmployeeList().add(this);
-//        this.profession = profession;
-//    }
-//
-//    public void addGrade(Grade grade){
-//        grade.getEmployeeList().add(this);
-//        this.grade = grade;
-//    }
 
-    public static Employee fromCommand(EmployeeCommand command){
+    public static Employee fromCommand(EmployeeCommand command) {
         return new Employee(command.firstName(), command.lastName(), command.surname(), command.birthdate());
     }
 
-    public static int calculateAge(LocalDate birthdate, LocalDate currentDate){
+    public static int calculateAge(LocalDate birthdate, LocalDate currentDate) {
         return Period.between(birthdate, currentDate).getYears();
     }
 }

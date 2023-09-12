@@ -10,7 +10,7 @@ import java.time.Period;
 
 @Data
 @Entity
-@Table(name="instruction")
+@Table(name = "instruction")
 @NoArgsConstructor
 public class Instruction {
     @Id
@@ -31,8 +31,4 @@ public class Instruction {
         this.introduction = introduction;
         this.reInstruction = reInstruction;
     }
-//
-//    public Instruction(LocalDate introduction) {
-//        this.introduction = introduction;
-//    }
 }

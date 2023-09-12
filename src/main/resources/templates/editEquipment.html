@@ -113,7 +113,8 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +158,8 @@
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Дата наступної перевірки:</td>
-                                <td th:text="${#temporals.format(equipment.getNextTestDate(), 'dd-MM-yyyy')}" class="fw-light"></td>
+                                <td th:text="${#temporals.format(equipment.getNextTestDate(), 'dd-MM-yyyy')}"
+                                    class="fw-light"></td>
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Підрозділ:</td>
@@ -165,7 +167,8 @@
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Відповідальна особа:</td>
-                                <td th:text="${equipment.getEmployee().lastName} + ' ' + ${equipment.getEmployee().firstName} + ' ' + ${equipment.getEmployee().surname}" class="fw-light"></td>
+                                <td th:text="${equipment.getEmployee().lastName} + ' ' + ${equipment.getEmployee().firstName} + ' ' + ${equipment.getEmployee().surname}"
+                                    class="fw-light"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -175,7 +178,8 @@
                         <h2>Коригувати обладнання</h2>
                         <fieldset>
                             <label class="p-2 fs-5">Дата наступної перевірки
-                                <input type="date" name="nextTestDate" required th:value="${equipment.nextTestDate}" th:placeholder="${equipment.nextTestDate}">
+                                <input type="date" name="nextTestDate" required th:value="${equipment.nextTestDate}"
+                                       th:placeholder="${equipment.nextTestDate}">
                                 <div style="color: red" th:text="${wrongPeriodOfNextTest}"></div>
                             </label><br>
                             <label class="p-2 fs-5">Підрозділ якому належить обладнання
@@ -187,7 +191,8 @@
                                 </select>
                             </label><br>
                             <label for="employeeName" class="p-2 fs-5">Відповідальна особа</label>
-                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}" required>
+                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}"
+                                   required>
                             <datalist id="employee">
                                 <option th:each="employeeEdit: ${employeeList}"
                                         th:label="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}"
@@ -208,26 +213,25 @@
             </div>
         </div>
     </div>
-    </div>
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0" >
+    <div class="row col- m-0">
         <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
             <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
             <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
         </div>
         <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
             <div class="text-center">
-                Низьковольтне і високовольтне обладнання</br>
+                Низьковольтне і високовольтне обладнання<br>
                 Комплексні системи енергозабезпечення
             </div>
         </div>
         <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
             <div class="text-warning">Контакти</div>
-            м.Запоріжжя</br>
-            вул. Новобудов, 3</br>
-            тел.: +38-050-362-52-56</br>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
             e-mail: office@lider.com.ua
         </div>
     </div>

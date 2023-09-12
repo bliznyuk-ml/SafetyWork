@@ -3,7 +3,6 @@ package org.itstep.safetywork.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -73,14 +72,14 @@ public class SecurityConfig {
                                 .requestMatchers("/work/edit/**").permitAll()
                                 .requestMatchers("/highrisk").permitAll()
                                 .requestMatchers("/instruction").permitAll()
-                                .requestMatchers("/instruction/edit/**").hasAnyRole("ADMIN", "SAFETY")
+                                .requestMatchers("/instruction/edit/**").permitAll()
                                 .requestMatchers("/education").permitAll()
                                 .requestMatchers("/addeducation/edit/**").hasAnyRole("ADMIN", "SAFETY")
                                 .requestMatchers("/npaop").hasAnyRole("ADMIN", "SAFETY")
                                 .requestMatchers("/violation").permitAll()
                                 .requestMatchers("/work/addViolation").permitAll()
                                 .requestMatchers("/medicine").permitAll()
-                                .requestMatchers("/medicine/edit/**").hasAnyRole("ADMIN", "SAFETY")
+                                .requestMatchers("/medicine/edit/**").permitAll()
                                 .requestMatchers("/register").hasRole("ADMIN")
                                 .requestMatchers("/department").hasRole("ADMIN")
                                 .requestMatchers("/css/**").permitAll()

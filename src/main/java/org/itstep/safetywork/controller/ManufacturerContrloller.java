@@ -16,13 +16,13 @@ public class ManufacturerContrloller {
     private final ManufacturerRepository manufacturerRepository;
 
     @GetMapping
-    String showManufacturer(Model model){
+    String showManufacturer(Model model) {
         model.addAttribute("manufacturerList", manufacturerRepository.findAll());
         return "manufacturer";
     }
 
     @PostMapping
-    String createManufacturer(String name){
+    String createManufacturer(String name) {
         Manufacturer manufacturer = new Manufacturer(name);
         manufacturerRepository.save(manufacturer);
         return "redirect:/manufacturer";

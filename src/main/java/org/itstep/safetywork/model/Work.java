@@ -14,9 +14,9 @@ import java.util.List;
 @Entity
 @Table(name = "work")
 @EqualsAndHashCode(exclude = {"workPermit", "employeeList", "highRiskWorkList",
-"machineryList", "equipmentList", "toolList", "violationList"})
+        "machineryList", "equipmentList", "toolList", "violationList"})
 @ToString(exclude = {"workPermit", "employeeList", "highRiskWorkList",
-"machineryList", "equipmentList", "toolList", "violationList"})
+        "machineryList", "equipmentList", "toolList", "violationList"})
 @NoArgsConstructor
 public class Work {
     @Id

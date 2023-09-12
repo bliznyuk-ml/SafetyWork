@@ -1,6 +1,5 @@
 package org.itstep.safetywork.controller;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.itstep.safetywork.dto.ExpiringTerms;
 import org.itstep.safetywork.model.*;
@@ -13,7 +12,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,15 +24,16 @@ public class StartController {
     private final EducationRepository educationRepository;
     private final WorkRepository workRepository;
     private final ViolationRepository violationRepository;
+
     @GetMapping("/")
-    String showPeriods(Model model){
+    String showPeriods(Model model) {
         List<ExpiringTerms> expiringTermsList = new ArrayList<>();
 
         List<Tool> toolList = toolRepository.findAll();
         List<Tool> collectTools = toolList.stream().filter((t) ->
-                ((Period.between(LocalDate.now(), t.getNextTestDate())).getDays() < 10) &&
-                        ((Period.between(LocalDate.now(), t.getNextTestDate())).getMonths() < 1) &&
-                        ((Period.between(LocalDate.now(), t.getNextTestDate())).getYears() < 1))
+                        ((Period.between(LocalDate.now(), t.getNextTestDate())).getDays() < 10) &&
+                                ((Period.between(LocalDate.now(), t.getNextTestDate())).getMonths() < 1) &&
+                                ((Period.between(LocalDate.now(), t.getNextTestDate())).getYears() < 1))
                 .toList();
 
         collectTools.forEach(tool ->
@@ -84,10 +83,10 @@ public class StartController {
                 i.setPeriodToInstruction(Period.between(LocalDate.now(), i.getReInstruction().plusMonths(3))));
 
         List<Instruction> collectInstruction = instructionList.stream().filter((i) ->
-                ((i.getPeriodToInstruction().isNegative()) ||
-                        (((i.getPeriodToInstruction()).getDays() < 10) &&
-                                ((i.getPeriodToInstruction()).getMonths() < 1) &&
-                                ((i.getPeriodToInstruction()).getYears() < 1))))
+                        ((i.getPeriodToInstruction().isNegative()) ||
+                                (((i.getPeriodToInstruction()).getDays() < 10) &&
+                                        ((i.getPeriodToInstruction()).getMonths() < 1) &&
+                                        ((i.getPeriodToInstruction()).getYears() < 1))))
                 .toList();
 
         collectInstruction.forEach(instruction ->
@@ -132,9 +131,7 @@ public class StartController {
         );
 
         model.addAttribute("expiringTermsList", expiringTermsList);
-
         model.addAttribute("worksList", workRepository.findAllByIsDone(false));
-
         model.addAttribute("violationList", violationRepository.findAllViolationByWorkIsDone(false));
         return "homePage";
     }

@@ -113,7 +113,8 @@
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -149,7 +150,8 @@
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Дата видачі:</td>
-                                <td th:text="${#temporals.format(work.workPermit.getDate(), 'dd-MM-yyyy')}" class="fw-light"></td>
+                                <td th:text="${#temporals.format(work.workPermit.getDate(), 'dd-MM-yyyy')}"
+                                    class="fw-light"></td>
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Найменування роботи:</td>
@@ -157,18 +159,21 @@
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Дата початку робіт:</td>
-                                <td th:text="${#temporals.format(work.getDateStart(), 'dd-MM-yyyy')}" class="fw-light"></td>
+                                <td th:text="${#temporals.format(work.getDateStart(), 'dd-MM-yyyy')}"
+                                    class="fw-light"></td>
                             </tr>
 
                             <tr>
                                 <td class="fw-bolder">Дата закінчення робіт:</td>
-                                <td th:text="${#temporals.format(work.getDateEnd(), 'dd-MM-yyyy')}" class="fw-light"></td>
+                                <td th:text="${#temporals.format(work.getDateEnd(), 'dd-MM-yyyy')}"
+                                    class="fw-light"></td>
                             </tr>
                             <tr>
                                 <td class="fw-bolder">Керівник робіт:</td>
                                 <td class="fw-light">
                                     <p th:each="leader: ${work.employeeList}" class="mb-0">
-                                        <span th:if="${leader.grade.id == 1}" th:text="${leader.lastName + ' ' + leader.firstName + ' ' + leader.surname}"></span>
+                                        <span th:if="${leader.grade.id == 1}"
+                                              th:text="${leader.lastName + ' ' + leader.firstName + ' ' + leader.surname}"></span>
                                     </p>
                                 </td>
                             </tr>
@@ -176,7 +181,8 @@
                                 <td class="fw-bolder">Склад бригади:</td>
                                 <td class="fw-light">
                                     <ul th:each="employee: ${work.employeeList}" class="mb-0">
-                                        <li th:if="${employee.grade.id == 2}" th:text="${employee.lastName + ' ' + employee.firstName + ' ' + employee.surname + ' ' + employee.profession.name}"></li>
+                                        <li th:if="${employee.grade.id == 2}"
+                                            th:text="${employee.lastName + ' ' + employee.firstName + ' ' + employee.surname + ' ' + employee.profession.name}"></li>
                                     </ul>
                                 </td>
                             </tr>
@@ -221,7 +227,8 @@
                         <h2>Додати виявлене порушення</h2>
                         <fieldset>
                             <label for="employeeName" class="p-2 fs-5">Хто виявив порушення</label>
-                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}" required>
+                            <input list="employee" name="employeeName" id="employeeName" th:placeholder="${employee}"
+                                   required>
                             <datalist id="employee">
                                 <option th:each="employeeEdit: ${employeeList}"
                                         th:label="${employeeEdit.lastName} + ' ' + ${employeeEdit.firstName} + ' ' + ${employeeEdit.surname}"
@@ -248,26 +255,25 @@
             </div>
         </div>
     </div>
-    </div>
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0" >
+    <div class="row col- m-0">
         <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
             <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
             <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
         </div>
         <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
             <div class="text-center">
-                Низьковольтне і високовольтне обладнання</br>
+                Низьковольтне і високовольтне обладнання<br>
                 Комплексні системи енергозабезпечення
             </div>
         </div>
         <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
             <div class="text-warning">Контакти</div>
-            м.Запоріжжя</br>
-            вул. Новобудов, 3</br>
-            тел.: +38-050-362-52-56</br>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
             e-mail: office@lider.com.ua
         </div>
     </div>

@@ -48,7 +48,7 @@ public class Tool {
         this.serialNumber = serialNumber;
     }
 
-    public static Tool toolFromCommand(ToolCommand toolCommand){
+    public static Tool toolFromCommand(ToolCommand toolCommand) {
         return new Tool(toolCommand.model(), toolCommand.serialNumber(), toolCommand.nextTestDate());
     }
 }

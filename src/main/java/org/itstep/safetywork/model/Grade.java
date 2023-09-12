@@ -28,8 +28,4 @@ public class Grade {
     public Grade(String name) {
         this.name = name;
     }
-
-//    public static Grade fromCommand(GradeCommand command){
-//        return new Grade(command.name());
-//    }
 }

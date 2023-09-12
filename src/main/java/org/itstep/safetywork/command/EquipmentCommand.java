@@ -10,4 +10,5 @@ public record EquipmentCommand(
         Integer departmentId,
         Integer employeeId,
         String employeeName
-) {}
+) {
+}

@@ -6,6 +6,7 @@ import org.itstep.safetywork.dao.EmployeeDaoImpl;
 import org.itstep.safetywork.model.*;
 import org.itstep.safetywork.repository.*;
 import org.itstep.safetywork.service.EmployeeService;
+import org.itstep.safetywork.service.WorkPermitService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.*;
 
 @Controller
@@ -30,6 +29,7 @@ public class WorkPermitController {
     private final WorkPermitRepository workPermitRepository;
     private final WorkRepository workRepository;
     private final EmployeeService employeeService;
+    private final WorkPermitService workPermitService;
 
 
     @GetMapping
@@ -69,10 +69,9 @@ public class WorkPermitController {
     public String addWorkPermit(WorkPermitCommand command, RedirectAttributes model) {
 
         WorkPermit workPermit = new WorkPermit(command.workPermitNumber(), command.dateWorkPermit());
-
         Work work = new Work(command.name(), command.dateStart(), command.dateEnd());
 
-         List<HighRiskWork> highRiskWorkList = new ArrayList<>();
+        List<HighRiskWork> highRiskWorkList = new ArrayList<>();
         for (Integer id : command.highRiskId()) {
             Optional<HighRiskWork> optionalHighRisk = highRiskWorkRepository.findById(id);
             if (optionalHighRisk.isPresent()) {
@@ -82,7 +81,6 @@ public class WorkPermitController {
                 highRiskWorkList.add(highRiskWork);
             }
         }
-    //    work.setHighRiskWorkList(highRiskWorkList);
 
         List<Employee> employeeList = new ArrayList<>();
         Optional<Employee> optionalLeader = employeeRepository.findById(command.leader());
@@ -90,10 +88,10 @@ public class WorkPermitController {
         if (optionalLeader.isPresent()) {
             leader = optionalLeader.get();
             if (leader.getWork() == null) {
-               if(checkEducation(highRiskWorkList, leader.getEducationList(), leader, model)) {
-                   leader.setWork(work);
-                   employeeList.add(leader);
-               }
+                if (workPermitService.checkEducation(highRiskWorkList, leader.getEducationList(), leader, model)) {
+                    leader.setWork(work);
+                    employeeList.add(leader);
+                }
             }
         }
 
@@ -101,7 +99,7 @@ public class WorkPermitController {
             Employee employee = employeeService.checkEmployee(employeeName, model);
             if (employee != null) {
                 if (employee.getWork() == null) {
-                    if (checkEducation(highRiskWorkList, employee.getEducationList(), employee, model)) {
+                    if (workPermitService.checkEducation(highRiskWorkList, employee.getEducationList(), employee, model)) {
                         employee.setWork(work);
                         employeeList.add(employee);
                     }
@@ -112,9 +110,9 @@ public class WorkPermitController {
 
         for (Integer id : command.machineryId()) {
             Optional<Machinery> optionalMachinery = machineryRepository.findById(id);
-            if(optionalLeader.isPresent()){
+            if (optionalMachinery.isPresent()) {
                 Machinery machinery = optionalMachinery.get();
-                if(machinery.getWork() == null){
+                if (machinery.getWork() == null) {
                     machinery.setWork(work);
                 }
             }
@@ -122,9 +120,9 @@ public class WorkPermitController {
 
         for (Integer id : command.equipmentId()) {
             Optional<Equipment> optionalEquipment = equipmentRepository.findById(id);
-            if(optionalEquipment.isPresent()){
+            if (optionalEquipment.isPresent()) {
                 Equipment equipment = optionalEquipment.get();
-                if(equipment.getWork() == null){
+                if (equipment.getWork() == null) {
                     equipment.setWork(work);
                 }
             }
@@ -132,9 +130,9 @@ public class WorkPermitController {
 
         for (Integer id : command.toolId()) {
             Optional<Tool> optionalTool = toolRepository.findById(id);
-            if(optionalTool.isPresent()){
+            if (optionalTool.isPresent()) {
                 Tool tool = optionalTool.get();
-                if(tool.getWork() == null){
+                if (tool.getWork() == null) {
                     tool.setWork(work);
                 }
             }
@@ -153,20 +151,5 @@ public class WorkPermitController {
         return "redirect:/workpermit";
     }
 
-    public boolean checkEducation (List<HighRiskWork> highRiskList, List<Education> educationList, Employee employee, RedirectAttributes model){
-        Set<String> educationNpaops = new HashSet<>();
-        for (Education education : educationList) {
-            educationNpaops.add(education.getNpaop().getId());
-        }
-        // Проверяем, что все поля из первого списка присутствуют во втором списке
-        for (HighRiskWork riskWork : highRiskList) {
-            if (!educationNpaops.contains(riskWork.getNpaop().getId())) {
-                model.addFlashAttribute("wrongEducation", "У працівника " +
-                        employee.getLastName() + ' ' + employee.getFirstName() + ' ' + employee.getSurname() +
-                        " відсутнє навчання за: " + riskWork.getNpaop().getId());
-                return false; // Если хоть одно поле отсутствует, возвращаем false
-            }
-        }
-        return true; // Если все поля из первого списка присутствуют, возвращаем true
-    }
+
 }

@@ -1,6 +1,4 @@
 package org.itstep.safetywork.controller;
-
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.itstep.safetywork.command.EmployeeCommand;
 import org.itstep.safetywork.model.*;
@@ -20,36 +18,35 @@ import java.util.Optional;
 public class DetailEmployeeController {
     private final EmployeeRepository employeeRepository;
     private final EducationRepository educationRepository;
-    private final HighRiskWorkRepository highRiskWorkRepository;
     private final ProfessionRepository professionRepository;
     private final DepartmentRepository departmentRepository;
     private final GradeRepository gradeRepository;
 
     @GetMapping("employee/showdetails/{id}")
-    public String showDetailsEmployee(@PathVariable Integer id, Model model){
+    public String showDetailsEmployee(@PathVariable Integer id, Model model) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
-        if(optionalEmployee.isPresent()){
+        if (optionalEmployee.isPresent()) {
             Employee employee = optionalEmployee.get();
             model.addAttribute("employee", employee);
         }
         List<Education> educationList = educationRepository.findAllByEmployeeId(id);
         model.addAttribute("educationList", educationList);
         List<HighRiskWork> highRiskWorkList = new ArrayList<>();
-        for(Education education : educationList){
+        for (Education education : educationList) {
 
             List<HighRiskWork> riskWorks = education.getNpaop().getHighRiskWorkList();
             highRiskWorkList.addAll(riskWorks);
         }
-        if(!highRiskWorkList.isEmpty()){
+        if (!highRiskWorkList.isEmpty()) {
             model.addAttribute("highRiskWorkList", highRiskWorkList);
         }
         return "employeeDetails";
     }
 
     @GetMapping("employee/edit/{id}")
-    public String showEditEmployee(@PathVariable Integer id, Model model){
+    public String showEditEmployee(@PathVariable Integer id, Model model) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
-        if(optionalEmployee.isPresent()){
+        if (optionalEmployee.isPresent()) {
             Employee employee = optionalEmployee.get();
             model.addAttribute("employee", employee);
             model.addAttribute("departmentName", employee.getDepartment().getName());

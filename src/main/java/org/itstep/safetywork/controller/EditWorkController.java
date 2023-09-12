@@ -1,7 +1,6 @@
 package org.itstep.safetywork.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.itstep.safetywork.dao.EmployeeDaoImpl;
 import org.itstep.safetywork.model.*;
 import org.itstep.safetywork.repository.*;
 import org.itstep.safetywork.service.EmployeeService;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +19,7 @@ import java.util.Optional;
 public class EditWorkController {
     private final WorkRepository workRepository;
     private final EmployeeService employeeService;
-    private final EmployeeRepository employeeRepository;
     private final ViolationRepository violationRepository;
-    private final MachineryRepository machineryRepository;
-    private final EquipmentRepository equipmentRepository;
-    private final ToolRepository toolRepository;
 
     @GetMapping("/{id}")
     public String showEditWork(@PathVariable Integer id, Model model) {
@@ -81,7 +75,6 @@ public class EditWorkController {
                 equipmentList.clear();
                 work.setEquipmentList(equipmentList);
             }
-
 
             List<Tool> toolList = work.getToolList();
             if (!toolList.isEmpty()) {

@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="shortcut icon" th:href="@{/img/icon_64.png}" type="image/x-icon">
     <title>Safety Work</title>
@@ -35,11 +37,15 @@
                         <div id="flush-collapseTwo" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/leaders}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/leader_bw_32.png}" alt="leader" >Керівники</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/leader_bw_32.png}" alt="leader">Керівники</a></div>
                             <div class="accordion-body"><a th:href="@{/workers}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/worker_bw_32.png}" alt="worker"> Робітники</a></div>
                             <div class="accordion-body"><a th:href="@{/addemployee}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/addemployee_bw_32.png}" alt="addEmployee"> Додати працівника</a>
+                            </div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -53,11 +59,14 @@
                         <div id="flush-collapseThree" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/machinery}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/technique_bw_32.png}" alt="technique"> Техніка</a></div>
                             <div class="accordion-body"><a th:href="@{/equipment}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/equipment_bw_32.png}" alt="equipment"> Обладнання</a></div>
                             <div class="accordion-body"><a th:href="@{/tools}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/tools_bw_32.png}" alt="tools"> Інструмент</a></div>
                         </div>
                     </div>
                     <div class="accordion-item">
@@ -71,11 +80,15 @@
                         <div id="flush-collapseFourth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/work}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/work_bw_32.png}" alt="work"> Роботи</a></div>
                             <div class="accordion-body"><a th:href="@{/workpermit}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/workpermit_bw_32.png}" alt="workpermit"> Наряд-допуски</a></div>
                             <div class="accordion-body"><a th:href="@{/highrisk}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної небезпеки</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/highrisk_bw_32.png}" alt="highrisk"> Перелік робіт підвищенної
+                                небезпеки</a></div>
                             <div class="accordion-body"><a th:href="@{/work/completed}" type="button"
                                                            class="btn btn-warning col-12"><img
                                     th:src="@{/img/rest_bw_32.png}" alt="work"> Архів виконаних робіт</a></div>
@@ -92,13 +105,17 @@
                         <div id="flush-collapseFifth" class="accordion-collapse collapse"
                              data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body"><a th:href="@{/instruction}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/instruction_bw_32.png}" alt="instruction"> Інструктажі</a></div>
                             <div class="accordion-body"><a th:href="@{/education}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/education_bw_32.png}" alt="education"> Навчання</a></div>
                             <div class="accordion-body"><a th:href="@{/medicine}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/medicine_bw_32.png}" alt="medicine"> Медогляд</a></div>
                             <div class="accordion-body"><a th:href="@{/violation}" type="button"
-                                                           class="btn btn-warning col-12"><img th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
+                                                           class="btn btn-warning col-12"><img
+                                    th:src="@{/img/violation_bw_32.png}" alt="violation"> Порушення</a></div>
                         </div>
                     </div>
                 </div>
@@ -122,82 +139,73 @@
             </menu>
         </div>
         <div class="col-lg-9 col-sm-6 col-xs-12">
-            <div class="row m-4">
-                <h1 class="mt-3 text-warning-emphasis text-center">Додати нового співробітника</h1>
-                <div class="bg-info-subtle float-start mb-4 me-4 p-4 rounded-3">
-                    <form method="post">
-                        <fieldset>
-                            <label class="p-2 fs-5">
-                                Прізвище <input name="lastName" required>
-                            </label>
-                            <label class="p-2 fs-5">
-                                Ім'я <input name="firstName" required>
-                            </label>
-                            <label class="p-2 fs-5">
-                                По батькові <input name="surname" required>
-                            </label><br>
-                            <label class="p-2 fs-5">
-                                Дата народження <input type="date" name="birthdate" required>
-                            </label><div style="color: red" th:text="${wrongAge}"></div><br>
-                            <label class="p-2 fs-5">Підрозділ
-                                <select name="departmentId" required>
-                                    <option th:each="department: ${departments}" th:label="${department.name}"
-                                            th:value="${department.id}"></option>
-                                </select>
-                            </label><span sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/department'}">+</a></span>
-                            <label class="p-2 fs-5">Посада
-                                <select name="professionId" required>
-                                    <option th:each="profession: ${professions}" th:label="${profession.name}"
-                                            th:value="${profession.id}"></option>
-                                </select>
-                            </label><span sec:authorize="hasAnyRole('ROLE_ADMIN', 'SAFETY')"><a class="btn btn-outline-warning btn-sm mb-2" th:href="@{'/profession'}">+</a></span><br>
-                            <h2 class="mt-3 text-warning-emphasis">Медичний огляд</h2>
-                            <label class="p-2 fs-5">Дата проходження медогляду
-                                <input type="date" name="dateOfPassage" required>
-                                <div style="color: red" th:text="${wrongPeriodOfPassage}"></div>
-                            </label>
-                            <label class="p-2 fs-5">Дата наступного медичного огляду
-                                <input type="date" name="nextPassDate" required>
-                                <div style="color: red" th:text="${wrongPeriodOfNextPass}"></div>
-                            </label><br>
-                            <label class="p-2 fs-5">Протипоказання до роботи
-                            <input name="contraindications">
-                            </label>
-                            <h2 class="mt-3 text-warning-emphasis">Інструктажі</h2>
-                            <label class="p-2 fs-5">Вступний інструктаж
-                                <input type="date" name="introduction" required><div style="color: red" th:text="${wrongPeriodOfIntroduction}"></div><br>
-                            </label>
-                            <label class="p-2 fs-5">Первинний / Повторний інструктаж
-                                <input type="date" name="reInstruction" required><div style="color: red" th:text="${wrongPeriodOfReInstruction}"></div><br>
-                            </label>
-                        </fieldset>
-                        <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-                        <input type="submit" class="btn btn-outline-warning btn-sm">
-                    </form>
-                </div>
+            <h1 class="text-center text-warning-emphasis p-3">Навчання з охорони праці</h1>
+            <div class="row m-4 bg-info-subtle p-4 rounded-3">
+                <form method="post">
+                    <fieldset>
+                        <h2 class="mt-3">Редагувати вид навчання</h2>
+                        <div class="mt-3 fs-2 text-warning-emphasis"
+                             th:text="${employee.lastName} +' '+ ${employee.firstName} +' '+ ${employee.surname}">
+                        </div>
+                        <label class="p-2 fs-5">НПАОП
+                            <select name="npaopId" required>
+                                <option th:each="npaop: ${npaopList}"
+                                        th:label="${npaop.name}"
+                                        th:value="${npaop.id}"
+                                        th:selected="${npaopName.equals(npaop.getName())}"></option>
+                            </select>
+                        </label><br>
+                        <label class="p-2 fs-5">
+                            Серія та номер посвідчення<input name="numberOfCertificate"
+                                                             th:value="${education.getNumberOfCertificate()}"
+                                                             th:placeholder="${education.getNumberOfCertificate()}"
+                                                             required>
+                        </label><br>
+                        <label class="p-2 fs-5">Дата проходження навчання
+                            <input type="date" name="dateOfPassageEducation"
+                                   th:value="${education.getDateOfPassageEducation()}"
+                                   th:placeholder="${education.getDateOfPassageEducation()}" required>
+                            <div style="color: red" th:text="${wrongPeriodOfPassageOfEducation}"></div>
+                        </label>
+                        <label class="p-2 fs-5">Дата наступного навчання
+                            <input type="date" name="nextPassDateEducation"
+                                   th:value="${education.getNextPassDateEducation()}"
+                                   th:placeholder="${education.getNextPassDateEducation()}" required>
+                            <div style="color: red" th:text="${wrongPeriodOfNextPassOfEducation}"></div>
+                        </label>
+                        <label class="p-2 fs-5">
+                            Група з електробезпеки (при необхідності)<input name="groupOfEducation" type="number"
+                                                                            min="1"
+                                                                            max="5"
+                                                                            th:value="${education.getGroupOfEducation()}"
+                                                                            th:placeholder="${education.getGroupOfEducation()}">
+                        </label><br>
+                    </fieldset>
+                    <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                    <input type="submit" class="btn btn-outline-warning btn-sm">
+                </form>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <hr/>
 <footer>
-    <div class="row col- m-0" >
+    <div class="row col- m-0">
         <div class="row col-lg-3 col-sm-6 col-xs-12 ps-3 mb-3">
             <img th:src="@{/img/liderlogo_sm.png}" alt="logo">
             <div>&copy; Copyright 2016 ЗНА "Лідер Електрик"</div>
         </div>
         <div class="row col-lg-6 col-sm-6 col-xs-12 align-self-center fs-4 fw-semibold text-center mb-3 ps-3">
             <div class="text-center">
-                Низьковольтне і високовольтне обладнання</br>
+                Низьковольтне і високовольтне обладнання<br>
                 Комплексні системи енергозабезпечення
             </div>
         </div>
         <div class="row col-lg-3 col-sm-12 col-xs-12 mb-3 ps-5">
             <div class="text-warning">Контакти</div>
-            м.Запоріжжя</br>
-            вул. Новобудов, 3</br>
-            тел.: +38-050-362-52-56</br>
+            м.Запоріжжя<br>
+            вул. Новобудов, 3<br>
+            тел.: +38-050-362-52-56<br>
             e-mail: office@lider.com.ua
         </div>
     </div>
@@ -205,5 +213,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script>
+    new DataTable('#example', {scrollX: true});
+</script>
 </body>
 </html>
