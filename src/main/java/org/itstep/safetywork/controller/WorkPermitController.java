@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,29 +40,36 @@ public class WorkPermitController {
         List<Employee> employeeList = employeeDao.findWorkers();
 
         List<Machinery> machineryList = machineryRepository.findAll();
+        List<Machinery> collectMachinery = machineryList.stream().filter(
+                machinery -> machinery.getChTO().isAfter(LocalDate.now())).collect(Collectors.toList());
+
         Machinery machinery = new Machinery("---", "---");
         machinery.setTypeOfMachinery(new TypeOfMachinery("---"));
         machinery.setMachineryModel(new MachineryModel("---"));
-        machineryList.add(machinery);
+        collectMachinery.add(machinery);
         model.addAttribute("selected", "---");
 
         List<Equipment> equipmentList = equipmentRepository.findAll();
+        List<Equipment> collectEquipment = equipmentList.stream().filter(
+                equipment -> equipment.getNextTestDate().isAfter(LocalDate.now())).collect(Collectors.toList());
         Equipment equipment = new Equipment("---", "---");
         equipment.setEquipmentName(new EquipmentName("---"));
-        equipmentList.add(equipment);
+        collectEquipment.add(equipment);
 
         List<Tool> toolList = toolRepository.findAll();
+        List<Tool> collectTools = toolList.stream().filter(
+                tool -> tool.getNextTestDate().isAfter(LocalDate.now())).collect(Collectors.toList());
         Tool tool = new Tool("---", "---");
         tool.setToolName(new ToolName("---"));
         tool.setManufacturer(new Manufacturer("---"));
-        toolList.add(tool);
+        collectTools.add(tool);
 
         model.addAttribute("leadersList", leadersList);
         model.addAttribute("employeeList", employeeList);
         model.addAttribute("highRiskWorkList", highRiskWorkRepository.findAll());
-        model.addAttribute("machineryList", machineryList);
-        model.addAttribute("equipmentList", equipmentList);
-        model.addAttribute("toolList", toolList);
+        model.addAttribute("machineryList", collectMachinery);
+        model.addAttribute("equipmentList", collectEquipment);
+        model.addAttribute("toolList", collectTools);
 
         return "workPermit";
     }
